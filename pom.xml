@@ -23,11 +23,6 @@
             <artifactId>javelin-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.paohaijiao.javelin</groupId>
-            <artifactId>jquick-base</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
