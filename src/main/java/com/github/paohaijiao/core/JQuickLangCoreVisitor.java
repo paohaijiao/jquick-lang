@@ -11,5 +11,4 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
     }
 
 
-
 }

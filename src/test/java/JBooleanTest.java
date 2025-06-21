@@ -43,9 +43,10 @@ public class JBooleanTest {
         JQuickLangParser.DateBoolContext tree = parser.dateBool();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testBool02() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("'hello word' NOTEND 'hello'"));
@@ -54,7 +55,7 @@ public class JBooleanTest {
         JQuickLangParser.StringBoolContext tree = parser.stringBool();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
 
@@ -66,9 +67,10 @@ public class JBooleanTest {
         JQuickLangParser.NumberBoolContext tree = parser.numberBool();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testBool04() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("2025-06-07 12:00:01!=2025-06-07 12:00:02"));
@@ -77,9 +79,10 @@ public class JBooleanTest {
         JQuickLangParser.SinggelBoolContext tree = parser.singgelBool();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testBool05() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("true || true"));
@@ -88,7 +91,7 @@ public class JBooleanTest {
         JQuickLangParser.BooleanExprContext tree = parser.booleanExpr();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
 

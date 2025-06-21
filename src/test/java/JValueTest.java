@@ -43,9 +43,10 @@ public class JValueTest {
         JContext params = new JContext();
         params.put("type", "string");
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testValue02() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("2025-06-07 12:00:01"));
@@ -54,9 +55,10 @@ public class JValueTest {
         JQuickLangParser.DateContext tree = parser.date();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testValue03() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("2025-06-07"));
@@ -65,9 +67,10 @@ public class JValueTest {
         JQuickLangParser.DateContext tree = parser.date();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testValue04() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("\"helloworld\""));
@@ -76,9 +79,10 @@ public class JValueTest {
         JQuickLangParser.StringContext tree = parser.string();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testValue05() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("3"));
@@ -87,9 +91,10 @@ public class JValueTest {
         JQuickLangParser.NumberContext tree = parser.number();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testValue06() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("false"));
@@ -98,7 +103,7 @@ public class JValueTest {
         JQuickLangParser.BoolContext tree = parser.bool();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
 

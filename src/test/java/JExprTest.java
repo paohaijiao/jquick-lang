@@ -43,9 +43,10 @@ public class JExprTest {
         JQuickLangParser.ExprContext tree = parser.expr();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testExprlIST02() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("null,1,2,4,'swswqsqw',false"));
@@ -54,7 +55,7 @@ public class JExprTest {
         JQuickLangParser.ExprListContext tree = parser.exprList();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
 

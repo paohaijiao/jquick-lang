@@ -43,9 +43,10 @@ public class JAssignTest {
         JQuickLangParser.ActionContext tree = parser.action();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void elseAction() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("ELSE { ${id}=3+(5*10)}"));
@@ -54,9 +55,10 @@ public class JAssignTest {
         JQuickLangParser.ElseActionContext tree = parser.elseAction();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void elseIfStatment() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("ELSEIF(false) THEN{ ${id}=3+(5*10)}"));
@@ -65,9 +67,10 @@ public class JAssignTest {
         JQuickLangParser.ElseIfStatmentContext tree = parser.elseIfStatment();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void mutipleElseIfStatment() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("ELSEIF(false) THEN{ ${id}=3+(5*10)} ELSEIF(true) THEN{ ${id}=3+(12*10)}"));
@@ -76,9 +79,10 @@ public class JAssignTest {
         JQuickLangParser.ElseIfStatmentContext tree = parser.elseIfStatment();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void assignment01() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("IF(true) THEN{ ${id}=3 } ELSEIF(false) THEN{ ${id}=3+(5*10)} ELSEIF(true) THEN{ ${id}=3+(12*10)}"));
@@ -87,9 +91,10 @@ public class JAssignTest {
         JQuickLangParser.AssignmentContext tree = parser.assignment();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void assignment02() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("IF(false) THEN{ ${id}=3 } ELSEIF(true) THEN{ ${id}=3+(5*10)} ELSEIF(false) THEN{ ${id}=3+(12*10)} ELSE{${id}=3+(12*8) }"));
@@ -98,9 +103,10 @@ public class JAssignTest {
         JQuickLangParser.AssignmentContext tree = parser.assignment();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void assignment03() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("IF(false) THEN{ ${id}=3 } ELSEIF(false) THEN{ ${id}=3+(5*10)} ELSEIF(true) THEN{ ${id}=3+(12*10)} ELSE{${id}=3+(12*8) }"));
@@ -109,9 +115,10 @@ public class JAssignTest {
         JQuickLangParser.AssignmentContext tree = parser.assignment();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void assignment04() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("IF(false) THEN{ ${id}=3 } ELSEIF(false) THEN{ ${id}=3+(5*10)} ELSEIF(false) THEN{ ${id}=3+(12*10)} ELSE{${id}=3+(12*8) }"));
@@ -120,10 +127,9 @@ public class JAssignTest {
         JQuickLangParser.AssignmentContext tree = parser.assignment();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
-
 
 
 }

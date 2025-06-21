@@ -43,9 +43,10 @@ public class JFactoryTest {
         JQuickLangParser.ValueContext tree = parser.value();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testBool02() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("3*4/2"));
@@ -54,9 +55,10 @@ public class JFactoryTest {
         JQuickLangParser.ValueContext tree = parser.value();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
+
     @Test
     public void testBool03() throws IOException {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("return (3+(2*8))"));
@@ -65,7 +67,7 @@ public class JFactoryTest {
         JQuickLangParser.ReturnStatementContext tree = parser.returnStatement();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        Object object= tv.visit(tree);
+        Object object = tv.visit(tree);
         System.out.println(object);
     }
 
