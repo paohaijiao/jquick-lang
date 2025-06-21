@@ -1,5 +1,5 @@
 // Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
-package com.paohaijiao.javelin.parser;
+package com.github.paohaijiao.parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

@@ -1,10 +1,10 @@
-package com.paohaijiao.javelin.executor;
+package com.github.paohaijiao.executor;
 
 import com.paohaijiao.javelin.antlr.impl.JAbstractAntlrExecutor;
 import com.paohaijiao.javelin.exception.JAntlrExecutionException;
-import com.paohaijiao.javelin.parser.JQuickLangLexer;
-import com.paohaijiao.javelin.parser.JQuickLangParser;
-import com.paohaijiao.javelin.common.JQuickLangCommonVisitor;
+import com.github.paohaijiao.parser.JQuickLangLexer;
+import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.common.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Parser;

@@ -14,10 +14,10 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
-import com.paohaijiao.javelin.common.JQuickLangCommonVisitor;
+import com.github.paohaijiao.common.JQuickLangCommonVisitor;
 import com.paohaijiao.javelin.param.JContext;
-import com.paohaijiao.javelin.parser.JQuickLangLexer;
-import com.paohaijiao.javelin.parser.JQuickLangParser;
+import com.github.paohaijiao.parser.JQuickLangLexer;
+import com.github.paohaijiao.parser.JQuickLangParser;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;

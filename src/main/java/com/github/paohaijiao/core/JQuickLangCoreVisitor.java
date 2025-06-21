@@ -1,7 +1,7 @@
-package com.paohaijiao.javelin.core;
+package com.github.paohaijiao.core;
 
 import com.paohaijiao.javelin.param.JContext;
-import com.paohaijiao.javelin.parser.JQuickLangBaseVisitor;
+import com.github.paohaijiao.parser.JQuickLangBaseVisitor;
 
 public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
     protected JContext context;

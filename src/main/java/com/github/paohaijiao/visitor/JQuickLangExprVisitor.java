@@ -1,8 +1,8 @@
-package com.paohaijiao.javelin.visitor;
+package com.github.paohaijiao.visitor;
 
 
 import com.paohaijiao.javelin.exception.JAssert;
-import com.paohaijiao.javelin.parser.JQuickLangParser;
+import com.github.paohaijiao.parser.JQuickLangParser;
 
 import java.util.ArrayList;
 import java.util.List;

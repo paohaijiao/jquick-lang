@@ -1,9 +1,9 @@
-package com.paohaijiao.javelin.common;
+package com.github.paohaijiao.common;
 
 import com.paohaijiao.javelin.exception.JAssert;
 import com.paohaijiao.javelin.param.JContext;
-import com.paohaijiao.javelin.parser.JQuickLangParser;
-import com.paohaijiao.javelin.visitor.JQuickLangAssignVisitor;
+import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.visitor.JQuickLangAssignVisitor;
 
 public class JQuickLangCommonVisitor extends JQuickLangAssignVisitor {
     public JQuickLangCommonVisitor(JContext context){
