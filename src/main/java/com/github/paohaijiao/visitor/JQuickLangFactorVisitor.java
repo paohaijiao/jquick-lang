@@ -1,8 +1,8 @@
 package com.github.paohaijiao.visitor;
 
 
-import com.paohaijiao.javelin.exception.JAssert;
-import com.paohaijiao.javelin.math.JMathUtil;
+import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.math.JMathUtil;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;

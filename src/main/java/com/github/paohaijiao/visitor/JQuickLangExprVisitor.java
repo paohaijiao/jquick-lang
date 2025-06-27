@@ -1,7 +1,7 @@
 package com.github.paohaijiao.visitor;
 
 
-import com.paohaijiao.javelin.exception.JAssert;
+import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.parser.JQuickLangParser;
 
 import java.util.ArrayList;

@@ -15,7 +15,7 @@
  */
 
 import com.github.paohaijiao.common.JQuickLangCommonVisitor;
-import com.paohaijiao.javelin.param.JContext;
+import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import org.antlr.v4.runtime.CharStreams;

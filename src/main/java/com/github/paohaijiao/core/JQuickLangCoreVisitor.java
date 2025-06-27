@@ -1,6 +1,6 @@
 package com.github.paohaijiao.core;
 
-import com.paohaijiao.javelin.param.JContext;
+import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangBaseVisitor;
 import com.paohaijiao.javelin.util.JStringUtils;
 

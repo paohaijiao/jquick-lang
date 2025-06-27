@@ -1,10 +1,10 @@
 package com.github.paohaijiao.visitor;
 
-import com.paohaijiao.javelin.constants.JConstants;
+import com.github.paohaijiao.constants.JConstants;
 import com.github.paohaijiao.core.JQuickLangCoreVisitor;
-import com.paohaijiao.javelin.date.JDateUtil;
+import com.github.paohaijiao.date.JDateUtil;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.paohaijiao.javelin.util.JStringUtils;
+import com.github.paohaijiao.util.JStringUtils;
 
 import java.util.Date;
 

@@ -1,7 +1,7 @@
 package com.github.paohaijiao.common;
 
-import com.paohaijiao.javelin.exception.JAssert;
-import com.paohaijiao.javelin.param.JContext;
+import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.visitor.JQuickLangAssignVisitor;
 

@@ -1,7 +1,7 @@
 package com.github.paohaijiao.executor;
 
-import com.paohaijiao.javelin.antlr.impl.JAbstractAntlrExecutor;
-import com.paohaijiao.javelin.exception.JAntlrExecutionException;
+import com.github.paohaijiao.antlr.impl.JAbstractAntlrExecutor;
+import com.github.paohaijiao.exception.JAntlrExecutionException;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.common.JQuickLangCommonVisitor;
