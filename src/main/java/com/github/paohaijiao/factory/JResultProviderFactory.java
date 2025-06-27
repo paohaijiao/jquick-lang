@@ -1,7 +1,7 @@
 package com.github.paohaijiao.factory;
 
 import com.github.paohaijiao.evalue.JResultProvider;
-import com.paohaijiao.javelin.exception.JAssert;
+import com.github.paohaijiao.exception.JAssert;
 
 import java.util.ArrayList;
 import java.util.HashMap;

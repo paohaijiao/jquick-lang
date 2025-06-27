@@ -2,7 +2,7 @@ package com.github.paohaijiao.core;
 
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangBaseVisitor;
-import com.paohaijiao.javelin.util.JStringUtils;
+import com.github.paohaijiao.util.JStringUtils;
 
 public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
     protected JContext context;

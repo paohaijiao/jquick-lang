@@ -2,7 +2,7 @@ package com.github.paohaijiao.factory;
 
 import com.github.paohaijiao.anno.JHandlesClass;
 import com.github.paohaijiao.evalue.JResultProvider;
-import com.paohaijiao.javelin.util.JReflectionUtils;
+import com.github.paohaijiao.util.JReflectionUtils;
 
 import java.io.File;
 import java.io.IOException;
