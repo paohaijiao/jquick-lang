@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.github.paohaijiao</groupId>
-        <artifactId>jquick-parent</artifactId>
-        <version>1.0.0</version>
+        <groupId>io.github.paohaijiao</groupId>
+        <artifactId>javelin</artifactId>
+        <version>1.2.0</version>
     </parent>
     <artifactId>jquick-lang</artifactId>
     <name>jquick-lang</name>
@@ -19,7 +19,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.paohaijiao</groupId>
+            <groupId>io.github.paohaijiao</groupId>
             <artifactId>javelin-core</artifactId>
         </dependency>
         <dependency>
