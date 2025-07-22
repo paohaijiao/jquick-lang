@@ -1,4 +1,4 @@
-/*
+package com.github.paohaijiao;/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,9 +15,9 @@
  */
 
 import com.github.paohaijiao.param.JContext;
+import com.github.paohaijiao.common.JQuickLangCommonVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.common.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
@@ -101,6 +101,17 @@ public class JValueTest {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.BoolContext tree = parser.bool();
+        JContext params = new JContext();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        Object object = tv.visit(tree);
+        System.out.println(object);
+    }
+    @Test
+    public void null1() throws IOException {
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("null"));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.LiteralContext tree = parser.literal();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
         Object object = tv.visit(tree);

@@ -1,7 +1,6 @@
 package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.constants.JConstants;
-import com.github.paohaijiao.core.JQuickLangCoreVisitor;
 import com.github.paohaijiao.date.JDateUtil;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.util.JStringUtils;
@@ -11,9 +10,10 @@ import java.util.Date;
 
 public class JQuickLangValueVisitor extends JQuickLangCoreVisitor {
     @Override
-    public String visitVariables(JQuickLangParser.VariablesContext ctx) {
-        String var = ctx.IDENTIFIER().getText();
-        return var;
+    public Object visitVariables(JQuickLangParser.VariablesContext ctx) {
+        String identifier = ctx.IDENTIFIER().getText();
+        Object value= this.context.get(identifier);
+        return value;
     }
 
     @Override
@@ -61,6 +61,22 @@ public class JQuickLangValueVisitor extends JQuickLangCoreVisitor {
             return false;
         }
         throw new RuntimeException("Unsupported Boolean format: " + ctx.getText());
+    }
+    @Override
+    public Object visitLiteral(JQuickLangParser.LiteralContext ctx) {
+        if(null!=ctx.bool()){
+            return visitBool(ctx.bool());
+        }else  if(null!=ctx.string()){
+            return visitString(ctx.string());
+        }else  if(null!=ctx.number()){
+            return visitNumber(ctx.number());
+        }else  if(null!=ctx.date()){
+            return visitDate(ctx.date());
+        }else  if(null!=ctx.variables()){
+            return visitVariables(ctx.variables());
+         }else {
+            return null;
+        }
     }
 
 }
