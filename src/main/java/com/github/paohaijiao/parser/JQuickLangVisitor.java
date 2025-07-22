@@ -1,4 +1,4 @@
-// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 package com.github.paohaijiao.parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -16,6 +16,18 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProgram(JQuickLangParser.ProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#importDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitImportDeclaration(JQuickLangParser.ImportDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#qualifiedName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQualifiedName(JQuickLangParser.QualifiedNameContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#statement}.
 	 * @param ctx the parse tree
@@ -64,6 +76,108 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAction(JQuickLangParser.ActionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#controlStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitControlStatement(JQuickLangParser.ControlStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#ifStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfStatement(JQuickLangParser.IfStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#forStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForStatement(JQuickLangParser.ForStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#whileStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileStatement(JQuickLangParser.WhileStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#returnStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnStatement(JQuickLangParser.ReturnStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#expressionStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionStatement(JQuickLangParser.ExpressionStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression(JQuickLangParser.ExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#assignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignment(JQuickLangParser.AssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#logicalOr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogicalOr(JQuickLangParser.LogicalOrContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#logicalAnd}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLogicalAnd(JQuickLangParser.LogicalAndContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#equality}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEquality(JQuickLangParser.EqualityContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#comparison}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComparison(JQuickLangParser.ComparisonContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#addition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAddition(JQuickLangParser.AdditionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#multiplication}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiplication(JQuickLangParser.MultiplicationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#unary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnary(JQuickLangParser.UnaryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#primary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrimary(JQuickLangParser.PrimaryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#variableDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableDecl(JQuickLangParser.VariableDeclContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#literal}.
 	 * @param ctx the parse tree

@@ -8,7 +8,7 @@ import com.github.paohaijiao.util.JStringUtils;
 import java.util.Date;
 
 
-public class JQuickLangValueVisitor extends JQuickLangCoreVisitor {
+public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
     @Override
     public Object visitVariables(JQuickLangParser.VariablesContext ctx) {
         String identifier = ctx.IDENTIFIER().getText();

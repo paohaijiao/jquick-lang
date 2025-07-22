@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class JQuickLangFunctionCallVisitor extends JQuickLangValueVisitor {
+public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     @Override
     public Void visitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) {
         JAssert.notNull(ctx.IDENTIFIER(), "functionName must not be null");
