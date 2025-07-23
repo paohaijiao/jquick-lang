@@ -20,6 +20,7 @@ import com.github.paohaijiao.factory.JFunctionRegistry;
 import com.github.paohaijiao.model.JFunctionFieldModel;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
 import com.github.paohaijiao.model.JVariableContainerModel;
+import com.github.paohaijiao.util.JNumberUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -196,53 +197,23 @@ public class JFunctionInvoker {
             }
             return null;
         }
-        try {
-            switch (expectedType.getClazz().getSimpleName().toLowerCase()) {
-                case "int":
-                    if (argValue instanceof Number) {
-                        return ((Number) argValue).intValue();
-                    }
-                    return Integer.parseInt(argValue.toString());
-                case "long":
-                    if (argValue instanceof Number) {
-                        return ((Number) argValue).longValue();
-                    }
-                    return Long.parseLong(argValue.toString());
-                case "double":
-                    if (argValue instanceof Number) {
-                        return ((Number) argValue).doubleValue();
-                    }
-                    return Double.parseDouble(argValue.toString());
-                case "float":
-                    if (argValue instanceof Number) {
-                        return ((Number) argValue).floatValue();
-                    }
-                    return Float.parseFloat(argValue.toString());
-                case "boolean":
-                    if (argValue instanceof Boolean) {
-                        return argValue;
-                    }
-                    return Boolean.parseBoolean(argValue.toString());
-                case "string":
-                    return argValue.toString();
-                default:
-                    return attemptCustomConversion(expectedType.getClazz(), argValue);
-            }
-        } catch (Exception e) {
-            throw new IllegalArgumentException(String.format(
-                    "failed %s convert to %s: %s",
-                    argValue.getClass().getSimpleName(),
-                    expectedType,
-                    e.getMessage()
-            ));
+        if(numberClassEqual(expectedType.getClazz(), argValue)){
+            return JNumberUtil.attemptCustomConversion(expectedType.getClazz(), argValue);
         }
+        return attemptCustomConversion(expectedType.getClazz(), argValue);
+
     }
 
     private Object attemptCustomConversion(Class<?> expectedType, Object value) {
+        if(expectedType.isAssignableFrom(value.getClass())){
+            return expectedType.cast(value);
+        }else{
+            throw new IllegalArgumentException("can't support convert: " +
+                    value.getClass().getName() + " to -> " + expectedType);
+        }
 
-        return expectedType.cast(value);
-        throw new IllegalArgumentException("can't support convert: " +
-                value.getClass().getName() + " to -> " + targetType);
+
+
     }
 
     public static JFunctionDefinitionModel createFunctionDefinition(String name, List<JFunctionFieldModel> paramDefine, String action) {
