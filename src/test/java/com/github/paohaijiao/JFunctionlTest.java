@@ -15,6 +15,8 @@ package com.github.paohaijiao;/*
  */
 
 import com.github.paohaijiao.factory.JFunctionRegistry;
+import com.github.paohaijiao.model.JFunctionFieldModel;
+import com.github.paohaijiao.model.JFunctionDefinitionModel;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -24,6 +26,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * packageName PACKAGE_NAME
@@ -51,7 +56,34 @@ public class JFunctionlTest {
         JFunctionRegistry registry=tv.getRegistry();
         System.out.println(object);
     }
+    @Test
+    public void invokeFunction() throws IOException {
+        String rule="c(1,1.5)";
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.FunctionCallContext tree = parser.functionCall();
+        JContext params = new JContext();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
 
+        JFunctionRegistry registry=tv.getRegistry();
+        JFunctionFieldModel modela=new JFunctionFieldModel();
+        modela.setIndex(0);
+        modela.setFieldName("a");
+        modela.setClazz(int.class);
+        JFunctionFieldModel modelb=new JFunctionFieldModel();
+        modelb.setIndex(1);
+        modelb.setFieldName("a");
+        modelb.setClazz(float.class);
+        JFunctionDefinitionModel functionDefinitionModel=new JFunctionDefinitionModel(
+                "c", Arrays.asList(modela,modelb),"{\n" +
+                "    return a+b;\n" +
+                "}"
+        );
+        registry.registerFunction(functionDefinitionModel);
+        Object object = tv.visit(tree);
+        System.out.println(object);
+    }
 
 
 }

@@ -15,6 +15,8 @@
  */
 package com.github.paohaijiao.model;
 
+import com.github.paohaijiao.enums.JLiteralEnums;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -45,6 +47,14 @@ public class JImportContainerModel extends HashMap<String, JImportModel> {
     }
     public boolean existsIdentify(String identify) {
         return this.containsKey(identify);
+    }
+    public boolean validateType(String type) {
+        JLiteralEnums literalEnums=JLiteralEnums.codeOf(type);
+        if(null!=literalEnums){
+            return true;
+        }else{
+            return this.containsKey(type);
+        }
     }
 
     public JImportModel getClassName(String identify) {

@@ -14,14 +14,17 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.support;
+import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.factory.JFunctionRegistry;
+import com.github.paohaijiao.model.JFunctionFieldModel;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
 import com.github.paohaijiao.model.JVariableContainerModel;
-import com.github.paohaijiao.model.JfunctionParamModel;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.stream.Collectors;
+
 /**
  * packageName com.github.paohaijiao.support
  *
@@ -30,32 +33,30 @@ import java.util.stream.Collectors;
  * @since 2025/7/22
  */
 public class JFunctionInvoker {
-    private final Map<String, JFunctionDefinitionModel> functionRegistry;
+    JFunctionRegistry registry= JFunctionRegistry.getInstance();
     private final JVariableContainerModel variableContainer;
 
     public JFunctionInvoker() {
-        this.functionRegistry = new HashMap<>();
         this.variableContainer = new JVariableContainerModel();
     }
 
     public JFunctionInvoker(JVariableContainerModel variableContainer) {
-        this.functionRegistry = new HashMap<>();
         this.variableContainer = variableContainer != null ? variableContainer : new JVariableContainerModel();
     }
     public void registerFunction(JFunctionDefinitionModel function) {
         if (function == null || function.getName() == null) {
             throw new IllegalArgumentException("Function definition cannot be null");
         }
-        functionRegistry.put(function.getName(), function);
+        registry.registerFunction( function);
     }
-    public boolean hasFunction(String functionName) {
-        return functionRegistry.containsKey(functionName);
+    public  boolean hasFunction(String functionName) {
+        return registry.isFunctionDefined(functionName);
     }
-    public Object invoke(String functionName, List<Object> arguments) {
+    public  Object invoke(String functionName, List<Object> arguments) {
         if (!hasFunction(functionName)) {
             throw new IllegalArgumentException("Function '" + functionName + "' is not defined");
         }
-        JFunctionDefinitionModel function = functionRegistry.get(functionName);
+        JFunctionDefinitionModel function = registry.lookupFunction(functionName,arguments);
         validateArguments(function, arguments);
         JVariableContainerModel localVariables = new JVariableContainerModel();
         bindParameters(function, arguments, localVariables);
@@ -65,6 +66,7 @@ public class JFunctionInvoker {
     }
 
     private void validateArguments(JFunctionDefinitionModel function, List<Object> arguments) {
+        JAssert.notNull(function, "Function cannot be null");
         int expectedCount = function.getParameterCount();
         int actualCount = arguments != null ? arguments.size() : 0;
         if (expectedCount != actualCount) {
@@ -77,28 +79,26 @@ public class JFunctionInvoker {
             return;
         }
 
-        List<String> paramNames = function.getParameterNames();
-        List<String> paramTypes = function.getParameterTypes();
+        List<JFunctionFieldModel> fields = function.getFields();
         for (int i = 0; i < expectedCount; i++) {
-            String paramName = paramNames.get(i);
-            String expectedType = paramTypes.get(i);
+            JFunctionFieldModel expectedField = fields.get(i);
             Object actualValue = arguments.get(i);
-            if (actualValue == null && !isNullableType(expectedType)) {
+            if (actualValue == null && !isNullableType(expectedField.getClazz())) {
                 throw new IllegalArgumentException(String.format(
                         "parameter '%s'(index:%d) can not be null，need type: %s",
-                        paramName, i + 1, expectedType
+                        actualValue.getClass().getSimpleName(), i + 1, expectedField.getClazz().getSimpleName()
                 ));
             }
-            if (actualValue != null && !isTypeMatch(expectedType, actualValue)) {
+            if (actualValue != null && !isTypeMatch(expectedField.getClazz().getSimpleName(), actualValue)) {
                 throw new IllegalArgumentException(String.format(
                         "parameter '%s'(index:%d) type ca not match.need %s，but  %s",
-                        paramName, i + 1, expectedType,
+                        actualValue.getClass().getSimpleName(), i + 1, expectedField.getClazz().getSimpleName(),
                         actualValue.getClass().getSimpleName()
                 ));
             }
         }
     }
-    private boolean isTypeMatch(String expectedType, Object actualValue) {
+    public static boolean isTypeMatch(String expectedType, Object actualValue) {
         switch (expectedType.toLowerCase()) {
             case "int":
                 return actualValue instanceof Integer;
@@ -121,8 +121,8 @@ public class JFunctionInvoker {
                 }
         }
     }
-    private boolean isNullableType(String type) {
-        switch (type.toLowerCase()) {
+    private boolean isNullableType(Class<?> type) {
+        switch (type.getSimpleName()) {
             case "int":
             case "long":
             case "double":
@@ -138,10 +138,10 @@ public class JFunctionInvoker {
                                 List<Object> arguments,
                                 JVariableContainerModel localVariables) {
         List<String> paramNames = function.getParameterNames();
-        List<String> paramTypes = function.getParameterTypes();
+        List<JFunctionFieldModel> paramTypes = function.getFields();
         for (int i = 0; i < paramNames.size(); i++) {
             String paramName = paramNames.get(i);
-            String expectedType = paramTypes.get(i);
+            JFunctionFieldModel expectedType = paramTypes.get(i);
             Object argValue = arguments.get(i);
             try {
                 Object convertedValue = convertArgument(expectedType, paramName, argValue, i + 1);
@@ -155,24 +155,24 @@ public class JFunctionInvoker {
         }
     }
 
-    private Object convertArgument(String expectedType,
+    private Object convertArgument(JFunctionFieldModel expectedType,
                                    String paramName,
                                    Object argValue,
                                    int position) {
         if (argValue == null) {
-            if (!isNullableType(expectedType)) {
+            if (!isNullableType(expectedType.getClazz())) {
                 throw new IllegalArgumentException("require not null");
             }
             return null;
         }
 
         // type match
-        if (isTypeMatch(expectedType, argValue)) {
+        if (isTypeMatch(expectedType.getClazz().getSimpleName(), argValue)) {
             return argValue;
         }
         // try auto convert
         try {
-            switch (expectedType.toLowerCase()) {
+            switch (expectedType.getClazz().getSimpleName().toLowerCase()) {
                 case "int":
                     if (argValue instanceof Number) {
                         return ((Number) argValue).intValue();
@@ -201,7 +201,7 @@ public class JFunctionInvoker {
                 case "string":
                     return argValue.toString();
                 default:
-                    return attemptCustomConversion(expectedType, argValue);
+                    return attemptCustomConversion(expectedType.getClazz().getSimpleName(), argValue);
             }
         } catch (Exception e) {
             throw new IllegalArgumentException(String.format(
@@ -219,29 +219,20 @@ public class JFunctionInvoker {
                 value.getClass().getName() + " to -> " + targetType);
     }
 
-    public JFunctionDefinitionModel createFunctionDefinition(
-            String name, List<JfunctionParamModel> params, String action) {
+    public static JFunctionDefinitionModel createFunctionDefinition(String name, List<JFunctionFieldModel> paramDefine, String action) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Function name cannot be null or empty");
         }
-        List<String> paramNames = new ArrayList<>();
-        List<String> paramTypes = new ArrayList<>();
-        if (params != null) {
-            for (JfunctionParamModel param : params) {
-                paramNames.add(param.getName());
-                paramTypes.add(param.getType());
-            }
-        }
-        return new JFunctionDefinitionModel(name, paramNames, paramTypes, action);
+        return new JFunctionDefinitionModel(name,paramDefine, action);
     }
 
     public List<String> getRegisteredFunctionNames() {
-        return new ArrayList<>(functionRegistry.keySet());
+        return new ArrayList<>(registry.getFunctionTable().keySet());
     }
 
 
-    public JFunctionDefinitionModel getFunctionDefinition(String functionName) {
-        return functionRegistry.get(functionName);
+    public List<JFunctionDefinitionModel> getFunctionDefinition(String functionName) {
+        return registry.getFunctionTable().get(functionName);
     }
 
     public JVariableContainerModel getVariableContainer() {

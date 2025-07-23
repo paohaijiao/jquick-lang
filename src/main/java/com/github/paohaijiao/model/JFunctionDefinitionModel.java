@@ -1,23 +1,21 @@
 package com.github.paohaijiao.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class JFunctionDefinitionModel {
 
     private final String name;
 
-    private final List<String> parameterNames;
-
-    private final List<String> parameterTypes;
+    List<JFunctionFieldModel> fields=new ArrayList<JFunctionFieldModel>();
 
     private final String action;
 
-    public JFunctionDefinitionModel(String name, List<String> parameterNames,
-                                    List<String> parameterTypes, String action) {
+    public JFunctionDefinitionModel(String name, List<JFunctionFieldModel> parameter, String action) {
         this.name = name;
-        this.parameterNames = parameterNames;
-        this.parameterTypes = parameterTypes;
+        this.fields = parameter;
         this.action = action;
     }
 
@@ -25,16 +23,20 @@ public class JFunctionDefinitionModel {
         return name;
     }
     public List<String> getParameterNames() {
-        return parameterNames;
+        return fields.stream().map(JFunctionFieldModel::getFieldName).collect(Collectors.toList());
     }
-    public List<String> getParameterTypes() {
-        return parameterTypes;
+    public List<Class<?>> getParameterTypes() {
+        return fields.stream().map(JFunctionFieldModel::getClazz).collect(Collectors.toList());
     }
     public String getAction() {
         return action;
     }
     public int getParameterCount() {
-        return parameterNames.size();
+        return fields.size();
+    }
+
+    public List<JFunctionFieldModel> getFields() {
+        return fields;
     }
 
     @Override
@@ -42,13 +44,24 @@ public class JFunctionDefinitionModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         JFunctionDefinitionModel that = (JFunctionDefinitionModel) o;
-        return name.equals(that.name) &&
-                parameterNames.equals(that.parameterNames) &&
-                parameterTypes.equals(that.parameterTypes);
+        if (!Objects.equals(name, that.name)) return false;
+//        if (!Objects.equals(returnType, that.returnType)) return false;
+        if (fields.size() != that.fields.size()) return false;
+
+        for (int i = 0; i < fields.size(); i++) {
+            if (!Objects.equals(fields.get(i), that.fields.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, parameterNames, parameterTypes);
+        int result = Objects.hashCode(name);
+//        result = 31 * result + Objects.hashCode(returnType);
+        result = 31 * result + fields.hashCode();
+        return result;
     }
 }

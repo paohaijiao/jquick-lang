@@ -1,5 +1,8 @@
 package com.github.paohaijiao.factory;
+import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
+import com.github.paohaijiao.model.JFunctionFieldModel;
+import com.github.paohaijiao.support.JFunctionInvoker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +12,11 @@ public class JFunctionRegistry {
     private static final JFunctionRegistry INSTANCE = new JFunctionRegistry();
 
     private final Map<String, List<JFunctionDefinitionModel>> functionTable = new HashMap<>();
+
+    public Map<String, List<JFunctionDefinitionModel>> getFunctionTable() {
+        return functionTable;
+    }
+
     private JFunctionRegistry() {
     }
     public static JFunctionRegistry getInstance() {
@@ -20,42 +28,32 @@ public class JFunctionRegistry {
                 .add(function);
     }
 
-    public JFunctionDefinitionModel lookupFunction(String name, List<String> argumentTypes) {
+    public JFunctionDefinitionModel lookupFunction(String name,  List<Object> arguments) {
         List<JFunctionDefinitionModel> candidates = functionTable.get(name);
         if (candidates == null) return null;
-        for (JFunctionDefinitionModel def : candidates) {
-            if (matchesParameters(def, argumentTypes)) {
-                return def;
+        if(arguments==null) return null;
+        for(int i=0; i<candidates.size(); i++) {
+            JFunctionDefinitionModel functionDefinitionModel= candidates.get(i);
+            if(functionDefinitionModel.getFields().size()!=arguments.size()) return null;
+            for(int j=0; j<functionDefinitionModel.getFields().size(); j++) {
+                JFunctionFieldModel define = functionDefinitionModel.getFields().get(j);
+                Object value = arguments.get(j);
+                Class<?> clazz = value.getClass();
+                if(define.getClazz().isPrimitive()){
+                    JLiteralEnums cla=JLiteralEnums.classOf(define.getClazz());
+                    if(cla==null) return null;
+                }else{
+                    if(!define.getClazz().equals(clazz)){
+                        return null;
+                    }
+                }
             }
+            return functionDefinitionModel;
+
         }
         return null;
     }
 
-    public JFunctionDefinitionModel lookupFunction(String name, List<String> parameterNames,
-                                                   List<String> parameterTypes) {
-        List<JFunctionDefinitionModel> candidates = functionTable.get(name);
-        if (candidates == null) return null;
-        for (JFunctionDefinitionModel def : candidates) {
-            if (def.getParameterNames().equals(parameterNames) &&
-                    def.getParameterTypes().equals(parameterTypes)) {
-                return def;
-            }
-        }
-        return null;
-    }
-
-    private boolean matchesParameters(JFunctionDefinitionModel def, List<String> argumentTypes) {
-        if (def.getParameterCount() != argumentTypes.size()) {
-            return false;
-        }
-        List<String> paramTypes = def.getParameterTypes();
-        for (int i = 0; i < paramTypes.size(); i++) {
-            if (!isTypeCompatible(paramTypes.get(i), argumentTypes.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     private boolean isTypeCompatible(String expectedType, String actualType) {
         if (expectedType.equals(actualType)){

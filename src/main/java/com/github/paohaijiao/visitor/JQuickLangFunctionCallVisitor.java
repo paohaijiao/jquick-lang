@@ -2,39 +2,48 @@ package com.github.paohaijiao.visitor;
 
 
 import cn.hutool.core.lang.Assert;
+import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.exception.JAssert;
-import com.github.paohaijiao.model.JFunctionDefinitionModel;
-import com.github.paohaijiao.model.JfunctionParamModel;
+import com.github.paohaijiao.executor.JQuickLangActionExecutor;
+import com.github.paohaijiao.model.*;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.support.JFunctionInvoker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     @Override
     public Void visitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) {
         JAssert.notNull(ctx.IDENTIFIER(), "functionName must not be null");
         String functionName = ctx.IDENTIFIER().getText();
-        List<String> paramNames = new ArrayList<>();
-        List<String> paramTypes = new ArrayList<>();
+        List<JFunctionFieldModel> paramDefine = new ArrayList<>();
         if (ctx.parameterList() != null) {
-            List<JfunctionParamModel>  params=visitParameterList(ctx.parameterList())  ;
-            paramNames.addAll(params.stream().map(JfunctionParamModel::getName).collect(Collectors.toList()));
-            paramTypes.addAll(params.stream().map(JfunctionParamModel::getType).collect(Collectors.toList()));
+            paramDefine=visitParameterList(ctx.parameterList())  ;
         }
         String action = ctx.action().getText();
-        JFunctionDefinitionModel jFunctionDefinitionModel = new JFunctionDefinitionModel(functionName, paramNames, paramTypes, action);
+        JFunctionDefinitionModel jFunctionDefinitionModel =JFunctionInvoker.createFunctionDefinition(functionName,paramDefine,action);
         registry.registerFunction(jFunctionDefinitionModel);
         return null;
 
     }
     @Override
-    public List<JfunctionParamModel> visitParameterList(JQuickLangParser.ParameterListContext ctx) {
-        List<JfunctionParamModel> list=new ArrayList<>();
-        for (JQuickLangParser.ParamContext paramContext :ctx.param()){
-            JfunctionParamModel param=visitParam(paramContext);
-            list.add(param);
+    public List<JFunctionFieldModel> visitParameterList(JQuickLangParser.ParameterListContext ctx) {
+        List<JFunctionFieldModel> list=new ArrayList<>();
+        for (int i = 0; i < ctx.param().size(); i++) {
+            JFunctionFieldModel model=new JFunctionFieldModel();
+            JfunctionParamModel param=visitParam(ctx.param().get(i));
+            model.setIndex(i);
+            model.setFieldName(param.getName());
+            JLiteralEnums jLiteralEnums=JLiteralEnums.codeOf(param.getType());
+            if(null!=jLiteralEnums){
+                model.setClazz(jLiteralEnums.getClazz());
+            }else{
+                JImportModel importModel= this.importContainer.get(param.getType());
+                JAssert.notNull(importModel,"invalid variable claim type");
+                model.setClazz(importModel.getClazz());
+            }
+            list.add(model);
         }
         return list;
     }
@@ -44,7 +53,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         JAssert.isTrue(2==ctx.IDENTIFIER().size(),"the function parameter name and type both require not null");
         String paramType=ctx.IDENTIFIER().get(0).getText();
         String paramName=ctx.IDENTIFIER().get(1).getText();
-        JAssert.isTrue(this.importContainer.existsIdentify(paramType),"the  parameter type "+paramType+" not import");
+        JAssert.isTrue(this.importContainer.validateType(paramType),"the  parameter type "+paramType+" not import");
         JAssert.notNull(paramName,"the function parameter name "+paramType+" require not null");
         JfunctionParamModel model=new JfunctionParamModel();
         model.setType(paramType);
@@ -57,28 +66,12 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     public Object visitFunctionCall(JQuickLangParser.FunctionCallContext ctx) {
         JAssert.notNull(ctx.IDENTIFIER(), "functionName must not be null");
         String functionName = ctx.IDENTIFIER().getText();
-        List<String> argTypes = new ArrayList<>();
-        if (ctx.argumentList() != null) {
-            for (JQuickLangParser.LiteralContext arg : ctx.argumentList().literal()) {
-                if (arg.string() != null) {
-                    argTypes.add("string");
-                } else if (arg.number() != null) {
-                    argTypes.add("number");
-                } else if (arg.date() != null) {
-                    argTypes.add("date");
-                } else if (arg.variables() != null) {
-                    argTypes.add("variables");
-                } else if (arg.bool() != null) {
-                    argTypes.add("bool");
-                }else{
-                    JAssert.throwNewException("in valid argument type for "+functionName);
-                }
-            }
-        }
-        JFunctionDefinitionModel def = registry.lookupFunction(functionName, argTypes);
-        Assert.notNull(def,"function "+functionName+" not found");
         List<Object> paramList=visitArgumentList(ctx.argumentList());
-        return null;
+        JFunctionDefinitionModel def = registry.lookupFunction(functionName, paramList);
+
+        Object object=new JFunctionInvoker().invoke(functionName,paramList);
+        JQuickLangActionExecutor executor=new JQuickLangActionExecutor(this.context,this.variableContainer);
+        return executor.execute(def.getAction());
     }
 
     @Override
