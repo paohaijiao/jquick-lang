@@ -14,12 +14,14 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.support;
+import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.factory.JFunctionRegistry;
 import com.github.paohaijiao.model.JFunctionFieldModel;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
 import com.github.paohaijiao.model.JVariableContainerModel;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +91,7 @@ public class JFunctionInvoker {
                         actualValue.getClass().getSimpleName(), i + 1, expectedField.getClazz().getSimpleName()
                 ));
             }
-            if (actualValue != null && !isTypeMatch(expectedField.getClazz().getSimpleName(), actualValue)) {
+            if (actualValue != null && !isTypeMatch(expectedField.getClazz(), actualValue)) {
                 throw new IllegalArgumentException(String.format(
                         "parameter '%s'(index:%d) type ca not match.need %s，but  %s",
                         actualValue.getClass().getSimpleName(), i + 1, expectedField.getClazz().getSimpleName(),
@@ -98,28 +100,57 @@ public class JFunctionInvoker {
             }
         }
     }
-    public static boolean isTypeMatch(String expectedType, Object actualValue) {
-        switch (expectedType.toLowerCase()) {
-            case "int":
-                return actualValue instanceof Integer;
-            case "long":
-                return actualValue instanceof Long;
-            case "double":
-                return actualValue instanceof Double;
-            case "float":
-                return actualValue instanceof Float;
-            case "boolean":
-                return actualValue instanceof Boolean;
-            case "string":
-                return actualValue instanceof String;
-            default:
-                try {
-                    Class<?> expectedClass = Class.forName(expectedType);
-                    return expectedClass.isInstance(actualValue);
-                } catch (ClassNotFoundException e) {
-                    return true;
-                }
+    public static boolean isTypeMatch(Class<?> expectedType, Object actualValue) {
+        try{
+            if(numberClassEqual(expectedType, actualValue)){
+                return true;
+            }
+            expectedType.cast(actualValue);
+            return true;
+        }catch (Exception e){
+            return false;
         }
+    }
+    public static boolean numberClassEqual(Class<?> clazz,Object value) {
+        if(value instanceof Number){
+            if(clazz.equals(BigDecimal.class)){
+                return true;
+            }
+            if(clazz.equals(Number.class)){
+                return true;
+            }
+            if(clazz.equals(int.class)){
+                return true;
+            }
+            if(clazz.equals(float.class)){
+                return true;
+            }
+            if(clazz.equals(long.class)){
+                return true;
+            }
+            if(clazz.equals(double.class)){
+                return true;
+            }
+            if(clazz.equals(short.class)){
+                return true;
+            }
+            if(clazz.equals(Integer.class)){
+                return true;
+            }
+            if(clazz.equals(Float.class)){
+                return true;
+            }
+            if(clazz.equals(Long.class)){
+                return true;
+            }
+            if(clazz.equals(Double.class)){
+                return true;
+            }
+            if(clazz.equals(Short.class)){
+                return true;
+            }
+        }
+        return false;
     }
     private boolean isNullableType(Class<?> type) {
         switch (type.getSimpleName()) {
@@ -165,12 +196,6 @@ public class JFunctionInvoker {
             }
             return null;
         }
-
-        // type match
-        if (isTypeMatch(expectedType.getClazz().getSimpleName(), argValue)) {
-            return argValue;
-        }
-        // try auto convert
         try {
             switch (expectedType.getClazz().getSimpleName().toLowerCase()) {
                 case "int":
@@ -201,7 +226,7 @@ public class JFunctionInvoker {
                 case "string":
                     return argValue.toString();
                 default:
-                    return attemptCustomConversion(expectedType.getClazz().getSimpleName(), argValue);
+                    return attemptCustomConversion(expectedType.getClazz(), argValue);
             }
         } catch (Exception e) {
             throw new IllegalArgumentException(String.format(
@@ -213,8 +238,9 @@ public class JFunctionInvoker {
         }
     }
 
-    private Object attemptCustomConversion(String targetType, Object value) {
-        // todo add custom convert logic
+    private Object attemptCustomConversion(Class<?> expectedType, Object value) {
+
+        return expectedType.cast(value);
         throw new IllegalArgumentException("can't support convert: " +
                 value.getClass().getName() + " to -> " + targetType);
     }

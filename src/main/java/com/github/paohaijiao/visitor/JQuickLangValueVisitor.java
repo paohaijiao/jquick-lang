@@ -5,6 +5,7 @@ import com.github.paohaijiao.date.JDateUtil;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.util.JStringUtils;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -44,11 +45,7 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
     public Object visitNumber(JQuickLangParser.NumberContext ctx) {
         if (ctx.NUMBER() != null) {
             String numText = ctx.NUMBER().getText();
-            if (numText.contains(".")) {
-                return Double.parseDouble(numText);
-            } else {
-                return Integer.parseInt(numText);
-            }
+            return new BigDecimal(numText);
         }
         throw new RuntimeException("Unsupported number format: " + ctx.getText());
     }
