@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 package com.github.paohaijiao.parser;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -72,66 +72,6 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRule(JQuickLangParser.RuleContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParameterList(JQuickLangParser.ParameterListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParameterList(JQuickLangParser.ParameterListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParam(JQuickLangParser.ParamContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParam(JQuickLangParser.ParamContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunctionCall(JQuickLangParser.FunctionCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunctionCall(JQuickLangParser.FunctionCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArgumentList(JQuickLangParser.ArgumentListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArgumentList(JQuickLangParser.ArgumentListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -245,37 +185,13 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLogicalOr(JQuickLangParser.LogicalOrContext ctx) { }
+	@Override public void enterLogical(JQuickLangParser.LogicalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLogicalOr(JQuickLangParser.LogicalOrContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLogicalAnd(JQuickLangParser.LogicalAndContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLogicalAnd(JQuickLangParser.LogicalAndContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterEquality(JQuickLangParser.EqualityContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEquality(JQuickLangParser.EqualityContext ctx) { }
+	@Override public void exitLogical(JQuickLangParser.LogicalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -293,37 +209,73 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAddition(JQuickLangParser.AdditionContext ctx) { }
+	@Override public void enterArithmetic(JQuickLangParser.ArithmeticContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAddition(JQuickLangParser.AdditionContext ctx) { }
+	@Override public void exitArithmetic(JQuickLangParser.ArithmeticContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMultiplication(JQuickLangParser.MultiplicationContext ctx) { }
+	@Override public void enterFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMultiplication(JQuickLangParser.MultiplicationContext ctx) { }
+	@Override public void exitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnary(JQuickLangParser.UnaryContext ctx) { }
+	@Override public void enterParameterList(JQuickLangParser.ParameterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnary(JQuickLangParser.UnaryContext ctx) { }
+	@Override public void exitParameterList(JQuickLangParser.ParameterListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParam(JQuickLangParser.ParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParam(JQuickLangParser.ParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunctionCall(JQuickLangParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionCall(JQuickLangParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArgumentList(JQuickLangParser.ArgumentListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArgumentList(JQuickLangParser.ArgumentListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -420,6 +372,18 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVariables(JQuickLangParser.VariablesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportVar(JQuickLangParser.ImportVarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportVar(JQuickLangParser.ImportVarContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -69,7 +69,7 @@ public class JFunctionInvoker {
         int actualCount = arguments != null ? arguments.size() : 0;
         if (expectedCount != actualCount) {
             throw new IllegalArgumentException(String.format(
-                    "参数数量不匹配。函数 '%s' 需要 %d 个参数，但传入 %d 个",
+                    "the number of parameters does not match. Function '%s' need %d parameter，but actually %d ",
                     function.getName(), expectedCount, actualCount
             ));
         }
@@ -85,13 +85,13 @@ public class JFunctionInvoker {
             Object actualValue = arguments.get(i);
             if (actualValue == null && !isNullableType(expectedType)) {
                 throw new IllegalArgumentException(String.format(
-                        "参数 '%s'(位置:%d) 不能为null，需要类型: %s",
+                        "parameter '%s'(index:%d) can not be null，need type: %s",
                         paramName, i + 1, expectedType
                 ));
             }
             if (actualValue != null && !isTypeMatch(expectedType, actualValue)) {
                 throw new IllegalArgumentException(String.format(
-                        "参数 '%s'(位置:%d) 类型不匹配。需要 %s，但传入 %s",
+                        "parameter '%s'(index:%d) type ca not match.need %s，but  %s",
                         paramName, i + 1, expectedType,
                         actualValue.getClass().getSimpleName()
                 ));

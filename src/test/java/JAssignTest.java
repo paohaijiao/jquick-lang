@@ -14,7 +14,7 @@
 // * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
 // */
 //
-//import com.github.paohaijiao.common.JQuickLangCommonVisitor;
+//import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 //import com.github.paohaijiao.param.JContext;
 //import com.github.paohaijiao.parser.JQuickLangLexer;
 //import com.github.paohaijiao.parser.JQuickLangParser;

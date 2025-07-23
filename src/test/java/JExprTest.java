@@ -14,7 +14,7 @@
 // * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
 // */
 //
-//import com.github.paohaijiao.common.JQuickLangCommonVisitor;
+//import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 //import com.github.paohaijiao.param.JContext;
 //import org.antlr.v4.runtime.CharStreams;
 //import org.antlr.v4.runtime.CommonTokenStream;

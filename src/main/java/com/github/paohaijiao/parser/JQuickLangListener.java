@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 package com.github.paohaijiao.parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -57,56 +57,6 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRule(JQuickLangParser.RuleContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#functionDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#functionDefinition}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#parameterList}.
-	 * @param ctx the parse tree
-	 */
-	void enterParameterList(JQuickLangParser.ParameterListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#parameterList}.
-	 * @param ctx the parse tree
-	 */
-	void exitParameterList(JQuickLangParser.ParameterListContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#param}.
-	 * @param ctx the parse tree
-	 */
-	void enterParam(JQuickLangParser.ParamContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#param}.
-	 * @param ctx the parse tree
-	 */
-	void exitParam(JQuickLangParser.ParamContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#functionCall}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionCall(JQuickLangParser.FunctionCallContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#functionCall}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionCall(JQuickLangParser.FunctionCallContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#argumentList}.
-	 * @param ctx the parse tree
-	 */
-	void enterArgumentList(JQuickLangParser.ArgumentListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#argumentList}.
-	 * @param ctx the parse tree
-	 */
-	void exitArgumentList(JQuickLangParser.ArgumentListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#action}.
 	 * @param ctx the parse tree
@@ -198,35 +148,15 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitAssignment(JQuickLangParser.AssignmentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#logicalOr}.
+	 * Enter a parse tree produced by {@link JQuickLangParser#logical}.
 	 * @param ctx the parse tree
 	 */
-	void enterLogicalOr(JQuickLangParser.LogicalOrContext ctx);
+	void enterLogical(JQuickLangParser.LogicalContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#logicalOr}.
+	 * Exit a parse tree produced by {@link JQuickLangParser#logical}.
 	 * @param ctx the parse tree
 	 */
-	void exitLogicalOr(JQuickLangParser.LogicalOrContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#logicalAnd}.
-	 * @param ctx the parse tree
-	 */
-	void enterLogicalAnd(JQuickLangParser.LogicalAndContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#logicalAnd}.
-	 * @param ctx the parse tree
-	 */
-	void exitLogicalAnd(JQuickLangParser.LogicalAndContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#equality}.
-	 * @param ctx the parse tree
-	 */
-	void enterEquality(JQuickLangParser.EqualityContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#equality}.
-	 * @param ctx the parse tree
-	 */
-	void exitEquality(JQuickLangParser.EqualityContext ctx);
+	void exitLogical(JQuickLangParser.LogicalContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#comparison}.
 	 * @param ctx the parse tree
@@ -238,35 +168,65 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitComparison(JQuickLangParser.ComparisonContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#addition}.
+	 * Enter a parse tree produced by {@link JQuickLangParser#arithmetic}.
 	 * @param ctx the parse tree
 	 */
-	void enterAddition(JQuickLangParser.AdditionContext ctx);
+	void enterArithmetic(JQuickLangParser.ArithmeticContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#addition}.
+	 * Exit a parse tree produced by {@link JQuickLangParser#arithmetic}.
 	 * @param ctx the parse tree
 	 */
-	void exitAddition(JQuickLangParser.AdditionContext ctx);
+	void exitArithmetic(JQuickLangParser.ArithmeticContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#multiplication}.
+	 * Enter a parse tree produced by {@link JQuickLangParser#functionDefinition}.
 	 * @param ctx the parse tree
 	 */
-	void enterMultiplication(JQuickLangParser.MultiplicationContext ctx);
+	void enterFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#multiplication}.
+	 * Exit a parse tree produced by {@link JQuickLangParser#functionDefinition}.
 	 * @param ctx the parse tree
 	 */
-	void exitMultiplication(JQuickLangParser.MultiplicationContext ctx);
+	void exitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#unary}.
+	 * Enter a parse tree produced by {@link JQuickLangParser#parameterList}.
 	 * @param ctx the parse tree
 	 */
-	void enterUnary(JQuickLangParser.UnaryContext ctx);
+	void enterParameterList(JQuickLangParser.ParameterListContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#unary}.
+	 * Exit a parse tree produced by {@link JQuickLangParser#parameterList}.
 	 * @param ctx the parse tree
 	 */
-	void exitUnary(JQuickLangParser.UnaryContext ctx);
+	void exitParameterList(JQuickLangParser.ParameterListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#param}.
+	 * @param ctx the parse tree
+	 */
+	void enterParam(JQuickLangParser.ParamContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#param}.
+	 * @param ctx the parse tree
+	 */
+	void exitParam(JQuickLangParser.ParamContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCall(JQuickLangParser.FunctionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCall(JQuickLangParser.FunctionCallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#argumentList}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgumentList(JQuickLangParser.ArgumentListContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#argumentList}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgumentList(JQuickLangParser.ArgumentListContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#primary}.
 	 * @param ctx the parse tree
@@ -347,4 +307,14 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariables(JQuickLangParser.VariablesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#importVar}.
+	 * @param ctx the parse tree
+	 */
+	void enterImportVar(JQuickLangParser.ImportVarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#importVar}.
+	 * @param ctx the parse tree
+	 */
+	void exitImportVar(JQuickLangParser.ImportVarContext ctx);
 }

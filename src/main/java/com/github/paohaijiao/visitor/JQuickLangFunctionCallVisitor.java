@@ -2,17 +2,13 @@ package com.github.paohaijiao.visitor;
 
 
 import cn.hutool.core.lang.Assert;
-import com.github.paohaijiao.enums.JiteralEnums;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
 import com.github.paohaijiao.model.JfunctionParamModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
@@ -48,11 +44,10 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         JAssert.isTrue(2==ctx.IDENTIFIER().size(),"the function parameter name and type both require not null");
         String paramType=ctx.IDENTIFIER().get(0).getText();
         String paramName=ctx.IDENTIFIER().get(1).getText();
-        JiteralEnums type=JiteralEnums.codeOf(paramType);
-        JAssert.notNull(type,"the function parameter type "+paramType+" is not support");
+        JAssert.isTrue(this.importContainer.existsIdentify(paramType),"the  parameter type "+paramType+" not import");
         JAssert.notNull(paramName,"the function parameter name "+paramType+" require not null");
         JfunctionParamModel model=new JfunctionParamModel();
-        model.setType(type.getCode());
+        model.setType(paramType);
         model.setName(paramName);
         return model;
 
@@ -66,15 +61,15 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         if (ctx.argumentList() != null) {
             for (JQuickLangParser.LiteralContext arg : ctx.argumentList().literal()) {
                 if (arg.string() != null) {
-                    argTypes.add(JiteralEnums.string.getCode());
+                    argTypes.add("string");
                 } else if (arg.number() != null) {
-                    argTypes.add(JiteralEnums.number.getCode());
+                    argTypes.add("number");
                 } else if (arg.date() != null) {
-                    argTypes.add(JiteralEnums.date.getCode());
+                    argTypes.add("date");
                 } else if (arg.variables() != null) {
-                    argTypes.add(JiteralEnums.variables.getCode());
+                    argTypes.add("variables");
                 } else if (arg.bool() != null) {
-                    argTypes.add(JiteralEnums.bool.getCode());
+                    argTypes.add("bool");
                 }else{
                     JAssert.throwNewException("in valid argument type for "+functionName);
                 }

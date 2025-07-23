@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 package com.github.paohaijiao.parser;
 
 import org.antlr.v4.runtime.*;
@@ -22,43 +22,42 @@ public class JQuickLangParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, IMPORT=11, RETURN=12, ASSIGN=13, SEMICOLON=14, WITH=15, IF=16, 
-		THEN=17, ELSEIF=18, ELSE=19, DOLLAR=20, LPAREN=21, RPAREN=22, LBRACE=23, 
-		RBRACE=24, GT=25, GE=26, LT=27, LE=28, EQ=29, NE=30, AND=31, OR=32, ADD=33, 
-		MINUS=34, MUL=35, DIV=36, CONTAIN=37, NOTCONTAIN=38, START=39, NOTSTART=40, 
-		END=41, NOTEND=42, TRUE=43, FALSE=44, COLON=45, NUMBER=46, DATETIME=47, 
-		DATE=48, YEAR=49, MONTH=50, DAY=51, TIME_ZONE=52, IDENTIFIER=53, STRING=54, 
-		SINGLE_LINE_COMMENT=55, MULTI_LINE_COMMENT=56, WS=57, NEWLINE=58, NOT=59;
+		T__9=10, IMPORT=11, AS=12, RETURN=13, ASSIGN=14, SEMICOLON=15, WITH=16, 
+		IF=17, THEN=18, ELSEIF=19, ELSE=20, DOLLAR=21, LPAREN=22, RPAREN=23, LBRACE=24, 
+		RBRACE=25, GT=26, GE=27, LT=28, LE=29, EQ=30, NE=31, AND=32, OR=33, ADD=34, 
+		MINUS=35, MUL=36, DIV=37, CONTAIN=38, NOTCONTAIN=39, START=40, NOTSTART=41, 
+		END=42, NOTEND=43, TRUE=44, FALSE=45, COLON=46, NUMBER=47, DATETIME=48, 
+		DATE=49, YEAR=50, MONTH=51, DAY=52, TIME_ZONE=53, IDENTIFIER=54, STRING=55, 
+		SINGLE_LINE_COMMENT=56, MULTI_LINE_COMMENT=57, WS=58, NEWLINE=59;
 	public static final int
 		RULE_program = 0, RULE_importDeclaration = 1, RULE_qualifiedName = 2, 
-		RULE_statement = 3, RULE_rule = 4, RULE_functionDefinition = 5, RULE_parameterList = 6, 
-		RULE_param = 7, RULE_functionCall = 8, RULE_argumentList = 9, RULE_action = 10, 
-		RULE_controlStatement = 11, RULE_ifStatement = 12, RULE_forStatement = 13, 
-		RULE_whileStatement = 14, RULE_returnStatement = 15, RULE_expressionStatement = 16, 
-		RULE_expression = 17, RULE_assignment = 18, RULE_logicalOr = 19, RULE_logicalAnd = 20, 
-		RULE_equality = 21, RULE_comparison = 22, RULE_addition = 23, RULE_multiplication = 24, 
-		RULE_unary = 25, RULE_primary = 26, RULE_variableDecl = 27, RULE_literal = 28, 
-		RULE_bool = 29, RULE_number = 30, RULE_string = 31, RULE_date = 32, RULE_variables = 33;
+		RULE_statement = 3, RULE_rule = 4, RULE_action = 5, RULE_controlStatement = 6, 
+		RULE_ifStatement = 7, RULE_forStatement = 8, RULE_whileStatement = 9, 
+		RULE_returnStatement = 10, RULE_expressionStatement = 11, RULE_expression = 12, 
+		RULE_assignment = 13, RULE_logical = 14, RULE_comparison = 15, RULE_arithmetic = 16, 
+		RULE_functionDefinition = 17, RULE_parameterList = 18, RULE_param = 19, 
+		RULE_functionCall = 20, RULE_argumentList = 21, RULE_primary = 22, RULE_variableDecl = 23, 
+		RULE_literal = 24, RULE_bool = 25, RULE_number = 26, RULE_string = 27, 
+		RULE_date = 28, RULE_variables = 29, RULE_importVar = 30;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "importDeclaration", "qualifiedName", "statement", "rule", 
-			"functionDefinition", "parameterList", "param", "functionCall", "argumentList", 
 			"action", "controlStatement", "ifStatement", "forStatement", "whileStatement", 
 			"returnStatement", "expressionStatement", "expression", "assignment", 
-			"logicalOr", "logicalAnd", "equality", "comparison", "addition", "multiplication", 
-			"unary", "primary", "variableDecl", "literal", "bool", "number", "string", 
-			"date", "variables"
+			"logical", "comparison", "arithmetic", "functionDefinition", "parameterList", 
+			"param", "functionCall", "argumentList", "primary", "variableDecl", "literal", 
+			"bool", "number", "string", "date", "variables", "importVar"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'.'", "'function'", "','", "'if'", "'else if'", "'else'", "'for'", 
-			"'while'", "'var'", "'null'", "'import'", "'return'", "'='", "';'", "'WITH'", 
-			"'IF'", "'THEN'", "'ELSEIF'", "'ELSE'", "'$'", "'('", "')'", "'{'", "'}'", 
-			"'>'", "'>='", "'<'", "'<='", "'=='", "'!='", "'&&'", "'||'", "'+'", 
-			"'-'", "'*'", "'/'", "'CONTAIN'", "'NOTCONTAIN'", "'START'", "'NOTSTART'", 
+			null, "'.'", "'if'", "'else if'", "'else'", "'for'", "'while'", "'function'", 
+			"','", "'var'", "'null'", "'import'", "'as'", "'return'", "'='", "';'", 
+			"'WITH'", "'IF'", "'THEN'", "'ELSEIF'", "'ELSE'", "'$'", "'('", "')'", 
+			"'{'", "'}'", "'>'", "'>='", "'<'", "'<='", "'=='", "'!='", "'&&'", "'||'", 
+			"'+'", "'-'", "'*'", "'/'", "'CONTAIN'", "'NOTCONTAIN'", "'START'", "'NOTSTART'", 
 			"'END'", "'NOTEND'", "'true'", "'false'", "':'"
 		};
 	}
@@ -66,13 +65,13 @@ public class JQuickLangParser extends Parser {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, "IMPORT", 
-			"RETURN", "ASSIGN", "SEMICOLON", "WITH", "IF", "THEN", "ELSEIF", "ELSE", 
-			"DOLLAR", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "GT", "GE", "LT", "LE", 
-			"EQ", "NE", "AND", "OR", "ADD", "MINUS", "MUL", "DIV", "CONTAIN", "NOTCONTAIN", 
-			"START", "NOTSTART", "END", "NOTEND", "TRUE", "FALSE", "COLON", "NUMBER", 
-			"DATETIME", "DATE", "YEAR", "MONTH", "DAY", "TIME_ZONE", "IDENTIFIER", 
-			"STRING", "SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT", "WS", "NEWLINE", 
-			"NOT"
+			"AS", "RETURN", "ASSIGN", "SEMICOLON", "WITH", "IF", "THEN", "ELSEIF", 
+			"ELSE", "DOLLAR", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "GT", "GE", 
+			"LT", "LE", "EQ", "NE", "AND", "OR", "ADD", "MINUS", "MUL", "DIV", "CONTAIN", 
+			"NOTCONTAIN", "START", "NOTSTART", "END", "NOTEND", "TRUE", "FALSE", 
+			"COLON", "NUMBER", "DATETIME", "DATE", "YEAR", "MONTH", "DAY", "TIME_ZONE", 
+			"IDENTIFIER", "STRING", "SINGLE_LINE_COMMENT", "MULTI_LINE_COMMENT", 
+			"WS", "NEWLINE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -167,35 +166,35 @@ public class JQuickLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(71);
+			setState(65);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==IMPORT) {
 				{
 				{
-				setState(68);
+				setState(62);
 				importDeclaration();
+				}
+				}
+				setState(67);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(71);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 55081134511367908L) != 0)) {
+				{
+				{
+				setState(68);
+				statement();
 				}
 				}
 				setState(73);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(77);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==T__1 || _la==IDENTIFIER) {
-				{
-				{
-				setState(74);
-				statement();
-				}
-				}
-				setState(79);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(80);
+			setState(74);
 			match(EOF);
 			}
 		}
@@ -215,6 +214,10 @@ public class JQuickLangParser extends Parser {
 		public TerminalNode IMPORT() { return getToken(JQuickLangParser.IMPORT, 0); }
 		public QualifiedNameContext qualifiedName() {
 			return getRuleContext(QualifiedNameContext.class,0);
+		}
+		public TerminalNode AS() { return getToken(JQuickLangParser.AS, 0); }
+		public ImportVarContext importVar() {
+			return getRuleContext(ImportVarContext.class,0);
 		}
 		public TerminalNode SEMICOLON() { return getToken(JQuickLangParser.SEMICOLON, 0); }
 		public ImportDeclarationContext(ParserRuleContext parent, int invokingState) {
@@ -242,11 +245,15 @@ public class JQuickLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(82);
+			setState(76);
 			match(IMPORT);
-			setState(83);
+			setState(77);
 			qualifiedName();
-			setState(84);
+			setState(78);
+			match(AS);
+			setState(79);
+			importVar();
+			setState(80);
 			match(SEMICOLON);
 			}
 		}
@@ -293,21 +300,21 @@ public class JQuickLangParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(86);
+			setState(82);
 			match(IDENTIFIER);
-			setState(91);
+			setState(87);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__0) {
 				{
 				{
-				setState(87);
+				setState(83);
 				match(T__0);
-				setState(88);
+				setState(84);
 				match(IDENTIFIER);
 				}
 				}
-				setState(93);
+				setState(89);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -326,11 +333,15 @@ public class JQuickLangParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class StatementContext extends ParserRuleContext {
-		public List<RuleContext> rule_() {
-			return getRuleContexts(RuleContext.class);
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
 		}
-		public RuleContext rule_(int i) {
-			return getRuleContext(RuleContext.class,i);
+		public TerminalNode SEMICOLON() { return getToken(JQuickLangParser.SEMICOLON, 0); }
+		public RuleContext rule_() {
+			return getRuleContext(RuleContext.class,0);
+		}
+		public ControlStatementContext controlStatement() {
+			return getRuleContext(ControlStatementContext.class,0);
 		}
 		public StatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -354,30 +365,44 @@ public class JQuickLangParser extends Parser {
 	public final StatementContext statement() throws RecognitionException {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_statement);
+		int _la;
 		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(95); 
+			setState(98);
 			_errHandler.sync(this);
-			_alt = 1;
-			do {
-				switch (_alt) {
-				case 1:
-					{
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(90);
+				expression();
+				setState(91);
+				match(SEMICOLON);
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(93);
+				rule_();
+				setState(95);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==SEMICOLON) {
 					{
 					setState(94);
-					rule_();
+					match(SEMICOLON);
 					}
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
 				}
-				setState(97); 
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
-			} while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER );
+
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(97);
+				controlStatement();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -422,339 +447,25 @@ public class JQuickLangParser extends Parser {
 		RuleContext _localctx = new RuleContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_rule);
 		try {
-			setState(101);
+			setState(102);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(99);
+				setState(100);
 				functionCall();
 				}
 				break;
-			case T__1:
+			case T__6:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(100);
+				setState(101);
 				functionDefinition();
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class FunctionDefinitionContext extends ParserRuleContext {
-		public TerminalNode IDENTIFIER() { return getToken(JQuickLangParser.IDENTIFIER, 0); }
-		public TerminalNode LPAREN() { return getToken(JQuickLangParser.LPAREN, 0); }
-		public TerminalNode RPAREN() { return getToken(JQuickLangParser.RPAREN, 0); }
-		public ActionContext action() {
-			return getRuleContext(ActionContext.class,0);
-		}
-		public ParameterListContext parameterList() {
-			return getRuleContext(ParameterListContext.class,0);
-		}
-		public FunctionDefinitionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_functionDefinition; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterFunctionDefinition(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitFunctionDefinition(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitFunctionDefinition(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final FunctionDefinitionContext functionDefinition() throws RecognitionException {
-		FunctionDefinitionContext _localctx = new FunctionDefinitionContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_functionDefinition);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(103);
-			match(T__1);
-			setState(104);
-			match(IDENTIFIER);
-			setState(105);
-			match(LPAREN);
-			setState(107);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==IDENTIFIER) {
-				{
-				setState(106);
-				parameterList();
-				}
-			}
-
-			setState(109);
-			match(RPAREN);
-			setState(110);
-			action();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class ParameterListContext extends ParserRuleContext {
-		public List<ParamContext> param() {
-			return getRuleContexts(ParamContext.class);
-		}
-		public ParamContext param(int i) {
-			return getRuleContext(ParamContext.class,i);
-		}
-		public ParameterListContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_parameterList; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterParameterList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitParameterList(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitParameterList(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ParameterListContext parameterList() throws RecognitionException {
-		ParameterListContext _localctx = new ParameterListContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_parameterList);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(112);
-			param();
-			setState(117);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==T__2) {
-				{
-				{
-				setState(113);
-				match(T__2);
-				setState(114);
-				param();
-				}
-				}
-				setState(119);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class ParamContext extends ParserRuleContext {
-		public List<TerminalNode> IDENTIFIER() { return getTokens(JQuickLangParser.IDENTIFIER); }
-		public TerminalNode IDENTIFIER(int i) {
-			return getToken(JQuickLangParser.IDENTIFIER, i);
-		}
-		public TerminalNode COLON() { return getToken(JQuickLangParser.COLON, 0); }
-		public ParamContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_param; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterParam(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitParam(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitParam(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ParamContext param() throws RecognitionException {
-		ParamContext _localctx = new ParamContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_param);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(120);
-			match(IDENTIFIER);
-			setState(121);
-			match(COLON);
-			setState(122);
-			match(IDENTIFIER);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class FunctionCallContext extends ParserRuleContext {
-		public TerminalNode IDENTIFIER() { return getToken(JQuickLangParser.IDENTIFIER, 0); }
-		public TerminalNode LPAREN() { return getToken(JQuickLangParser.LPAREN, 0); }
-		public TerminalNode RPAREN() { return getToken(JQuickLangParser.RPAREN, 0); }
-		public ArgumentListContext argumentList() {
-			return getRuleContext(ArgumentListContext.class,0);
-		}
-		public FunctionCallContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_functionCall; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterFunctionCall(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitFunctionCall(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitFunctionCall(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final FunctionCallContext functionCall() throws RecognitionException {
-		FunctionCallContext _localctx = new FunctionCallContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_functionCall);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(124);
-			match(IDENTIFIER);
-			setState(125);
-			match(LPAREN);
-			setState(127);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 18533367998841856L) != 0)) {
-				{
-				setState(126);
-				argumentList();
-				}
-			}
-
-			setState(129);
-			match(RPAREN);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class ArgumentListContext extends ParserRuleContext {
-		public List<LiteralContext> literal() {
-			return getRuleContexts(LiteralContext.class);
-		}
-		public LiteralContext literal(int i) {
-			return getRuleContext(LiteralContext.class,i);
-		}
-		public ArgumentListContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_argumentList; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterArgumentList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitArgumentList(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitArgumentList(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ArgumentListContext argumentList() throws RecognitionException {
-		ArgumentListContext _localctx = new ArgumentListContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_argumentList);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(131);
-			literal();
-			setState(136);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==T__2) {
-				{
-				{
-				setState(132);
-				match(T__2);
-				setState(133);
-				literal();
-				}
-				}
-				setState(138);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -805,40 +516,40 @@ public class JQuickLangParser extends Parser {
 
 	public final ActionContext action() throws RecognitionException {
 		ActionContext _localctx = new ActionContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_action);
+		enterRule(_localctx, 10, RULE_action);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(139);
+			setState(104);
 			match(LBRACE);
-			setState(144);
+			setState(109);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 604001336738977684L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 55081134511367908L) != 0)) {
 				{
-				setState(142);
+				setState(107);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 				case 1:
 					{
-					setState(140);
+					setState(105);
 					statement();
 					}
 					break;
 				case 2:
 					{
-					setState(141);
+					setState(106);
 					controlStatement();
 					}
 					break;
 				}
 				}
-				setState(146);
+				setState(111);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(147);
+			setState(112);
 			match(RBRACE);
 			}
 		}
@@ -891,36 +602,36 @@ public class JQuickLangParser extends Parser {
 
 	public final ControlStatementContext controlStatement() throws RecognitionException {
 		ControlStatementContext _localctx = new ControlStatementContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_controlStatement);
+		enterRule(_localctx, 12, RULE_controlStatement);
 		try {
-			setState(154);
+			setState(119);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__3:
+			case T__1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(149);
+				setState(114);
 				ifStatement();
 				}
 				break;
-			case T__6:
+			case T__4:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(150);
+				setState(115);
 				forStatement();
 				}
 				break;
-			case T__7:
+			case T__5:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(151);
+				setState(116);
 				whileStatement();
 				}
 				break;
 			case RETURN:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(152);
+				setState(117);
 				returnStatement();
 				}
 				break;
@@ -928,7 +639,6 @@ public class JQuickLangParser extends Parser {
 			case T__9:
 			case DOLLAR:
 			case LPAREN:
-			case MINUS:
 			case TRUE:
 			case FALSE:
 			case NUMBER:
@@ -936,10 +646,9 @@ public class JQuickLangParser extends Parser {
 			case DATE:
 			case IDENTIFIER:
 			case STRING:
-			case NOT:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(153);
+				setState(118);
 				expressionStatement();
 				}
 				break;
@@ -1001,51 +710,51 @@ public class JQuickLangParser extends Parser {
 
 	public final IfStatementContext ifStatement() throws RecognitionException {
 		IfStatementContext _localctx = new IfStatementContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_ifStatement);
+		enterRule(_localctx, 14, RULE_ifStatement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(156);
-			match(T__3);
-			setState(157);
+			setState(121);
+			match(T__1);
+			setState(122);
 			match(LPAREN);
-			setState(158);
+			setState(123);
 			expression();
-			setState(159);
+			setState(124);
 			match(RPAREN);
-			setState(160);
+			setState(125);
 			action();
-			setState(169);
+			setState(134);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__4) {
+			while (_la==T__2) {
 				{
 				{
-				setState(161);
-				match(T__4);
-				setState(162);
+				setState(126);
+				match(T__2);
+				setState(127);
 				match(LPAREN);
-				setState(163);
+				setState(128);
 				expression();
-				setState(164);
+				setState(129);
 				match(RPAREN);
-				setState(165);
+				setState(130);
 				action();
 				}
 				}
-				setState(171);
+				setState(136);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(174);
+			setState(139);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (_la==T__5) {
+			if (_la==T__3) {
 				{
-				setState(172);
-				match(T__5);
-				setState(173);
+				setState(137);
+				match(T__3);
+				setState(138);
 				action();
 				}
 			}
@@ -1104,58 +813,58 @@ public class JQuickLangParser extends Parser {
 
 	public final ForStatementContext forStatement() throws RecognitionException {
 		ForStatementContext _localctx = new ForStatementContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_forStatement);
+		enterRule(_localctx, 16, RULE_forStatement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(176);
-			match(T__6);
-			setState(177);
+			setState(141);
+			match(T__4);
+			setState(142);
 			match(LPAREN);
-			setState(180);
+			setState(145);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 			case 1:
 				{
-				setState(178);
+				setState(143);
 				variableDecl();
 				}
 				break;
 			case 2:
 				{
-				setState(179);
+				setState(144);
 				expression();
 				}
 				break;
 			}
-			setState(182);
+			setState(147);
 			match(SEMICOLON);
-			setState(184);
+			setState(149);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 604001336738973184L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 55081134511359488L) != 0)) {
 				{
-				setState(183);
+				setState(148);
 				expression();
 				}
 			}
 
-			setState(186);
+			setState(151);
 			match(SEMICOLON);
-			setState(188);
+			setState(153);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 604001336738973184L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 55081134511359488L) != 0)) {
 				{
-				setState(187);
+				setState(152);
 				expression();
 				}
 			}
 
-			setState(190);
+			setState(155);
 			match(RPAREN);
-			setState(191);
+			setState(156);
 			action();
 			}
 		}
@@ -1201,19 +910,19 @@ public class JQuickLangParser extends Parser {
 
 	public final WhileStatementContext whileStatement() throws RecognitionException {
 		WhileStatementContext _localctx = new WhileStatementContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_whileStatement);
+		enterRule(_localctx, 18, RULE_whileStatement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(193);
-			match(T__7);
-			setState(194);
+			setState(158);
+			match(T__5);
+			setState(159);
 			match(LPAREN);
-			setState(195);
+			setState(160);
 			expression();
-			setState(196);
+			setState(161);
 			match(RPAREN);
-			setState(197);
+			setState(162);
 			action();
 			}
 		}
@@ -1256,24 +965,24 @@ public class JQuickLangParser extends Parser {
 
 	public final ReturnStatementContext returnStatement() throws RecognitionException {
 		ReturnStatementContext _localctx = new ReturnStatementContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_returnStatement);
+		enterRule(_localctx, 20, RULE_returnStatement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(199);
+			setState(164);
 			match(RETURN);
-			setState(201);
+			setState(166);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 604001336738973184L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 55081134511359488L) != 0)) {
 				{
-				setState(200);
+				setState(165);
 				expression();
 				}
 			}
 
-			setState(203);
+			setState(168);
 			match(SEMICOLON);
 			}
 		}
@@ -1315,13 +1024,13 @@ public class JQuickLangParser extends Parser {
 
 	public final ExpressionStatementContext expressionStatement() throws RecognitionException {
 		ExpressionStatementContext _localctx = new ExpressionStatementContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_expressionStatement);
+		enterRule(_localctx, 22, RULE_expressionStatement);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(205);
+			setState(170);
 			expression();
-			setState(206);
+			setState(171);
 			match(SEMICOLON);
 			}
 		}
@@ -1341,8 +1050,14 @@ public class JQuickLangParser extends Parser {
 		public AssignmentContext assignment() {
 			return getRuleContext(AssignmentContext.class,0);
 		}
-		public LogicalOrContext logicalOr() {
-			return getRuleContext(LogicalOrContext.class,0);
+		public ArithmeticContext arithmetic() {
+			return getRuleContext(ArithmeticContext.class,0);
+		}
+		public LogicalContext logical() {
+			return getRuleContext(LogicalContext.class,0);
+		}
+		public PrimaryContext primary() {
+			return getRuleContext(PrimaryContext.class,0);
 		}
 		public ExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1365,23 +1080,37 @@ public class JQuickLangParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_expression);
+		enterRule(_localctx, 24, RULE_expression);
 		try {
-			setState(210);
+			setState(177);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(208);
+				setState(173);
 				assignment();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(209);
-				logicalOr();
+				setState(174);
+				arithmetic();
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(175);
+				logical();
+				}
+				break;
+			case 4:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(176);
+				primary();
 				}
 				break;
 			}
@@ -1425,15 +1154,15 @@ public class JQuickLangParser extends Parser {
 
 	public final AssignmentContext assignment() throws RecognitionException {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_assignment);
+		enterRule(_localctx, 26, RULE_assignment);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(212);
+			setState(179);
 			match(IDENTIFIER);
-			setState(213);
+			setState(180);
 			match(ASSIGN);
-			setState(214);
+			setState(181);
 			expression();
 			}
 		}
@@ -1449,202 +1178,60 @@ public class JQuickLangParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class LogicalOrContext extends ParserRuleContext {
-		public List<LogicalAndContext> logicalAnd() {
-			return getRuleContexts(LogicalAndContext.class);
-		}
-		public LogicalAndContext logicalAnd(int i) {
-			return getRuleContext(LogicalAndContext.class,i);
-		}
-		public List<TerminalNode> OR() { return getTokens(JQuickLangParser.OR); }
-		public TerminalNode OR(int i) {
-			return getToken(JQuickLangParser.OR, i);
-		}
-		public LogicalOrContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_logicalOr; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterLogicalOr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitLogicalOr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitLogicalOr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final LogicalOrContext logicalOr() throws RecognitionException {
-		LogicalOrContext _localctx = new LogicalOrContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_logicalOr);
-		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(216);
-			logicalAnd();
-			setState(221);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(217);
-					match(OR);
-					setState(218);
-					logicalAnd();
-					}
-					} 
-				}
-				setState(223);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,19,_ctx);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class LogicalAndContext extends ParserRuleContext {
-		public List<EqualityContext> equality() {
-			return getRuleContexts(EqualityContext.class);
-		}
-		public EqualityContext equality(int i) {
-			return getRuleContext(EqualityContext.class,i);
-		}
-		public List<TerminalNode> AND() { return getTokens(JQuickLangParser.AND); }
-		public TerminalNode AND(int i) {
-			return getToken(JQuickLangParser.AND, i);
-		}
-		public LogicalAndContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_logicalAnd; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterLogicalAnd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitLogicalAnd(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitLogicalAnd(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final LogicalAndContext logicalAnd() throws RecognitionException {
-		LogicalAndContext _localctx = new LogicalAndContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_logicalAnd);
-		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(224);
-			equality();
-			setState(229);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(225);
-					match(AND);
-					setState(226);
-					equality();
-					}
-					} 
-				}
-				setState(231);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class EqualityContext extends ParserRuleContext {
+	public static class LogicalContext extends ParserRuleContext {
 		public List<ComparisonContext> comparison() {
 			return getRuleContexts(ComparisonContext.class);
 		}
 		public ComparisonContext comparison(int i) {
 			return getRuleContext(ComparisonContext.class,i);
 		}
-		public List<TerminalNode> EQ() { return getTokens(JQuickLangParser.EQ); }
-		public TerminalNode EQ(int i) {
-			return getToken(JQuickLangParser.EQ, i);
+		public List<TerminalNode> OR() { return getTokens(JQuickLangParser.OR); }
+		public TerminalNode OR(int i) {
+			return getToken(JQuickLangParser.OR, i);
 		}
-		public List<TerminalNode> NE() { return getTokens(JQuickLangParser.NE); }
-		public TerminalNode NE(int i) {
-			return getToken(JQuickLangParser.NE, i);
+		public List<TerminalNode> AND() { return getTokens(JQuickLangParser.AND); }
+		public TerminalNode AND(int i) {
+			return getToken(JQuickLangParser.AND, i);
 		}
-		public EqualityContext(ParserRuleContext parent, int invokingState) {
+		public LogicalContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_equality; }
+		@Override public int getRuleIndex() { return RULE_logical; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterEquality(this);
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterLogical(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitEquality(this);
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitLogical(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitEquality(this);
+			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitLogical(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final EqualityContext equality() throws RecognitionException {
-		EqualityContext _localctx = new EqualityContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_equality);
+	public final LogicalContext logical() throws RecognitionException {
+		LogicalContext _localctx = new LogicalContext(_ctx, getState());
+		enterRule(_localctx, 28, RULE_logical);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(232);
+			setState(183);
 			comparison();
-			setState(237);
+			setState(188);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(233);
+					setState(184);
 					_la = _input.LA(1);
-					if ( !(_la==EQ || _la==NE) ) {
+					if ( !(_la==AND || _la==OR) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -1652,14 +1239,14 @@ public class JQuickLangParser extends Parser {
 						_errHandler.reportMatch(this);
 						consume();
 					}
-					setState(234);
+					setState(185);
 					comparison();
 					}
 					} 
 				}
-				setState(239);
+				setState(190);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
 			}
 			}
 		}
@@ -1676,11 +1263,11 @@ public class JQuickLangParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ComparisonContext extends ParserRuleContext {
-		public List<AdditionContext> addition() {
-			return getRuleContexts(AdditionContext.class);
+		public List<PrimaryContext> primary() {
+			return getRuleContexts(PrimaryContext.class);
 		}
-		public AdditionContext addition(int i) {
-			return getRuleContext(AdditionContext.class,i);
+		public PrimaryContext primary(int i) {
+			return getRuleContext(PrimaryContext.class,i);
 		}
 		public List<TerminalNode> GT() { return getTokens(JQuickLangParser.GT); }
 		public TerminalNode GT(int i) {
@@ -1697,6 +1284,14 @@ public class JQuickLangParser extends Parser {
 		public List<TerminalNode> LE() { return getTokens(JQuickLangParser.LE); }
 		public TerminalNode LE(int i) {
 			return getToken(JQuickLangParser.LE, i);
+		}
+		public List<TerminalNode> EQ() { return getTokens(JQuickLangParser.EQ); }
+		public TerminalNode EQ(int i) {
+			return getToken(JQuickLangParser.EQ, i);
+		}
+		public List<TerminalNode> NE() { return getTokens(JQuickLangParser.NE); }
+		public TerminalNode NE(int i) {
+			return getToken(JQuickLangParser.NE, i);
 		}
 		public ComparisonContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1719,24 +1314,24 @@ public class JQuickLangParser extends Parser {
 
 	public final ComparisonContext comparison() throws RecognitionException {
 		ComparisonContext _localctx = new ComparisonContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_comparison);
+		enterRule(_localctx, 30, RULE_comparison);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(240);
-			addition();
-			setState(245);
+			setState(191);
+			primary();
+			setState(196);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,22,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(241);
+					setState(192);
 					_la = _input.LA(1);
-					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 503316480L) != 0)) ) {
+					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 4227858432L) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -1744,14 +1339,14 @@ public class JQuickLangParser extends Parser {
 						_errHandler.reportMatch(this);
 						consume();
 					}
-					setState(242);
-					addition();
+					setState(193);
+					primary();
 					}
 					} 
 				}
-				setState(247);
+				setState(198);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,22,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,17,_ctx);
 			}
 			}
 		}
@@ -1767,96 +1362,12 @@ public class JQuickLangParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class AdditionContext extends ParserRuleContext {
-		public List<MultiplicationContext> multiplication() {
-			return getRuleContexts(MultiplicationContext.class);
+	public static class ArithmeticContext extends ParserRuleContext {
+		public List<PrimaryContext> primary() {
+			return getRuleContexts(PrimaryContext.class);
 		}
-		public MultiplicationContext multiplication(int i) {
-			return getRuleContext(MultiplicationContext.class,i);
-		}
-		public List<TerminalNode> ADD() { return getTokens(JQuickLangParser.ADD); }
-		public TerminalNode ADD(int i) {
-			return getToken(JQuickLangParser.ADD, i);
-		}
-		public List<TerminalNode> MINUS() { return getTokens(JQuickLangParser.MINUS); }
-		public TerminalNode MINUS(int i) {
-			return getToken(JQuickLangParser.MINUS, i);
-		}
-		public AdditionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_addition; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterAddition(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitAddition(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitAddition(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final AdditionContext addition() throws RecognitionException {
-		AdditionContext _localctx = new AdditionContext(_ctx, getState());
-		enterRule(_localctx, 46, RULE_addition);
-		int _la;
-		try {
-			int _alt;
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(248);
-			multiplication();
-			setState(253);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(249);
-					_la = _input.LA(1);
-					if ( !(_la==ADD || _la==MINUS) ) {
-					_errHandler.recoverInline(this);
-					}
-					else {
-						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-						_errHandler.reportMatch(this);
-						consume();
-					}
-					setState(250);
-					multiplication();
-					}
-					} 
-				}
-				setState(255);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class MultiplicationContext extends ParserRuleContext {
-		public List<UnaryContext> unary() {
-			return getRuleContexts(UnaryContext.class);
-		}
-		public UnaryContext unary(int i) {
-			return getRuleContext(UnaryContext.class,i);
+		public PrimaryContext primary(int i) {
+			return getRuleContext(PrimaryContext.class,i);
 		}
 		public List<TerminalNode> MUL() { return getTokens(JQuickLangParser.MUL); }
 		public TerminalNode MUL(int i) {
@@ -1866,45 +1377,53 @@ public class JQuickLangParser extends Parser {
 		public TerminalNode DIV(int i) {
 			return getToken(JQuickLangParser.DIV, i);
 		}
-		public MultiplicationContext(ParserRuleContext parent, int invokingState) {
+		public List<TerminalNode> ADD() { return getTokens(JQuickLangParser.ADD); }
+		public TerminalNode ADD(int i) {
+			return getToken(JQuickLangParser.ADD, i);
+		}
+		public List<TerminalNode> MINUS() { return getTokens(JQuickLangParser.MINUS); }
+		public TerminalNode MINUS(int i) {
+			return getToken(JQuickLangParser.MINUS, i);
+		}
+		public ArithmeticContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_multiplication; }
+		@Override public int getRuleIndex() { return RULE_arithmetic; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterMultiplication(this);
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterArithmetic(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitMultiplication(this);
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitArithmetic(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitMultiplication(this);
+			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitArithmetic(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final MultiplicationContext multiplication() throws RecognitionException {
-		MultiplicationContext _localctx = new MultiplicationContext(_ctx, getState());
-		enterRule(_localctx, 48, RULE_multiplication);
+	public final ArithmeticContext arithmetic() throws RecognitionException {
+		ArithmeticContext _localctx = new ArithmeticContext(_ctx, getState());
+		enterRule(_localctx, 32, RULE_arithmetic);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(256);
-			unary();
-			setState(261);
+			setState(199);
+			primary();
+			setState(204);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(257);
+					setState(200);
 					_la = _input.LA(1);
-					if ( !(_la==MUL || _la==DIV) ) {
+					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 257698037760L) != 0)) ) {
 					_errHandler.recoverInline(this);
 					}
 					else {
@@ -1912,14 +1431,14 @@ public class JQuickLangParser extends Parser {
 						_errHandler.reportMatch(this);
 						consume();
 					}
-					setState(258);
-					unary();
+					setState(201);
+					primary();
 					}
 					} 
 				}
-				setState(263);
+				setState(206);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,18,_ctx);
 			}
 			}
 		}
@@ -1935,68 +1454,306 @@ public class JQuickLangParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class UnaryContext extends ParserRuleContext {
-		public PrimaryContext primary() {
-			return getRuleContext(PrimaryContext.class,0);
+	public static class FunctionDefinitionContext extends ParserRuleContext {
+		public TerminalNode IDENTIFIER() { return getToken(JQuickLangParser.IDENTIFIER, 0); }
+		public TerminalNode LPAREN() { return getToken(JQuickLangParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(JQuickLangParser.RPAREN, 0); }
+		public ActionContext action() {
+			return getRuleContext(ActionContext.class,0);
 		}
-		public List<TerminalNode> MINUS() { return getTokens(JQuickLangParser.MINUS); }
-		public TerminalNode MINUS(int i) {
-			return getToken(JQuickLangParser.MINUS, i);
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
 		}
-		public List<TerminalNode> NOT() { return getTokens(JQuickLangParser.NOT); }
-		public TerminalNode NOT(int i) {
-			return getToken(JQuickLangParser.NOT, i);
-		}
-		public UnaryContext(ParserRuleContext parent, int invokingState) {
+		public FunctionDefinitionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_unary; }
+		@Override public int getRuleIndex() { return RULE_functionDefinition; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterUnary(this);
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterFunctionDefinition(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitUnary(this);
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitFunctionDefinition(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitUnary(this);
+			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitFunctionDefinition(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final UnaryContext unary() throws RecognitionException {
-		UnaryContext _localctx = new UnaryContext(_ctx, getState());
-		enterRule(_localctx, 50, RULE_unary);
+	public final FunctionDefinitionContext functionDefinition() throws RecognitionException {
+		FunctionDefinitionContext _localctx = new FunctionDefinitionContext(_ctx, getState());
+		enterRule(_localctx, 34, RULE_functionDefinition);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(267);
+			setState(207);
+			match(T__6);
+			setState(208);
+			match(IDENTIFIER);
+			setState(209);
+			match(LPAREN);
+			setState(211);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==MINUS || _la==NOT) {
+			if (_la==IDENTIFIER) {
+				{
+				setState(210);
+				parameterList();
+				}
+			}
+
+			setState(213);
+			match(RPAREN);
+			setState(214);
+			action();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ParameterListContext extends ParserRuleContext {
+		public List<ParamContext> param() {
+			return getRuleContexts(ParamContext.class);
+		}
+		public ParamContext param(int i) {
+			return getRuleContext(ParamContext.class,i);
+		}
+		public ParameterListContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_parameterList; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterParameterList(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitParameterList(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitParameterList(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ParameterListContext parameterList() throws RecognitionException {
+		ParameterListContext _localctx = new ParameterListContext(_ctx, getState());
+		enterRule(_localctx, 36, RULE_parameterList);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(216);
+			param();
+			setState(221);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==T__7) {
 				{
 				{
-				setState(264);
-				_la = _input.LA(1);
-				if ( !(_la==MINUS || _la==NOT) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
+				setState(217);
+				match(T__7);
+				setState(218);
+				param();
 				}
 				}
-				}
-				setState(269);
+				setState(223);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(270);
-			primary();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ParamContext extends ParserRuleContext {
+		public List<TerminalNode> IDENTIFIER() { return getTokens(JQuickLangParser.IDENTIFIER); }
+		public TerminalNode IDENTIFIER(int i) {
+			return getToken(JQuickLangParser.IDENTIFIER, i);
+		}
+		public TerminalNode COLON() { return getToken(JQuickLangParser.COLON, 0); }
+		public ParamContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_param; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterParam(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitParam(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitParam(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ParamContext param() throws RecognitionException {
+		ParamContext _localctx = new ParamContext(_ctx, getState());
+		enterRule(_localctx, 38, RULE_param);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(224);
+			match(IDENTIFIER);
+			setState(225);
+			match(COLON);
+			setState(226);
+			match(IDENTIFIER);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class FunctionCallContext extends ParserRuleContext {
+		public TerminalNode IDENTIFIER() { return getToken(JQuickLangParser.IDENTIFIER, 0); }
+		public TerminalNode LPAREN() { return getToken(JQuickLangParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(JQuickLangParser.RPAREN, 0); }
+		public ArgumentListContext argumentList() {
+			return getRuleContext(ArgumentListContext.class,0);
+		}
+		public FunctionCallContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_functionCall; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterFunctionCall(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitFunctionCall(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitFunctionCall(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final FunctionCallContext functionCall() throws RecognitionException {
+		FunctionCallContext _localctx = new FunctionCallContext(_ctx, getState());
+		enterRule(_localctx, 40, RULE_functionCall);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(228);
+			match(IDENTIFIER);
+			setState(229);
+			match(LPAREN);
+			setState(231);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 37066735997682688L) != 0)) {
+				{
+				setState(230);
+				argumentList();
+				}
+			}
+
+			setState(233);
+			match(RPAREN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ArgumentListContext extends ParserRuleContext {
+		public List<LiteralContext> literal() {
+			return getRuleContexts(LiteralContext.class);
+		}
+		public LiteralContext literal(int i) {
+			return getRuleContext(LiteralContext.class,i);
+		}
+		public ArgumentListContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_argumentList; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterArgumentList(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitArgumentList(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitArgumentList(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ArgumentListContext argumentList() throws RecognitionException {
+		ArgumentListContext _localctx = new ArgumentListContext(_ctx, getState());
+		enterRule(_localctx, 42, RULE_argumentList);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(235);
+			literal();
+			setState(240);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==T__7) {
+				{
+				{
+				setState(236);
+				match(T__7);
+				setState(237);
+				literal();
+				}
+				}
+				setState(242);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -2048,47 +1805,47 @@ public class JQuickLangParser extends Parser {
 
 	public final PrimaryContext primary() throws RecognitionException {
 		PrimaryContext _localctx = new PrimaryContext(_ctx, getState());
-		enterRule(_localctx, 52, RULE_primary);
+		enterRule(_localctx, 44, RULE_primary);
 		try {
-			setState(280);
+			setState(251);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,26,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(272);
+				setState(243);
 				literal();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(273);
+				setState(244);
 				match(IDENTIFIER);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(274);
+				setState(245);
 				functionCall();
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(275);
+				setState(246);
 				match(LPAREN);
-				setState(276);
+				setState(247);
 				expression();
-				setState(277);
+				setState(248);
 				match(RPAREN);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(279);
+				setState(250);
 				variableDecl();
 				}
 				break;
@@ -2133,23 +1890,23 @@ public class JQuickLangParser extends Parser {
 
 	public final VariableDeclContext variableDecl() throws RecognitionException {
 		VariableDeclContext _localctx = new VariableDeclContext(_ctx, getState());
-		enterRule(_localctx, 54, RULE_variableDecl);
+		enterRule(_localctx, 46, RULE_variableDecl);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(282);
+			setState(253);
 			match(T__8);
-			setState(283);
+			setState(254);
 			match(IDENTIFIER);
-			setState(286);
+			setState(257);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ASSIGN) {
 				{
-				setState(284);
+				setState(255);
 				match(ASSIGN);
-				setState(285);
+				setState(256);
 				expression();
 				}
 			}
@@ -2205,22 +1962,22 @@ public class JQuickLangParser extends Parser {
 
 	public final LiteralContext literal() throws RecognitionException {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
-		enterRule(_localctx, 56, RULE_literal);
+		enterRule(_localctx, 48, RULE_literal);
 		try {
-			setState(294);
+			setState(265);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case STRING:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(288);
+				setState(259);
 				string();
 				}
 				break;
 			case NUMBER:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(289);
+				setState(260);
 				number();
 				}
 				break;
@@ -2228,14 +1985,14 @@ public class JQuickLangParser extends Parser {
 			case DATE:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(290);
+				setState(261);
 				date();
 				}
 				break;
 			case DOLLAR:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(291);
+				setState(262);
 				variables();
 				}
 				break;
@@ -2243,14 +2000,14 @@ public class JQuickLangParser extends Parser {
 			case FALSE:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(292);
+				setState(263);
 				bool();
 				}
 				break;
 			case T__9:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(293);
+				setState(264);
 				match(T__9);
 				}
 				break;
@@ -2294,12 +2051,12 @@ public class JQuickLangParser extends Parser {
 
 	public final BoolContext bool() throws RecognitionException {
 		BoolContext _localctx = new BoolContext(_ctx, getState());
-		enterRule(_localctx, 58, RULE_bool);
+		enterRule(_localctx, 50, RULE_bool);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(296);
+			setState(267);
 			_la = _input.LA(1);
 			if ( !(_la==TRUE || _la==FALSE) ) {
 			_errHandler.recoverInline(this);
@@ -2346,11 +2103,11 @@ public class JQuickLangParser extends Parser {
 
 	public final NumberContext number() throws RecognitionException {
 		NumberContext _localctx = new NumberContext(_ctx, getState());
-		enterRule(_localctx, 60, RULE_number);
+		enterRule(_localctx, 52, RULE_number);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(298);
+			setState(269);
 			match(NUMBER);
 			}
 		}
@@ -2389,11 +2146,11 @@ public class JQuickLangParser extends Parser {
 
 	public final StringContext string() throws RecognitionException {
 		StringContext _localctx = new StringContext(_ctx, getState());
-		enterRule(_localctx, 62, RULE_string);
+		enterRule(_localctx, 54, RULE_string);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(300);
+			setState(271);
 			match(STRING);
 			}
 		}
@@ -2433,12 +2190,12 @@ public class JQuickLangParser extends Parser {
 
 	public final DateContext date() throws RecognitionException {
 		DateContext _localctx = new DateContext(_ctx, getState());
-		enterRule(_localctx, 64, RULE_date);
+		enterRule(_localctx, 56, RULE_date);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(302);
+			setState(273);
 			_la = _input.LA(1);
 			if ( !(_la==DATETIME || _la==DATE) ) {
 			_errHandler.recoverInline(this);
@@ -2488,17 +2245,17 @@ public class JQuickLangParser extends Parser {
 
 	public final VariablesContext variables() throws RecognitionException {
 		VariablesContext _localctx = new VariablesContext(_ctx, getState());
-		enterRule(_localctx, 66, RULE_variables);
+		enterRule(_localctx, 58, RULE_variables);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(304);
+			setState(275);
 			match(DOLLAR);
-			setState(305);
+			setState(276);
 			match(LBRACE);
-			setState(306);
+			setState(277);
 			match(IDENTIFIER);
-			setState(307);
+			setState(278);
 			match(RBRACE);
 			}
 		}
@@ -2513,8 +2270,51 @@ public class JQuickLangParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
+	public static class ImportVarContext extends ParserRuleContext {
+		public TerminalNode IDENTIFIER() { return getToken(JQuickLangParser.IDENTIFIER, 0); }
+		public ImportVarContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_importVar; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).enterImportVar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JQuickLangListener ) ((JQuickLangListener)listener).exitImportVar(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JQuickLangVisitor ) return ((JQuickLangVisitor<? extends T>)visitor).visitImportVar(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ImportVarContext importVar() throws RecognitionException {
+		ImportVarContext _localctx = new ImportVarContext(_ctx, getState());
+		enterRule(_localctx, 60, RULE_importVar);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(280);
+			match(IDENTIFIER);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static final String _serializedATN =
-		"\u0004\u0001;\u0136\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001;\u011b\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -2524,188 +2324,173 @@ public class JQuickLangParser extends Parser {
 		"\u0002\u0016\u0007\u0016\u0002\u0017\u0007\u0017\u0002\u0018\u0007\u0018"+
 		"\u0002\u0019\u0007\u0019\u0002\u001a\u0007\u001a\u0002\u001b\u0007\u001b"+
 		"\u0002\u001c\u0007\u001c\u0002\u001d\u0007\u001d\u0002\u001e\u0007\u001e"+
-		"\u0002\u001f\u0007\u001f\u0002 \u0007 \u0002!\u0007!\u0001\u0000\u0005"+
-		"\u0000F\b\u0000\n\u0000\f\u0000I\t\u0000\u0001\u0000\u0005\u0000L\b\u0000"+
-		"\n\u0000\f\u0000O\t\u0000\u0001\u0000\u0001\u0000\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0005\u0002"+
-		"Z\b\u0002\n\u0002\f\u0002]\t\u0002\u0001\u0003\u0004\u0003`\b\u0003\u000b"+
-		"\u0003\f\u0003a\u0001\u0004\u0001\u0004\u0003\u0004f\b\u0004\u0001\u0005"+
-		"\u0001\u0005\u0001\u0005\u0001\u0005\u0003\u0005l\b\u0005\u0001\u0005"+
-		"\u0001\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0005\u0006"+
-		"t\b\u0006\n\u0006\f\u0006w\t\u0006\u0001\u0007\u0001\u0007\u0001\u0007"+
-		"\u0001\u0007\u0001\b\u0001\b\u0001\b\u0003\b\u0080\b\b\u0001\b\u0001\b"+
-		"\u0001\t\u0001\t\u0001\t\u0005\t\u0087\b\t\n\t\f\t\u008a\t\t\u0001\n\u0001"+
-		"\n\u0001\n\u0005\n\u008f\b\n\n\n\f\n\u0092\t\n\u0001\n\u0001\n\u0001\u000b"+
-		"\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0003\u000b\u009b\b\u000b"+
-		"\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001"+
-		"\f\u0001\f\u0001\f\u0005\f\u00a8\b\f\n\f\f\f\u00ab\t\f\u0001\f\u0001\f"+
-		"\u0003\f\u00af\b\f\u0001\r\u0001\r\u0001\r\u0001\r\u0003\r\u00b5\b\r\u0001"+
-		"\r\u0001\r\u0003\r\u00b9\b\r\u0001\r\u0001\r\u0003\r\u00bd\b\r\u0001\r"+
-		"\u0001\r\u0001\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0001"+
-		"\u000e\u0001\u000e\u0001\u000f\u0001\u000f\u0003\u000f\u00ca\b\u000f\u0001"+
-		"\u000f\u0001\u000f\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0011\u0001"+
-		"\u0011\u0003\u0011\u00d3\b\u0011\u0001\u0012\u0001\u0012\u0001\u0012\u0001"+
-		"\u0012\u0001\u0013\u0001\u0013\u0001\u0013\u0005\u0013\u00dc\b\u0013\n"+
-		"\u0013\f\u0013\u00df\t\u0013\u0001\u0014\u0001\u0014\u0001\u0014\u0005"+
-		"\u0014\u00e4\b\u0014\n\u0014\f\u0014\u00e7\t\u0014\u0001\u0015\u0001\u0015"+
-		"\u0001\u0015\u0005\u0015\u00ec\b\u0015\n\u0015\f\u0015\u00ef\t\u0015\u0001"+
-		"\u0016\u0001\u0016\u0001\u0016\u0005\u0016\u00f4\b\u0016\n\u0016\f\u0016"+
-		"\u00f7\t\u0016\u0001\u0017\u0001\u0017\u0001\u0017\u0005\u0017\u00fc\b"+
-		"\u0017\n\u0017\f\u0017\u00ff\t\u0017\u0001\u0018\u0001\u0018\u0001\u0018"+
-		"\u0005\u0018\u0104\b\u0018\n\u0018\f\u0018\u0107\t\u0018\u0001\u0019\u0005"+
-		"\u0019\u010a\b\u0019\n\u0019\f\u0019\u010d\t\u0019\u0001\u0019\u0001\u0019"+
-		"\u0001\u001a\u0001\u001a\u0001\u001a\u0001\u001a\u0001\u001a\u0001\u001a"+
-		"\u0001\u001a\u0001\u001a\u0003\u001a\u0119\b\u001a\u0001\u001b\u0001\u001b"+
-		"\u0001\u001b\u0001\u001b\u0003\u001b\u011f\b\u001b\u0001\u001c\u0001\u001c"+
-		"\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0003\u001c\u0127\b\u001c"+
-		"\u0001\u001d\u0001\u001d\u0001\u001e\u0001\u001e\u0001\u001f\u0001\u001f"+
-		"\u0001 \u0001 \u0001!\u0001!\u0001!\u0001!\u0001!\u0001!\u0000\u0000\""+
-		"\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a"+
-		"\u001c\u001e \"$&(*,.02468:<>@B\u0000\u0007\u0001\u0000\u001d\u001e\u0001"+
-		"\u0000\u0019\u001c\u0001\u0000!\"\u0001\u0000#$\u0002\u0000\"\";;\u0001"+
-		"\u0000+,\u0001\u0000/0\u013b\u0000G\u0001\u0000\u0000\u0000\u0002R\u0001"+
-		"\u0000\u0000\u0000\u0004V\u0001\u0000\u0000\u0000\u0006_\u0001\u0000\u0000"+
-		"\u0000\be\u0001\u0000\u0000\u0000\ng\u0001\u0000\u0000\u0000\fp\u0001"+
-		"\u0000\u0000\u0000\u000ex\u0001\u0000\u0000\u0000\u0010|\u0001\u0000\u0000"+
-		"\u0000\u0012\u0083\u0001\u0000\u0000\u0000\u0014\u008b\u0001\u0000\u0000"+
-		"\u0000\u0016\u009a\u0001\u0000\u0000\u0000\u0018\u009c\u0001\u0000\u0000"+
-		"\u0000\u001a\u00b0\u0001\u0000\u0000\u0000\u001c\u00c1\u0001\u0000\u0000"+
-		"\u0000\u001e\u00c7\u0001\u0000\u0000\u0000 \u00cd\u0001\u0000\u0000\u0000"+
-		"\"\u00d2\u0001\u0000\u0000\u0000$\u00d4\u0001\u0000\u0000\u0000&\u00d8"+
-		"\u0001\u0000\u0000\u0000(\u00e0\u0001\u0000\u0000\u0000*\u00e8\u0001\u0000"+
-		"\u0000\u0000,\u00f0\u0001\u0000\u0000\u0000.\u00f8\u0001\u0000\u0000\u0000"+
-		"0\u0100\u0001\u0000\u0000\u00002\u010b\u0001\u0000\u0000\u00004\u0118"+
-		"\u0001\u0000\u0000\u00006\u011a\u0001\u0000\u0000\u00008\u0126\u0001\u0000"+
-		"\u0000\u0000:\u0128\u0001\u0000\u0000\u0000<\u012a\u0001\u0000\u0000\u0000"+
-		">\u012c\u0001\u0000\u0000\u0000@\u012e\u0001\u0000\u0000\u0000B\u0130"+
-		"\u0001\u0000\u0000\u0000DF\u0003\u0002\u0001\u0000ED\u0001\u0000\u0000"+
-		"\u0000FI\u0001\u0000\u0000\u0000GE\u0001\u0000\u0000\u0000GH\u0001\u0000"+
-		"\u0000\u0000HM\u0001\u0000\u0000\u0000IG\u0001\u0000\u0000\u0000JL\u0003"+
-		"\u0006\u0003\u0000KJ\u0001\u0000\u0000\u0000LO\u0001\u0000\u0000\u0000"+
-		"MK\u0001\u0000\u0000\u0000MN\u0001\u0000\u0000\u0000NP\u0001\u0000\u0000"+
-		"\u0000OM\u0001\u0000\u0000\u0000PQ\u0005\u0000\u0000\u0001Q\u0001\u0001"+
-		"\u0000\u0000\u0000RS\u0005\u000b\u0000\u0000ST\u0003\u0004\u0002\u0000"+
-		"TU\u0005\u000e\u0000\u0000U\u0003\u0001\u0000\u0000\u0000V[\u00055\u0000"+
-		"\u0000WX\u0005\u0001\u0000\u0000XZ\u00055\u0000\u0000YW\u0001\u0000\u0000"+
-		"\u0000Z]\u0001\u0000\u0000\u0000[Y\u0001\u0000\u0000\u0000[\\\u0001\u0000"+
-		"\u0000\u0000\\\u0005\u0001\u0000\u0000\u0000][\u0001\u0000\u0000\u0000"+
-		"^`\u0003\b\u0004\u0000_^\u0001\u0000\u0000\u0000`a\u0001\u0000\u0000\u0000"+
-		"a_\u0001\u0000\u0000\u0000ab\u0001\u0000\u0000\u0000b\u0007\u0001\u0000"+
-		"\u0000\u0000cf\u0003\u0010\b\u0000df\u0003\n\u0005\u0000ec\u0001\u0000"+
-		"\u0000\u0000ed\u0001\u0000\u0000\u0000f\t\u0001\u0000\u0000\u0000gh\u0005"+
-		"\u0002\u0000\u0000hi\u00055\u0000\u0000ik\u0005\u0015\u0000\u0000jl\u0003"+
-		"\f\u0006\u0000kj\u0001\u0000\u0000\u0000kl\u0001\u0000\u0000\u0000lm\u0001"+
-		"\u0000\u0000\u0000mn\u0005\u0016\u0000\u0000no\u0003\u0014\n\u0000o\u000b"+
-		"\u0001\u0000\u0000\u0000pu\u0003\u000e\u0007\u0000qr\u0005\u0003\u0000"+
-		"\u0000rt\u0003\u000e\u0007\u0000sq\u0001\u0000\u0000\u0000tw\u0001\u0000"+
-		"\u0000\u0000us\u0001\u0000\u0000\u0000uv\u0001\u0000\u0000\u0000v\r\u0001"+
-		"\u0000\u0000\u0000wu\u0001\u0000\u0000\u0000xy\u00055\u0000\u0000yz\u0005"+
-		"-\u0000\u0000z{\u00055\u0000\u0000{\u000f\u0001\u0000\u0000\u0000|}\u0005"+
-		"5\u0000\u0000}\u007f\u0005\u0015\u0000\u0000~\u0080\u0003\u0012\t\u0000"+
-		"\u007f~\u0001\u0000\u0000\u0000\u007f\u0080\u0001\u0000\u0000\u0000\u0080"+
-		"\u0081\u0001\u0000\u0000\u0000\u0081\u0082\u0005\u0016\u0000\u0000\u0082"+
-		"\u0011\u0001\u0000\u0000\u0000\u0083\u0088\u00038\u001c\u0000\u0084\u0085"+
-		"\u0005\u0003\u0000\u0000\u0085\u0087\u00038\u001c\u0000\u0086\u0084\u0001"+
-		"\u0000\u0000\u0000\u0087\u008a\u0001\u0000\u0000\u0000\u0088\u0086\u0001"+
-		"\u0000\u0000\u0000\u0088\u0089\u0001\u0000\u0000\u0000\u0089\u0013\u0001"+
-		"\u0000\u0000\u0000\u008a\u0088\u0001\u0000\u0000\u0000\u008b\u0090\u0005"+
-		"\u0017\u0000\u0000\u008c\u008f\u0003\u0006\u0003\u0000\u008d\u008f\u0003"+
-		"\u0016\u000b\u0000\u008e\u008c\u0001\u0000\u0000\u0000\u008e\u008d\u0001"+
-		"\u0000\u0000\u0000\u008f\u0092\u0001\u0000\u0000\u0000\u0090\u008e\u0001"+
-		"\u0000\u0000\u0000\u0090\u0091\u0001\u0000\u0000\u0000\u0091\u0093\u0001"+
-		"\u0000\u0000\u0000\u0092\u0090\u0001\u0000\u0000\u0000\u0093\u0094\u0005"+
-		"\u0018\u0000\u0000\u0094\u0015\u0001\u0000\u0000\u0000\u0095\u009b\u0003"+
-		"\u0018\f\u0000\u0096\u009b\u0003\u001a\r\u0000\u0097\u009b\u0003\u001c"+
-		"\u000e\u0000\u0098\u009b\u0003\u001e\u000f\u0000\u0099\u009b\u0003 \u0010"+
-		"\u0000\u009a\u0095\u0001\u0000\u0000\u0000\u009a\u0096\u0001\u0000\u0000"+
-		"\u0000\u009a\u0097\u0001\u0000\u0000\u0000\u009a\u0098\u0001\u0000\u0000"+
-		"\u0000\u009a\u0099\u0001\u0000\u0000\u0000\u009b\u0017\u0001\u0000\u0000"+
-		"\u0000\u009c\u009d\u0005\u0004\u0000\u0000\u009d\u009e\u0005\u0015\u0000"+
-		"\u0000\u009e\u009f\u0003\"\u0011\u0000\u009f\u00a0\u0005\u0016\u0000\u0000"+
-		"\u00a0\u00a9\u0003\u0014\n\u0000\u00a1\u00a2\u0005\u0005\u0000\u0000\u00a2"+
-		"\u00a3\u0005\u0015\u0000\u0000\u00a3\u00a4\u0003\"\u0011\u0000\u00a4\u00a5"+
-		"\u0005\u0016\u0000\u0000\u00a5\u00a6\u0003\u0014\n\u0000\u00a6\u00a8\u0001"+
-		"\u0000\u0000\u0000\u00a7\u00a1\u0001\u0000\u0000\u0000\u00a8\u00ab\u0001"+
-		"\u0000\u0000\u0000\u00a9\u00a7\u0001\u0000\u0000\u0000\u00a9\u00aa\u0001"+
-		"\u0000\u0000\u0000\u00aa\u00ae\u0001\u0000\u0000\u0000\u00ab\u00a9\u0001"+
-		"\u0000\u0000\u0000\u00ac\u00ad\u0005\u0006\u0000\u0000\u00ad\u00af\u0003"+
-		"\u0014\n\u0000\u00ae\u00ac\u0001\u0000\u0000\u0000\u00ae\u00af\u0001\u0000"+
-		"\u0000\u0000\u00af\u0019\u0001\u0000\u0000\u0000\u00b0\u00b1\u0005\u0007"+
-		"\u0000\u0000\u00b1\u00b4\u0005\u0015\u0000\u0000\u00b2\u00b5\u00036\u001b"+
-		"\u0000\u00b3\u00b5\u0003\"\u0011\u0000\u00b4\u00b2\u0001\u0000\u0000\u0000"+
-		"\u00b4\u00b3\u0001\u0000\u0000\u0000\u00b4\u00b5\u0001\u0000\u0000\u0000"+
-		"\u00b5\u00b6\u0001\u0000\u0000\u0000\u00b6\u00b8\u0005\u000e\u0000\u0000"+
-		"\u00b7\u00b9\u0003\"\u0011\u0000\u00b8\u00b7\u0001\u0000\u0000\u0000\u00b8"+
-		"\u00b9\u0001\u0000\u0000\u0000\u00b9\u00ba\u0001\u0000\u0000\u0000\u00ba"+
-		"\u00bc\u0005\u000e\u0000\u0000\u00bb\u00bd\u0003\"\u0011\u0000\u00bc\u00bb"+
-		"\u0001\u0000\u0000\u0000\u00bc\u00bd\u0001\u0000\u0000\u0000\u00bd\u00be"+
-		"\u0001\u0000\u0000\u0000\u00be\u00bf\u0005\u0016\u0000\u0000\u00bf\u00c0"+
-		"\u0003\u0014\n\u0000\u00c0\u001b\u0001\u0000\u0000\u0000\u00c1\u00c2\u0005"+
-		"\b\u0000\u0000\u00c2\u00c3\u0005\u0015\u0000\u0000\u00c3\u00c4\u0003\""+
-		"\u0011\u0000\u00c4\u00c5\u0005\u0016\u0000\u0000\u00c5\u00c6\u0003\u0014"+
-		"\n\u0000\u00c6\u001d\u0001\u0000\u0000\u0000\u00c7\u00c9\u0005\f\u0000"+
-		"\u0000\u00c8\u00ca\u0003\"\u0011\u0000\u00c9\u00c8\u0001\u0000\u0000\u0000"+
-		"\u00c9\u00ca\u0001\u0000\u0000\u0000\u00ca\u00cb\u0001\u0000\u0000\u0000"+
-		"\u00cb\u00cc\u0005\u000e\u0000\u0000\u00cc\u001f\u0001\u0000\u0000\u0000"+
-		"\u00cd\u00ce\u0003\"\u0011\u0000\u00ce\u00cf\u0005\u000e\u0000\u0000\u00cf"+
-		"!\u0001\u0000\u0000\u0000\u00d0\u00d3\u0003$\u0012\u0000\u00d1\u00d3\u0003"+
-		"&\u0013\u0000\u00d2\u00d0\u0001\u0000\u0000\u0000\u00d2\u00d1\u0001\u0000"+
-		"\u0000\u0000\u00d3#\u0001\u0000\u0000\u0000\u00d4\u00d5\u00055\u0000\u0000"+
-		"\u00d5\u00d6\u0005\r\u0000\u0000\u00d6\u00d7\u0003\"\u0011\u0000\u00d7"+
-		"%\u0001\u0000\u0000\u0000\u00d8\u00dd\u0003(\u0014\u0000\u00d9\u00da\u0005"+
-		" \u0000\u0000\u00da\u00dc\u0003(\u0014\u0000\u00db\u00d9\u0001\u0000\u0000"+
-		"\u0000\u00dc\u00df\u0001\u0000\u0000\u0000\u00dd\u00db\u0001\u0000\u0000"+
-		"\u0000\u00dd\u00de\u0001\u0000\u0000\u0000\u00de\'\u0001\u0000\u0000\u0000"+
-		"\u00df\u00dd\u0001\u0000\u0000\u0000\u00e0\u00e5\u0003*\u0015\u0000\u00e1"+
-		"\u00e2\u0005\u001f\u0000\u0000\u00e2\u00e4\u0003*\u0015\u0000\u00e3\u00e1"+
-		"\u0001\u0000\u0000\u0000\u00e4\u00e7\u0001\u0000\u0000\u0000\u00e5\u00e3"+
-		"\u0001\u0000\u0000\u0000\u00e5\u00e6\u0001\u0000\u0000\u0000\u00e6)\u0001"+
-		"\u0000\u0000\u0000\u00e7\u00e5\u0001\u0000\u0000\u0000\u00e8\u00ed\u0003"+
-		",\u0016\u0000\u00e9\u00ea\u0007\u0000\u0000\u0000\u00ea\u00ec\u0003,\u0016"+
-		"\u0000\u00eb\u00e9\u0001\u0000\u0000\u0000\u00ec\u00ef\u0001\u0000\u0000"+
-		"\u0000\u00ed\u00eb\u0001\u0000\u0000\u0000\u00ed\u00ee\u0001\u0000\u0000"+
-		"\u0000\u00ee+\u0001\u0000\u0000\u0000\u00ef\u00ed\u0001\u0000\u0000\u0000"+
-		"\u00f0\u00f5\u0003.\u0017\u0000\u00f1\u00f2\u0007\u0001\u0000\u0000\u00f2"+
-		"\u00f4\u0003.\u0017\u0000\u00f3\u00f1\u0001\u0000\u0000\u0000\u00f4\u00f7"+
-		"\u0001\u0000\u0000\u0000\u00f5\u00f3\u0001\u0000\u0000\u0000\u00f5\u00f6"+
-		"\u0001\u0000\u0000\u0000\u00f6-\u0001\u0000\u0000\u0000\u00f7\u00f5\u0001"+
-		"\u0000\u0000\u0000\u00f8\u00fd\u00030\u0018\u0000\u00f9\u00fa\u0007\u0002"+
-		"\u0000\u0000\u00fa\u00fc\u00030\u0018\u0000\u00fb\u00f9\u0001\u0000\u0000"+
-		"\u0000\u00fc\u00ff\u0001\u0000\u0000\u0000\u00fd\u00fb\u0001\u0000\u0000"+
-		"\u0000\u00fd\u00fe\u0001\u0000\u0000\u0000\u00fe/\u0001\u0000\u0000\u0000"+
-		"\u00ff\u00fd\u0001\u0000\u0000\u0000\u0100\u0105\u00032\u0019\u0000\u0101"+
-		"\u0102\u0007\u0003\u0000\u0000\u0102\u0104\u00032\u0019\u0000\u0103\u0101"+
-		"\u0001\u0000\u0000\u0000\u0104\u0107\u0001\u0000\u0000\u0000\u0105\u0103"+
-		"\u0001\u0000\u0000\u0000\u0105\u0106\u0001\u0000\u0000\u0000\u01061\u0001"+
-		"\u0000\u0000\u0000\u0107\u0105\u0001\u0000\u0000\u0000\u0108\u010a\u0007"+
-		"\u0004\u0000\u0000\u0109\u0108\u0001\u0000\u0000\u0000\u010a\u010d\u0001"+
-		"\u0000\u0000\u0000\u010b\u0109\u0001\u0000\u0000\u0000\u010b\u010c\u0001"+
-		"\u0000\u0000\u0000\u010c\u010e\u0001\u0000\u0000\u0000\u010d\u010b\u0001"+
-		"\u0000\u0000\u0000\u010e\u010f\u00034\u001a\u0000\u010f3\u0001\u0000\u0000"+
-		"\u0000\u0110\u0119\u00038\u001c\u0000\u0111\u0119\u00055\u0000\u0000\u0112"+
-		"\u0119\u0003\u0010\b\u0000\u0113\u0114\u0005\u0015\u0000\u0000\u0114\u0115"+
-		"\u0003\"\u0011\u0000\u0115\u0116\u0005\u0016\u0000\u0000\u0116\u0119\u0001"+
-		"\u0000\u0000\u0000\u0117\u0119\u00036\u001b\u0000\u0118\u0110\u0001\u0000"+
-		"\u0000\u0000\u0118\u0111\u0001\u0000\u0000\u0000\u0118\u0112\u0001\u0000"+
-		"\u0000\u0000\u0118\u0113\u0001\u0000\u0000\u0000\u0118\u0117\u0001\u0000"+
-		"\u0000\u0000\u01195\u0001\u0000\u0000\u0000\u011a\u011b\u0005\t\u0000"+
-		"\u0000\u011b\u011e\u00055\u0000\u0000\u011c\u011d\u0005\r\u0000\u0000"+
-		"\u011d\u011f\u0003\"\u0011\u0000\u011e\u011c\u0001\u0000\u0000\u0000\u011e"+
-		"\u011f\u0001\u0000\u0000\u0000\u011f7\u0001\u0000\u0000\u0000\u0120\u0127"+
-		"\u0003>\u001f\u0000\u0121\u0127\u0003<\u001e\u0000\u0122\u0127\u0003@"+
-		" \u0000\u0123\u0127\u0003B!\u0000\u0124\u0127\u0003:\u001d\u0000\u0125"+
-		"\u0127\u0005\n\u0000\u0000\u0126\u0120\u0001\u0000\u0000\u0000\u0126\u0121"+
-		"\u0001\u0000\u0000\u0000\u0126\u0122\u0001\u0000\u0000\u0000\u0126\u0123"+
-		"\u0001\u0000\u0000\u0000\u0126\u0124\u0001\u0000\u0000\u0000\u0126\u0125"+
-		"\u0001\u0000\u0000\u0000\u01279\u0001\u0000\u0000\u0000\u0128\u0129\u0007"+
-		"\u0005\u0000\u0000\u0129;\u0001\u0000\u0000\u0000\u012a\u012b\u0005.\u0000"+
-		"\u0000\u012b=\u0001\u0000\u0000\u0000\u012c\u012d\u00056\u0000\u0000\u012d"+
-		"?\u0001\u0000\u0000\u0000\u012e\u012f\u0007\u0006\u0000\u0000\u012fA\u0001"+
-		"\u0000\u0000\u0000\u0130\u0131\u0005\u0014\u0000\u0000\u0131\u0132\u0005"+
-		"\u0017\u0000\u0000\u0132\u0133\u00055\u0000\u0000\u0133\u0134\u0005\u0018"+
-		"\u0000\u0000\u0134C\u0001\u0000\u0000\u0000\u001dGM[aeku\u007f\u0088\u008e"+
-		"\u0090\u009a\u00a9\u00ae\u00b4\u00b8\u00bc\u00c9\u00d2\u00dd\u00e5\u00ed"+
-		"\u00f5\u00fd\u0105\u010b\u0118\u011e\u0126";
+		"\u0001\u0000\u0005\u0000@\b\u0000\n\u0000\f\u0000C\t\u0000\u0001\u0000"+
+		"\u0005\u0000F\b\u0000\n\u0000\f\u0000I\t\u0000\u0001\u0000\u0001\u0000"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0005\u0002V\b\u0002\n\u0002\f\u0002"+
+		"Y\t\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
+		"\u0003\u0003`\b\u0003\u0001\u0003\u0003\u0003c\b\u0003\u0001\u0004\u0001"+
+		"\u0004\u0003\u0004g\b\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0005"+
+		"\u0005l\b\u0005\n\u0005\f\u0005o\t\u0005\u0001\u0005\u0001\u0005\u0001"+
+		"\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0003\u0006x\b"+
+		"\u0006\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001"+
+		"\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0005"+
+		"\u0007\u0085\b\u0007\n\u0007\f\u0007\u0088\t\u0007\u0001\u0007\u0001\u0007"+
+		"\u0003\u0007\u008c\b\u0007\u0001\b\u0001\b\u0001\b\u0001\b\u0003\b\u0092"+
+		"\b\b\u0001\b\u0001\b\u0003\b\u0096\b\b\u0001\b\u0001\b\u0003\b\u009a\b"+
+		"\b\u0001\b\u0001\b\u0001\b\u0001\t\u0001\t\u0001\t\u0001\t\u0001\t\u0001"+
+		"\t\u0001\n\u0001\n\u0003\n\u00a7\b\n\u0001\n\u0001\n\u0001\u000b\u0001"+
+		"\u000b\u0001\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0003\f\u00b2\b\f\u0001"+
+		"\r\u0001\r\u0001\r\u0001\r\u0001\u000e\u0001\u000e\u0001\u000e\u0005\u000e"+
+		"\u00bb\b\u000e\n\u000e\f\u000e\u00be\t\u000e\u0001\u000f\u0001\u000f\u0001"+
+		"\u000f\u0005\u000f\u00c3\b\u000f\n\u000f\f\u000f\u00c6\t\u000f\u0001\u0010"+
+		"\u0001\u0010\u0001\u0010\u0005\u0010\u00cb\b\u0010\n\u0010\f\u0010\u00ce"+
+		"\t\u0010\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0003\u0011\u00d4"+
+		"\b\u0011\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0012\u0001\u0012\u0001"+
+		"\u0012\u0005\u0012\u00dc\b\u0012\n\u0012\f\u0012\u00df\t\u0012\u0001\u0013"+
+		"\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0014\u0001\u0014\u0001\u0014"+
+		"\u0003\u0014\u00e8\b\u0014\u0001\u0014\u0001\u0014\u0001\u0015\u0001\u0015"+
+		"\u0001\u0015\u0005\u0015\u00ef\b\u0015\n\u0015\f\u0015\u00f2\t\u0015\u0001"+
+		"\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001"+
+		"\u0016\u0001\u0016\u0003\u0016\u00fc\b\u0016\u0001\u0017\u0001\u0017\u0001"+
+		"\u0017\u0001\u0017\u0003\u0017\u0102\b\u0017\u0001\u0018\u0001\u0018\u0001"+
+		"\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0003\u0018\u010a\b\u0018\u0001"+
+		"\u0019\u0001\u0019\u0001\u001a\u0001\u001a\u0001\u001b\u0001\u001b\u0001"+
+		"\u001c\u0001\u001c\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0001"+
+		"\u001d\u0001\u001e\u0001\u001e\u0001\u001e\u0000\u0000\u001f\u0000\u0002"+
+		"\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e"+
+		" \"$&(*,.02468:<\u0000\u0005\u0001\u0000 !\u0001\u0000\u001a\u001f\u0001"+
+		"\u0000\"%\u0001\u0000,-\u0001\u000001\u0123\u0000A\u0001\u0000\u0000\u0000"+
+		"\u0002L\u0001\u0000\u0000\u0000\u0004R\u0001\u0000\u0000\u0000\u0006b"+
+		"\u0001\u0000\u0000\u0000\bf\u0001\u0000\u0000\u0000\nh\u0001\u0000\u0000"+
+		"\u0000\fw\u0001\u0000\u0000\u0000\u000ey\u0001\u0000\u0000\u0000\u0010"+
+		"\u008d\u0001\u0000\u0000\u0000\u0012\u009e\u0001\u0000\u0000\u0000\u0014"+
+		"\u00a4\u0001\u0000\u0000\u0000\u0016\u00aa\u0001\u0000\u0000\u0000\u0018"+
+		"\u00b1\u0001\u0000\u0000\u0000\u001a\u00b3\u0001\u0000\u0000\u0000\u001c"+
+		"\u00b7\u0001\u0000\u0000\u0000\u001e\u00bf\u0001\u0000\u0000\u0000 \u00c7"+
+		"\u0001\u0000\u0000\u0000\"\u00cf\u0001\u0000\u0000\u0000$\u00d8\u0001"+
+		"\u0000\u0000\u0000&\u00e0\u0001\u0000\u0000\u0000(\u00e4\u0001\u0000\u0000"+
+		"\u0000*\u00eb\u0001\u0000\u0000\u0000,\u00fb\u0001\u0000\u0000\u0000."+
+		"\u00fd\u0001\u0000\u0000\u00000\u0109\u0001\u0000\u0000\u00002\u010b\u0001"+
+		"\u0000\u0000\u00004\u010d\u0001\u0000\u0000\u00006\u010f\u0001\u0000\u0000"+
+		"\u00008\u0111\u0001\u0000\u0000\u0000:\u0113\u0001\u0000\u0000\u0000<"+
+		"\u0118\u0001\u0000\u0000\u0000>@\u0003\u0002\u0001\u0000?>\u0001\u0000"+
+		"\u0000\u0000@C\u0001\u0000\u0000\u0000A?\u0001\u0000\u0000\u0000AB\u0001"+
+		"\u0000\u0000\u0000BG\u0001\u0000\u0000\u0000CA\u0001\u0000\u0000\u0000"+
+		"DF\u0003\u0006\u0003\u0000ED\u0001\u0000\u0000\u0000FI\u0001\u0000\u0000"+
+		"\u0000GE\u0001\u0000\u0000\u0000GH\u0001\u0000\u0000\u0000HJ\u0001\u0000"+
+		"\u0000\u0000IG\u0001\u0000\u0000\u0000JK\u0005\u0000\u0000\u0001K\u0001"+
+		"\u0001\u0000\u0000\u0000LM\u0005\u000b\u0000\u0000MN\u0003\u0004\u0002"+
+		"\u0000NO\u0005\f\u0000\u0000OP\u0003<\u001e\u0000PQ\u0005\u000f\u0000"+
+		"\u0000Q\u0003\u0001\u0000\u0000\u0000RW\u00056\u0000\u0000ST\u0005\u0001"+
+		"\u0000\u0000TV\u00056\u0000\u0000US\u0001\u0000\u0000\u0000VY\u0001\u0000"+
+		"\u0000\u0000WU\u0001\u0000\u0000\u0000WX\u0001\u0000\u0000\u0000X\u0005"+
+		"\u0001\u0000\u0000\u0000YW\u0001\u0000\u0000\u0000Z[\u0003\u0018\f\u0000"+
+		"[\\\u0005\u000f\u0000\u0000\\c\u0001\u0000\u0000\u0000]_\u0003\b\u0004"+
+		"\u0000^`\u0005\u000f\u0000\u0000_^\u0001\u0000\u0000\u0000_`\u0001\u0000"+
+		"\u0000\u0000`c\u0001\u0000\u0000\u0000ac\u0003\f\u0006\u0000bZ\u0001\u0000"+
+		"\u0000\u0000b]\u0001\u0000\u0000\u0000ba\u0001\u0000\u0000\u0000c\u0007"+
+		"\u0001\u0000\u0000\u0000dg\u0003(\u0014\u0000eg\u0003\"\u0011\u0000fd"+
+		"\u0001\u0000\u0000\u0000fe\u0001\u0000\u0000\u0000g\t\u0001\u0000\u0000"+
+		"\u0000hm\u0005\u0018\u0000\u0000il\u0003\u0006\u0003\u0000jl\u0003\f\u0006"+
+		"\u0000ki\u0001\u0000\u0000\u0000kj\u0001\u0000\u0000\u0000lo\u0001\u0000"+
+		"\u0000\u0000mk\u0001\u0000\u0000\u0000mn\u0001\u0000\u0000\u0000np\u0001"+
+		"\u0000\u0000\u0000om\u0001\u0000\u0000\u0000pq\u0005\u0019\u0000\u0000"+
+		"q\u000b\u0001\u0000\u0000\u0000rx\u0003\u000e\u0007\u0000sx\u0003\u0010"+
+		"\b\u0000tx\u0003\u0012\t\u0000ux\u0003\u0014\n\u0000vx\u0003\u0016\u000b"+
+		"\u0000wr\u0001\u0000\u0000\u0000ws\u0001\u0000\u0000\u0000wt\u0001\u0000"+
+		"\u0000\u0000wu\u0001\u0000\u0000\u0000wv\u0001\u0000\u0000\u0000x\r\u0001"+
+		"\u0000\u0000\u0000yz\u0005\u0002\u0000\u0000z{\u0005\u0016\u0000\u0000"+
+		"{|\u0003\u0018\f\u0000|}\u0005\u0017\u0000\u0000}\u0086\u0003\n\u0005"+
+		"\u0000~\u007f\u0005\u0003\u0000\u0000\u007f\u0080\u0005\u0016\u0000\u0000"+
+		"\u0080\u0081\u0003\u0018\f\u0000\u0081\u0082\u0005\u0017\u0000\u0000\u0082"+
+		"\u0083\u0003\n\u0005\u0000\u0083\u0085\u0001\u0000\u0000\u0000\u0084~"+
+		"\u0001\u0000\u0000\u0000\u0085\u0088\u0001\u0000\u0000\u0000\u0086\u0084"+
+		"\u0001\u0000\u0000\u0000\u0086\u0087\u0001\u0000\u0000\u0000\u0087\u008b"+
+		"\u0001\u0000\u0000\u0000\u0088\u0086\u0001\u0000\u0000\u0000\u0089\u008a"+
+		"\u0005\u0004\u0000\u0000\u008a\u008c\u0003\n\u0005\u0000\u008b\u0089\u0001"+
+		"\u0000\u0000\u0000\u008b\u008c\u0001\u0000\u0000\u0000\u008c\u000f\u0001"+
+		"\u0000\u0000\u0000\u008d\u008e\u0005\u0005\u0000\u0000\u008e\u0091\u0005"+
+		"\u0016\u0000\u0000\u008f\u0092\u0003.\u0017\u0000\u0090\u0092\u0003\u0018"+
+		"\f\u0000\u0091\u008f\u0001\u0000\u0000\u0000\u0091\u0090\u0001\u0000\u0000"+
+		"\u0000\u0091\u0092\u0001\u0000\u0000\u0000\u0092\u0093\u0001\u0000\u0000"+
+		"\u0000\u0093\u0095\u0005\u000f\u0000\u0000\u0094\u0096\u0003\u0018\f\u0000"+
+		"\u0095\u0094\u0001\u0000\u0000\u0000\u0095\u0096\u0001\u0000\u0000\u0000"+
+		"\u0096\u0097\u0001\u0000\u0000\u0000\u0097\u0099\u0005\u000f\u0000\u0000"+
+		"\u0098\u009a\u0003\u0018\f\u0000\u0099\u0098\u0001\u0000\u0000\u0000\u0099"+
+		"\u009a\u0001\u0000\u0000\u0000\u009a\u009b\u0001\u0000\u0000\u0000\u009b"+
+		"\u009c\u0005\u0017\u0000\u0000\u009c\u009d\u0003\n\u0005\u0000\u009d\u0011"+
+		"\u0001\u0000\u0000\u0000\u009e\u009f\u0005\u0006\u0000\u0000\u009f\u00a0"+
+		"\u0005\u0016\u0000\u0000\u00a0\u00a1\u0003\u0018\f\u0000\u00a1\u00a2\u0005"+
+		"\u0017\u0000\u0000\u00a2\u00a3\u0003\n\u0005\u0000\u00a3\u0013\u0001\u0000"+
+		"\u0000\u0000\u00a4\u00a6\u0005\r\u0000\u0000\u00a5\u00a7\u0003\u0018\f"+
+		"\u0000\u00a6\u00a5\u0001\u0000\u0000\u0000\u00a6\u00a7\u0001\u0000\u0000"+
+		"\u0000\u00a7\u00a8\u0001\u0000\u0000\u0000\u00a8\u00a9\u0005\u000f\u0000"+
+		"\u0000\u00a9\u0015\u0001\u0000\u0000\u0000\u00aa\u00ab\u0003\u0018\f\u0000"+
+		"\u00ab\u00ac\u0005\u000f\u0000\u0000\u00ac\u0017\u0001\u0000\u0000\u0000"+
+		"\u00ad\u00b2\u0003\u001a\r\u0000\u00ae\u00b2\u0003 \u0010\u0000\u00af"+
+		"\u00b2\u0003\u001c\u000e\u0000\u00b0\u00b2\u0003,\u0016\u0000\u00b1\u00ad"+
+		"\u0001\u0000\u0000\u0000\u00b1\u00ae\u0001\u0000\u0000\u0000\u00b1\u00af"+
+		"\u0001\u0000\u0000\u0000\u00b1\u00b0\u0001\u0000\u0000\u0000\u00b2\u0019"+
+		"\u0001\u0000\u0000\u0000\u00b3\u00b4\u00056\u0000\u0000\u00b4\u00b5\u0005"+
+		"\u000e\u0000\u0000\u00b5\u00b6\u0003\u0018\f\u0000\u00b6\u001b\u0001\u0000"+
+		"\u0000\u0000\u00b7\u00bc\u0003\u001e\u000f\u0000\u00b8\u00b9\u0007\u0000"+
+		"\u0000\u0000\u00b9\u00bb\u0003\u001e\u000f\u0000\u00ba\u00b8\u0001\u0000"+
+		"\u0000\u0000\u00bb\u00be\u0001\u0000\u0000\u0000\u00bc\u00ba\u0001\u0000"+
+		"\u0000\u0000\u00bc\u00bd\u0001\u0000\u0000\u0000\u00bd\u001d\u0001\u0000"+
+		"\u0000\u0000\u00be\u00bc\u0001\u0000\u0000\u0000\u00bf\u00c4\u0003,\u0016"+
+		"\u0000\u00c0\u00c1\u0007\u0001\u0000\u0000\u00c1\u00c3\u0003,\u0016\u0000"+
+		"\u00c2\u00c0\u0001\u0000\u0000\u0000\u00c3\u00c6\u0001\u0000\u0000\u0000"+
+		"\u00c4\u00c2\u0001\u0000\u0000\u0000\u00c4\u00c5\u0001\u0000\u0000\u0000"+
+		"\u00c5\u001f\u0001\u0000\u0000\u0000\u00c6\u00c4\u0001\u0000\u0000\u0000"+
+		"\u00c7\u00cc\u0003,\u0016\u0000\u00c8\u00c9\u0007\u0002\u0000\u0000\u00c9"+
+		"\u00cb\u0003,\u0016\u0000\u00ca\u00c8\u0001\u0000\u0000\u0000\u00cb\u00ce"+
+		"\u0001\u0000\u0000\u0000\u00cc\u00ca\u0001\u0000\u0000\u0000\u00cc\u00cd"+
+		"\u0001\u0000\u0000\u0000\u00cd!\u0001\u0000\u0000\u0000\u00ce\u00cc\u0001"+
+		"\u0000\u0000\u0000\u00cf\u00d0\u0005\u0007\u0000\u0000\u00d0\u00d1\u0005"+
+		"6\u0000\u0000\u00d1\u00d3\u0005\u0016\u0000\u0000\u00d2\u00d4\u0003$\u0012"+
+		"\u0000\u00d3\u00d2\u0001\u0000\u0000\u0000\u00d3\u00d4\u0001\u0000\u0000"+
+		"\u0000\u00d4\u00d5\u0001\u0000\u0000\u0000\u00d5\u00d6\u0005\u0017\u0000"+
+		"\u0000\u00d6\u00d7\u0003\n\u0005\u0000\u00d7#\u0001\u0000\u0000\u0000"+
+		"\u00d8\u00dd\u0003&\u0013\u0000\u00d9\u00da\u0005\b\u0000\u0000\u00da"+
+		"\u00dc\u0003&\u0013\u0000\u00db\u00d9\u0001\u0000\u0000\u0000\u00dc\u00df"+
+		"\u0001\u0000\u0000\u0000\u00dd\u00db\u0001\u0000\u0000\u0000\u00dd\u00de"+
+		"\u0001\u0000\u0000\u0000\u00de%\u0001\u0000\u0000\u0000\u00df\u00dd\u0001"+
+		"\u0000\u0000\u0000\u00e0\u00e1\u00056\u0000\u0000\u00e1\u00e2\u0005.\u0000"+
+		"\u0000\u00e2\u00e3\u00056\u0000\u0000\u00e3\'\u0001\u0000\u0000\u0000"+
+		"\u00e4\u00e5\u00056\u0000\u0000\u00e5\u00e7\u0005\u0016\u0000\u0000\u00e6"+
+		"\u00e8\u0003*\u0015\u0000\u00e7\u00e6\u0001\u0000\u0000\u0000\u00e7\u00e8"+
+		"\u0001\u0000\u0000\u0000\u00e8\u00e9\u0001\u0000\u0000\u0000\u00e9\u00ea"+
+		"\u0005\u0017\u0000\u0000\u00ea)\u0001\u0000\u0000\u0000\u00eb\u00f0\u0003"+
+		"0\u0018\u0000\u00ec\u00ed\u0005\b\u0000\u0000\u00ed\u00ef\u00030\u0018"+
+		"\u0000\u00ee\u00ec\u0001\u0000\u0000\u0000\u00ef\u00f2\u0001\u0000\u0000"+
+		"\u0000\u00f0\u00ee\u0001\u0000\u0000\u0000\u00f0\u00f1\u0001\u0000\u0000"+
+		"\u0000\u00f1+\u0001\u0000\u0000\u0000\u00f2\u00f0\u0001\u0000\u0000\u0000"+
+		"\u00f3\u00fc\u00030\u0018\u0000\u00f4\u00fc\u00056\u0000\u0000\u00f5\u00fc"+
+		"\u0003(\u0014\u0000\u00f6\u00f7\u0005\u0016\u0000\u0000\u00f7\u00f8\u0003"+
+		"\u0018\f\u0000\u00f8\u00f9\u0005\u0017\u0000\u0000\u00f9\u00fc\u0001\u0000"+
+		"\u0000\u0000\u00fa\u00fc\u0003.\u0017\u0000\u00fb\u00f3\u0001\u0000\u0000"+
+		"\u0000\u00fb\u00f4\u0001\u0000\u0000\u0000\u00fb\u00f5\u0001\u0000\u0000"+
+		"\u0000\u00fb\u00f6\u0001\u0000\u0000\u0000\u00fb\u00fa\u0001\u0000\u0000"+
+		"\u0000\u00fc-\u0001\u0000\u0000\u0000\u00fd\u00fe\u0005\t\u0000\u0000"+
+		"\u00fe\u0101\u00056\u0000\u0000\u00ff\u0100\u0005\u000e\u0000\u0000\u0100"+
+		"\u0102\u0003\u0018\f\u0000\u0101\u00ff\u0001\u0000\u0000\u0000\u0101\u0102"+
+		"\u0001\u0000\u0000\u0000\u0102/\u0001\u0000\u0000\u0000\u0103\u010a\u0003"+
+		"6\u001b\u0000\u0104\u010a\u00034\u001a\u0000\u0105\u010a\u00038\u001c"+
+		"\u0000\u0106\u010a\u0003:\u001d\u0000\u0107\u010a\u00032\u0019\u0000\u0108"+
+		"\u010a\u0005\n\u0000\u0000\u0109\u0103\u0001\u0000\u0000\u0000\u0109\u0104"+
+		"\u0001\u0000\u0000\u0000\u0109\u0105\u0001\u0000\u0000\u0000\u0109\u0106"+
+		"\u0001\u0000\u0000\u0000\u0109\u0107\u0001\u0000\u0000\u0000\u0109\u0108"+
+		"\u0001\u0000\u0000\u0000\u010a1\u0001\u0000\u0000\u0000\u010b\u010c\u0007"+
+		"\u0003\u0000\u0000\u010c3\u0001\u0000\u0000\u0000\u010d\u010e\u0005/\u0000"+
+		"\u0000\u010e5\u0001\u0000\u0000\u0000\u010f\u0110\u00057\u0000\u0000\u0110"+
+		"7\u0001\u0000\u0000\u0000\u0111\u0112\u0007\u0004\u0000\u0000\u01129\u0001"+
+		"\u0000\u0000\u0000\u0113\u0114\u0005\u0015\u0000\u0000\u0114\u0115\u0005"+
+		"\u0018\u0000\u0000\u0115\u0116\u00056\u0000\u0000\u0116\u0117\u0005\u0019"+
+		"\u0000\u0000\u0117;\u0001\u0000\u0000\u0000\u0118\u0119\u00056\u0000\u0000"+
+		"\u0119=\u0001\u0000\u0000\u0000\u001aAGW_bfkmw\u0086\u008b\u0091\u0095"+
+		"\u0099\u00a6\u00b1\u00bc\u00c4\u00cc\u00d3\u00dd\u00e7\u00f0\u00fb\u0101"+
+		"\u0109";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

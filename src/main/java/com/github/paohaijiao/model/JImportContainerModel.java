@@ -27,40 +27,36 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @since 2025/7/22
  */
-public class JImportContainerModel extends HashMap<String, String> {
+public class JImportContainerModel extends HashMap<String, JImportModel> {
 
-    public String addImport(String fullPath) {
+    public JImportModel addImport(String identify,String fullPath) {
         String className = extractClassName(fullPath);
-        this.put(fullPath, className);
-        return className;
+        JImportModel model = new JImportModel();
+        model.setFullPath(fullPath);
+        model.setClassName(className);
+        try {
+            Class<?> clazz = Class.forName(fullPath);
+            model.setClazz(clazz);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.put(identify, model);
+        return model;
+    }
+    public boolean existsIdentify(String identify) {
+        return this.containsKey(identify);
     }
 
-    public String addImportWithAlias(String fullPath, String alias) {
-        this.put(fullPath, alias);
-        return alias;
-    }
-    public void addAllImports(Set<String> imports) {
-        imports.forEach(this::addImport);
-    }
-    public boolean hasImport(String fullPath) {
-        return this.containsKey(fullPath);
-    }
-    public String getClassName(String fullPath) {
-        return this.get(fullPath);
+    public JImportModel getClassName(String identify) {
+        return this.get(identify);
     }
 
     private String extractClassName(String fullPath) {
         int lastDot = fullPath.lastIndexOf('.');
         return lastDot >= 0 ? fullPath.substring(lastDot + 1) : fullPath;
     }
-    public Set<String> generateImportStatements() {
+    public Set<String> getIdentify() {
         return this.keySet();
     }
 
-    public Set<String> findFullPaths(String shortName) {
-        return this.entrySet().stream()
-                .filter(entry -> entry.getValue().equals(shortName))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toSet());
-    }
 }

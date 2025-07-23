@@ -2,7 +2,7 @@ package com.github.paohaijiao.executor;
 
 import com.github.paohaijiao.antlr.impl.JAbstractAntlrExecutor;
 import com.github.paohaijiao.exception.JAntlrExecutionException;
-import com.github.paohaijiao.common.JQuickLangCommonVisitor;
+import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import org.antlr.v4.runtime.CharStream;
