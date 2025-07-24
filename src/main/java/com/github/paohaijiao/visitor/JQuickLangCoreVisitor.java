@@ -13,7 +13,6 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
 
     protected JImportContainerModel importContainer=new JImportContainerModel();
 
-    protected JVariableContainerModel variableContainer=new JVariableContainerModel();
 
     JFunctionRegistry registry= JFunctionRegistry.getInstance();
 
@@ -26,9 +25,6 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
         throw new RuntimeException("cannot convert value to boolean: " + value);
     }
 
-    public JVariableContainerModel getVariableContainer() {
-        return variableContainer;
-    }
 
     public JFunctionRegistry getRegistry() {
         return registry;
@@ -45,9 +41,6 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
     }
     public void setImportContainer(JImportContainerModel importContainer) {
         this.importContainer = importContainer;
-    }
-    public void setVariableContainer(JVariableContainerModel variableContainer) {
-        this.variableContainer = variableContainer;
     }
 
 
