@@ -33,9 +33,7 @@ public class JQuickLangStatementVisitor extends JQuickLangIfStatementVisitor{
     }
     @Override
     public Object visitRule(JQuickLangParser.RuleContext ctx) {
-        if (ctx.functionCall() != null) {
-            return visit(ctx.functionCall());
-        } else if (ctx.functionDefinition() != null) {
+         if (ctx.functionDefinition() != null) {
             return visit(ctx.functionDefinition());
         }
         throw new RuntimeException("Unknown rule type");

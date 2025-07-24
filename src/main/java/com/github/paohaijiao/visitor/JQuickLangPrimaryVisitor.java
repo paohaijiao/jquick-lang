@@ -14,8 +14,6 @@ public class JQuickLangPrimaryVisitor extends JQuickLangAssignVisitor {
             String identifier=ctx.IDENTIFIER().getText();
             JAssert.isTrue(super.variableContainer.exists(identifier),"variable "+identifier+" not found");;
             return super.variableContainer.get(identifier);
-        } else if (ctx.functionCall()!=null) {
-            return null;
         }else if (ctx.expression()!=null) {
             return visitExpression(ctx.expression());
         } else if (ctx.variableDecl()!=null) {

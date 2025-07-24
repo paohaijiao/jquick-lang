@@ -25,9 +25,6 @@ public class JFunctionDefinitionModel {
     public List<String> getParameterNames() {
         return fields.stream().map(JFunctionFieldModel::getFieldName).collect(Collectors.toList());
     }
-    public List<Class<?>> getParameterTypes() {
-        return fields.stream().map(JFunctionFieldModel::getClazz).collect(Collectors.toList());
-    }
     public String getAction() {
         return action;
     }

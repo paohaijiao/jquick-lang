@@ -6,6 +6,7 @@ import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.executor.JQuickLangActionExecutor;
 import com.github.paohaijiao.model.*;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.support.JObjectFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,16 +61,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
 
     }
 
-    @Override
-    public Object visitFunctionCall(JQuickLangParser.FunctionCallContext ctx) {
-        JAssert.notNull(ctx.IDENTIFIER(), "functionName must not be null");
-        String functionName = ctx.IDENTIFIER().getText();
-        List<Object> paramList=visitArgumentList(ctx.argumentList());
-        JFunctionDefinitionModel def = registry.lookupFunction(functionName, paramList);
-        JVariableContainerModel variableContainerModel=invoke(functionName,paramList);
-        JQuickLangActionExecutor executor=new JQuickLangActionExecutor(this.context,variableContainerModel);
-        return executor.execute(def.getAction());
-    }
+
 
     @Override
     public List<Object> visitArgumentList(JQuickLangParser.ArgumentListContext ctx) {
@@ -82,6 +74,52 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
           }
           return list;
     }
+    @Override
+    public Object visitStandardCall(JQuickLangParser.StandardCallContext ctx) {
+        try {
+            String qualifiedName = ctx.qualifiedName() != null ? ctx.qualifiedName().getText() : null;
+            String methodName = ctx.IDENTIFIER().getText();
+            List<Object> args = visitArgumentList(ctx.argumentList());
+            if (qualifiedName != null) {
+                return  JObjectFactory.createByStaticMethod(qualifiedName, methodName, args);
+            }
+            else {
+                Object target = resolveVariable(ctx.IDENTIFIER().getText());
+                return  JObjectFactory.createByInstanceMethod(target, methodName, args);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Method invocation failed: " + ctx.getText(), e);
+        }
+    }
+    @Override
+    public Object visitConstructorCall(JQuickLangParser.ConstructorCallContext ctx) {
+        try {
+            String className = ctx.qualifiedName().getText();
+            List<Object> args = visitArgumentList(ctx.argumentList());
+            return JObjectFactory.createByConstructor(className, args);
+        } catch (Exception e) {
+            throw new RuntimeException("Constructor invocation failed: " + ctx.getText(), e);
+        }
+    }
+    @Override
+    public Object visitInstanceMethodCall(JQuickLangParser.InstanceMethodCallContext ctx) {
+        try {
+            Object target;
+            if (ctx.instanceName() != null) {
+                target = resolveVariable(ctx.instanceName().getText());
+            } else {
+                target = visit(ctx.variableDecl());
+            }
+            String methodName = ctx.IDENTIFIER().getText();
+            List<Object> args = visitArgumentList(ctx.argumentList());
+            return  JObjectFactory.createByInstanceMethod(target, methodName, args);
+        } catch (Exception e) {
+            throw new RuntimeException("Instance method invocation failed: " + ctx.getText(), e);
+        }
+    }
 
+    private Object  resolveVariable(String var){
+            return this.variableContainer.get(var);
+    }
 
 }

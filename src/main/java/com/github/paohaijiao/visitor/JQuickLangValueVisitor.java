@@ -65,15 +65,58 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
             return visitBool(ctx.bool());
         }else  if(null!=ctx.string()){
             return visitString(ctx.string());
-        }else  if(null!=ctx.number()){
-            return visitNumber(ctx.number());
         }else  if(null!=ctx.date()){
             return visitDate(ctx.date());
         }else  if(null!=ctx.variables()){
             return visitVariables(ctx.variables());
-         }else {
+         }else  if(null!=ctx.short_()){
+            return visitShort(ctx.short_());
+        }else  if(null!=ctx.int_()){
+            return visitInt(ctx.int_());
+        }else  if(null!=ctx.float_()){
+            return visitFloat(ctx.float_());
+        }else  if(null!=ctx.double_()){
+            return visitDouble(ctx.double_());
+        }else  if(null!=ctx.double_()){
+            return visitLong(ctx.long_());
+        }
+        else {
             return null;
         }
+    }
+    @Override
+    public Short visitShort(JQuickLangParser.ShortContext ctx) {
+        String text = ctx.getText();
+        short value = Short.parseShort(text.substring(0, text.length() - 1));
+        return Short.valueOf(value);
+    }
+
+    @Override
+    public Integer visitInt(JQuickLangParser.IntContext ctx) {
+        String text = ctx.getText();
+        int value = Integer.parseInt(text);
+        return  Integer.valueOf(value);
+    }
+
+    @Override
+    public Float visitFloat(JQuickLangParser.FloatContext ctx) {
+        String text = ctx.getText();
+        float value = Float.parseFloat(text.substring(0, text.length() - 1));
+        return  Float.valueOf(value);
+    }
+
+    @Override
+    public Double visitDouble(JQuickLangParser.DoubleContext ctx) {
+        String text = ctx.getText();
+        double value = Double.parseDouble(text.substring(0, text.length() - (text.endsWith("d") ? 1 : 0)));
+        return  Double.valueOf(value);
+    }
+
+    @Override
+    public Long visitLong(JQuickLangParser.LongContext ctx) {
+        String text = ctx.getText();
+        long value = Long.parseLong(text.substring(0, text.length() - 1));
+        return  Long.valueOf(value);
     }
 
 }
