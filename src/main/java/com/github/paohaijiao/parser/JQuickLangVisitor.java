@@ -89,12 +89,6 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression(JQuickLangParser.ExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#assignment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignment(JQuickLangParser.AssignmentContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#logical}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -169,6 +163,12 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArgumentList(JQuickLangParser.ArgumentListContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#varArgumentList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarArgumentList(JQuickLangParser.VarArgumentListContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#variableDecl}.
 	 * @param ctx the parse tree

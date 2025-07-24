@@ -104,11 +104,9 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     @Override
     public Object visitInstanceMethodCall(JQuickLangParser.InstanceMethodCallContext ctx) {
         try {
-            Object target;
+            Object target=null;
             if (ctx.instanceName() != null) {
                 target = resolveVariable(ctx.instanceName().getText());
-            } else {
-                target = visit(ctx.variableDecl());
             }
             String methodName = ctx.IDENTIFIER().getText();
             List<Object> args = visitArgumentList(ctx.argumentList());

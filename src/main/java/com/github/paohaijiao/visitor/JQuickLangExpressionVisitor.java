@@ -14,9 +14,6 @@ public class JQuickLangExpressionVisitor extends JQuickLangBoolVisitor {
     }
     @Override
     public Object visitExpression(JQuickLangParser.ExpressionContext ctx) {
-        if(ctx.assignment() != null) {
-            return visitAssignment(ctx.assignment());
-        }
         if(ctx.logical()!=null) {
             return visitLogical(ctx.logical());
         }
