@@ -9,27 +9,34 @@ import java.math.BigDecimal;
 
 public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
 
-//    @Override
-//    public Object visitMultiplication(JQuickLangParser.MultiplicationContext ctx) {
-//        Object result = visit(ctx.primary(0));
-//        for (int i = 1; i < ctx.primary().size(); i++) {
-//            String operator = ctx.getChild(2 * i - 1).getText();
-//            JMathOp op = JMathOp.valueOf(operator);
-//            JAssert.notNull(op, "Unsupported operator: " + operator);
-//            Object right = visit(ctx.primary(i));
-//            switch (operator) {
-//                case "*":
-//                    result = multiply(result, right);
-//                    break;
-//                case "/":
-//                    result = divide(result, right);
-//                    break;
-//                default:
-//                    throw new RuntimeException("Unknown operator: " + operator);
-//            }
-//        }
-//        return result;
-//    }
+    @Override
+    public Object visitArithmetic(JQuickLangParser.ArithmeticContext ctx) {
+        Object result = visit(ctx.primary(0));
+        for (int i = 1; i < ctx.primary().size(); i++) {
+            String operator = ctx.getChild(2 * i - 1).getText();
+            JMathOp op = JMathOp.codeOf(operator);
+            JAssert.notNull(op, "Unsupported operator: " + operator);
+            Object right = visit(ctx.primary(i));
+            switch (operator) {
+                case "*":
+                    result = multiply(result, right);
+                    break;
+                case "/":
+                    result = divide(result, right);
+                    break;
+                case "+":
+                    result = add(result, right);
+                    break;
+                case "-":
+                    result = subtract(result, right);
+                    break;
+                default:
+                    throw new RuntimeException("Unknown operator: " + operator);
+            }
+        }
+        return result;
+    }
+
     private Object multiply(Object left, Object right) {
         if (left instanceof Number && right instanceof Number) {
             BigDecimal leftBigDecimal  = new BigDecimal(left.toString());
@@ -48,29 +55,6 @@ public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
         JAssert.throwNewException("division of non-numeric types");
         return null;
     }
-//
-//    @Override
-//    public Object visitAddition(JQuickLangParser.AdditionContext ctx) {
-//        Object result = visit(ctx.multiplication(0));
-//        for (int i = 1; i < ctx.multiplication().size(); i++) {
-//            String operator = ctx.getChild(2 * i - 1).getText();
-//            JMathOp op = JMathOp.valueOf(operator);
-//            JAssert.notNull(op, "Unsupported operator: " + operator);
-//            Object right = visit(ctx.multiplication(i));
-//            switch (operator) {
-//                case "+":
-//                    result = add(result, right);
-//                    break;
-//                case "-":
-//                    result = subtract(result, right);
-//                    break;
-//                default:
-//                    throw new RuntimeException("Unknown operator: " + operator);
-//            }
-//        }
-//
-//        return result;
-//    }
 
 
     private Object add(Object left, Object right) {

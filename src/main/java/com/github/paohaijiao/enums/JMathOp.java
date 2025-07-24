@@ -26,7 +26,7 @@ public enum JMathOp {
         this.code = code;
         this.value = value;
     }
-    public JMathOp codeOf(String code) {
+    public static JMathOp codeOf(String code) {
         for (JMathOp op : JMathOp.values()) {
             if (op.code.equals(code)) {
                 return op;

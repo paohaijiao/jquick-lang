@@ -16,14 +16,16 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
 
     protected JContext context;
 
+    protected JVariableContainerModel variableContainer=new JVariableContainerModel();
+
 
     public JQuickLangActionExecutor(JContext context,JVariableContainerModel jVariableContainerModel){
-        JContext jContext=this.context;
+        JContext jContext=new JContext();
         for (String key:context.keySet()){
             jContext.addConstant(key,context.get(key));
         }
         for (String key:jVariableContainerModel.keySet()){
-            jContext.addConstant(key,jVariableContainerModel.get(key));
+            variableContainer.put(key,jVariableContainerModel.get(key));
         }
         this.context=jContext;
 
@@ -43,6 +45,7 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
         JQuickLangParser calcParser = (JQuickLangParser) parser;
         JQuickLangParser.ActionContext tree = calcParser.action();
         JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context);
+        visitor.setVariableContainer(variableContainer);
         return visitor.visit(tree);
     }
 }

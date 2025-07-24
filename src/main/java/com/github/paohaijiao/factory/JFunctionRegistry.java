@@ -1,13 +1,15 @@
 package com.github.paohaijiao.factory;
 import com.github.paohaijiao.enums.JLiteralEnums;
+import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
 import com.github.paohaijiao.model.JFunctionFieldModel;
-import com.github.paohaijiao.support.JFunctionInvoker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 public class JFunctionRegistry {
     private static final JFunctionRegistry INSTANCE = new JFunctionRegistry();
 
@@ -24,8 +26,9 @@ public class JFunctionRegistry {
     }
 
     public void registerFunction(JFunctionDefinitionModel function) {
-        functionTable.computeIfAbsent(function.getName(), k -> new ArrayList<>())
-                .add(function);
+        List<String> list=function.getFields().stream().map(JFunctionFieldModel::getFieldName).distinct().collect(Collectors.toList());
+        JAssert.isTrue(function.getFields().size() == list.size(),"function params must have the different names");
+        functionTable.computeIfAbsent(function.getName(), k -> new ArrayList<>()).add(function);
     }
 
     public JFunctionDefinitionModel lookupFunction(String name,  List<Object> arguments) {

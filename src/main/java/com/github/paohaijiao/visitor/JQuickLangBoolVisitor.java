@@ -22,7 +22,7 @@ public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
         }
         for (int i = 1; i < ctx.primary().size(); i++) {
             String operator = ctx.getChild(2 * i - 1).getText();
-            JMathOp op = JMathOp.valueOf(operator);
+            JMathOp op = JMathOp.codeOf(operator);
             JAssert.notNull(op, "Unsupported operator: " + operator);
             Object right = visit(ctx.primary(i));
             boolean result;

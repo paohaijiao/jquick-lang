@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class JQuickLangImportVisitor extends JQuickLangCoreVisitor {
+public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
     @Override
     public Void visitImportDeclaration(JQuickLangParser.ImportDeclarationContext ctx) {
         JAssert.notNull(ctx.qualifiedName(),"missing qualified name");

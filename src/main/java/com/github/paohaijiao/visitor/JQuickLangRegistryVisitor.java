@@ -1,51 +1,21 @@
-/*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
- */
-package com.github.paohaijiao.support;
-import com.github.paohaijiao.enums.JLiteralEnums;
+package com.github.paohaijiao.visitor;
+
+
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.factory.JFunctionRegistry;
-import com.github.paohaijiao.model.JFunctionFieldModel;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
+import com.github.paohaijiao.model.JFunctionFieldModel;
 import com.github.paohaijiao.model.JVariableContainerModel;
 import com.github.paohaijiao.util.JNumberUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
-/**
- * packageName com.github.paohaijiao.support
- *
- * @author Martin
- * @version 1.0.0
- * @since 2025/7/22
- */
-public class JFunctionInvoker {
+public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
+
     JFunctionRegistry registry= JFunctionRegistry.getInstance();
-    private final JVariableContainerModel variableContainer;
 
-    public JFunctionInvoker() {
-        this.variableContainer = new JVariableContainerModel();
-    }
-
-    public JFunctionInvoker(JVariableContainerModel variableContainer) {
-        this.variableContainer = variableContainer != null ? variableContainer : new JVariableContainerModel();
-    }
     public void registerFunction(JFunctionDefinitionModel function) {
         if (function == null || function.getName() == null) {
             throw new IllegalArgumentException("Function definition cannot be null");
@@ -55,7 +25,8 @@ public class JFunctionInvoker {
     public  boolean hasFunction(String functionName) {
         return registry.isFunctionDefined(functionName);
     }
-    public  Object invoke(String functionName, List<Object> arguments) {
+
+    public  JVariableContainerModel invoke(String functionName, List<Object> arguments) {
         if (!hasFunction(functionName)) {
             throw new IllegalArgumentException("Function '" + functionName + "' is not defined");
         }
@@ -63,9 +34,8 @@ public class JFunctionInvoker {
         validateArguments(function, arguments);
         JVariableContainerModel localVariables = new JVariableContainerModel();
         bindParameters(function, arguments, localVariables);
-        //todo
         System.out.println("Executing function: " + functionName);
-        return null;
+        return localVariables;
     }
 
     private void validateArguments(JFunctionDefinitionModel function, List<Object> arguments) {
@@ -254,4 +224,7 @@ public class JFunctionInvoker {
 //        bindParameters(function, List.of("Carol", null), locals);
 //        bindParameters(function, List.of("Dave", "abc"), locals);
     }
+
+
+
 }

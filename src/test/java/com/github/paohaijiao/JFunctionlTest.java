@@ -65,7 +65,6 @@ public class JFunctionlTest {
         JQuickLangParser.FunctionCallContext tree = parser.functionCall();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-
         JFunctionRegistry registry=tv.getRegistry();
         JFunctionFieldModel modela=new JFunctionFieldModel();
         modela.setIndex(0);
@@ -78,6 +77,33 @@ public class JFunctionlTest {
         JFunctionDefinitionModel functionDefinitionModel=new JFunctionDefinitionModel(
                 "c", Arrays.asList(modela,modelb),"{\n" +
                 "    return a+b;\n" +
+                "}"
+        );
+        registry.registerFunction(functionDefinitionModel);
+        Object object = tv.visit(tree);
+        System.out.println(object);
+    }
+    @Test
+    public void invokeFunction1() throws IOException {
+        String rule="d('a')";
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.FunctionCallContext tree = parser.functionCall();
+        JContext params = new JContext();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JFunctionRegistry registry=tv.getRegistry();
+        JFunctionFieldModel modela=new JFunctionFieldModel();
+        modela.setIndex(0);
+        modela.setFieldName("a");
+        modela.setClazz(String.class);
+        JFunctionFieldModel modelb=new JFunctionFieldModel();
+        modelb.setIndex(0);
+        modelb.setFieldName("b");
+        modelb.setClazz(String.class);
+        JFunctionDefinitionModel functionDefinitionModel=new JFunctionDefinitionModel(
+                "d", Arrays.asList(modela,modelb),"{\n" +
+                "    return a.contate(b);\n" +
                 "}"
         );
         registry.registerFunction(functionDefinitionModel);

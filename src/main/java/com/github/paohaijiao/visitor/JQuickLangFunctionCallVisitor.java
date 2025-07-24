@@ -1,13 +1,11 @@
 package com.github.paohaijiao.visitor;
 
 
-import cn.hutool.core.lang.Assert;
 import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.executor.JQuickLangActionExecutor;
 import com.github.paohaijiao.model.*;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.support.JFunctionInvoker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
             paramDefine=visitParameterList(ctx.parameterList())  ;
         }
         String action = ctx.action().getText();
-        JFunctionDefinitionModel jFunctionDefinitionModel =JFunctionInvoker.createFunctionDefinition(functionName,paramDefine,action);
+        JFunctionDefinitionModel jFunctionDefinitionModel =createFunctionDefinition(functionName,paramDefine,action);
         registry.registerFunction(jFunctionDefinitionModel);
         return null;
 
@@ -68,9 +66,8 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         String functionName = ctx.IDENTIFIER().getText();
         List<Object> paramList=visitArgumentList(ctx.argumentList());
         JFunctionDefinitionModel def = registry.lookupFunction(functionName, paramList);
-
-        Object object=new JFunctionInvoker().invoke(functionName,paramList);
-        JQuickLangActionExecutor executor=new JQuickLangActionExecutor(this.context,this.variableContainer);
+        JVariableContainerModel variableContainerModel=invoke(functionName,paramList);
+        JQuickLangActionExecutor executor=new JQuickLangActionExecutor(this.context,variableContainerModel);
         return executor.execute(def.getAction());
     }
 
