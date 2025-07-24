@@ -12,6 +12,9 @@ public class JQuickLangPrimaryVisitor extends JQuickLangAssignVisitor {
             return visitLiteral(ctx.literal());
         } else if (ctx.IDENTIFIER() != null) {
             String identifier=ctx.IDENTIFIER().getText();
+            if(context.get(identifier) != null) {
+                return context.get(identifier);
+            }
             JAssert.isTrue(super.variableContainer.exists(identifier),"variable "+identifier+" not found");;
             return super.variableContainer.get(identifier);
         }else if (ctx.expression()!=null) {

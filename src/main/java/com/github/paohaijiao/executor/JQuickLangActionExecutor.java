@@ -7,29 +7,33 @@ import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.Parser;
-import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.*;
 
 public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Object> {
 
     protected JContext context;
+    protected JVariableContainerModel variableContainer = new JVariableContainerModel();
 
-    protected JVariableContainerModel variableContainer=new JVariableContainerModel();
-
-
-    public JQuickLangActionExecutor(JContext context,JVariableContainerModel jVariableContainerModel){
-        JContext jContext=new JContext();
-        for (String key:context.keySet()){
-            jContext.addConstant(key,context.get(key));
-        }
-        for (String key:jVariableContainerModel.keySet()){
-            variableContainer.put(key,jVariableContainerModel.get(key));
-        }
-        this.context=jContext;
-
+    public JQuickLangActionExecutor(JContext context, JVariableContainerModel jVariableContainerModel) {
+        initializeContext(context, jVariableContainerModel);
     }
+    private void initializeContext(JContext context, JVariableContainerModel variableContainerModel) {
+
+        this.context = new JContext();
+        if (context != null) {
+            for (String key : context.keySet()) {
+                this.context.addConstant(key, context.get(key));
+            }
+        }
+
+        if (variableContainerModel != null) {
+            for (String key : variableContainerModel.keySet()) {
+                this.variableContainer.put(key, variableContainerModel.get(key));
+            }
+        }
+    }
+
+
     @Override
     protected Lexer createLexer(CharStream input) {
         return new JQuickLangLexer(input);
@@ -39,7 +43,6 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
     protected Parser createParser(TokenStream tokens) {
         return new JQuickLangParser(tokens);
     }
-
     @Override
     protected Object parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser calcParser = (JQuickLangParser) parser;
@@ -47,5 +50,8 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
         JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context);
         visitor.setVariableContainer(variableContainer);
         return visitor.visit(tree);
+    }
+    public JVariableContainerModel getVariables() {
+        return variableContainer;
     }
 }
