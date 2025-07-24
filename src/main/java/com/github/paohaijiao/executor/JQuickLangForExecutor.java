@@ -7,17 +7,19 @@ import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
-import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Parser;
+import org.antlr.v4.runtime.TokenStream;
 
-public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Object> {
+public class JQuickLangForExecutor extends JAbstractAntlrExecutor<String, Object> {
 
     private  JContext context;
 
-    public JQuickLangActionExecutor() {
+    public JQuickLangForExecutor() {
         this(new JContext(), new JVariableContainerModel());
     }
 
-    public JQuickLangActionExecutor(JContext context, JVariableContainerModel variableContainer) {
+    public JQuickLangForExecutor(JContext context, JVariableContainerModel variableContainer) {
         initializeContext(context, variableContainer);
     }
     private void initializeContext(JContext context, JVariableContainerModel variableContainerModel) {
@@ -47,7 +49,7 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
     @Override
     protected Object parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser actionPaser = (JQuickLangParser) parser;
-        JQuickLangParser.ActionContext actionContext = actionPaser.action();
+        JQuickLangParser.ForStatementContext actionContext = actionPaser.forStatement();
         JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context);
         return visitor.visit(actionContext);
     }
