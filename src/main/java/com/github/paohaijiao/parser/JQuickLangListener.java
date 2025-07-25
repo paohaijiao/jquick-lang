@@ -128,6 +128,16 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitExpressionStatement(JQuickLangParser.ExpressionStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#variableDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableDecl(JQuickLangParser.VariableDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#variableDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableDecl(JQuickLangParser.VariableDeclContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#expression}.
 	 * @param ctx the parse tree
 	 */
@@ -254,6 +264,16 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitInstanceName(JQuickLangParser.InstanceNameContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#methodName}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethodName(JQuickLangParser.MethodNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#methodName}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethodName(JQuickLangParser.MethodNameContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#argumentList}.
 	 * @param ctx the parse tree
 	 */
@@ -264,26 +284,6 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitArgumentList(JQuickLangParser.ArgumentListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#varArgumentList}.
-	 * @param ctx the parse tree
-	 */
-	void enterVarArgumentList(JQuickLangParser.VarArgumentListContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#varArgumentList}.
-	 * @param ctx the parse tree
-	 */
-	void exitVarArgumentList(JQuickLangParser.VarArgumentListContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#variableDecl}.
-	 * @param ctx the parse tree
-	 */
-	void enterVariableDecl(JQuickLangParser.VariableDeclContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#variableDecl}.
-	 * @param ctx the parse tree
-	 */
-	void exitVariableDecl(JQuickLangParser.VariableDeclContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#literal}.
 	 * @param ctx the parse tree
 	 */
@@ -293,6 +293,16 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLiteral(JQuickLangParser.LiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#importVar}.
+	 * @param ctx the parse tree
+	 */
+	void enterImportVar(JQuickLangParser.ImportVarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#importVar}.
+	 * @param ctx the parse tree
+	 */
+	void exitImportVar(JQuickLangParser.ImportVarContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#identifier}.
 	 * @param ctx the parse tree
@@ -343,16 +353,6 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariables(JQuickLangParser.VariablesContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#importVar}.
-	 * @param ctx the parse tree
-	 */
-	void enterImportVar(JQuickLangParser.ImportVarContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#importVar}.
-	 * @param ctx the parse tree
-	 */
-	void exitImportVar(JQuickLangParser.ImportVarContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#short}.
 	 * @param ctx the parse tree

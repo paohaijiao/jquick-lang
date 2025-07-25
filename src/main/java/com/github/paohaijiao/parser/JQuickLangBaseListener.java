@@ -161,6 +161,18 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterVariableDecl(JQuickLangParser.VariableDeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariableDecl(JQuickLangParser.VariableDeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpression(JQuickLangParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -305,6 +317,18 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMethodName(JQuickLangParser.MethodNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMethodName(JQuickLangParser.MethodNameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterArgumentList(JQuickLangParser.ArgumentListContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -317,30 +341,6 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVarArgumentList(JQuickLangParser.VarArgumentListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVarArgumentList(JQuickLangParser.VarArgumentListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterVariableDecl(JQuickLangParser.VariableDeclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVariableDecl(JQuickLangParser.VariableDeclContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterLiteral(JQuickLangParser.LiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -348,6 +348,18 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLiteral(JQuickLangParser.LiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterImportVar(JQuickLangParser.ImportVarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitImportVar(JQuickLangParser.ImportVarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -408,18 +420,6 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVariables(JQuickLangParser.VariablesContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterImportVar(JQuickLangParser.ImportVarContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitImportVar(JQuickLangParser.ImportVarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
