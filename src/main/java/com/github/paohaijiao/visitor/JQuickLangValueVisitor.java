@@ -2,6 +2,7 @@ package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.constants.JConstants;
 import com.github.paohaijiao.date.JDateUtil;
+import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.util.JStringUtils;
 
@@ -69,8 +70,10 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
             return visitFloat(ctx.float_());
         }else  if(null!=ctx.double_()){
             return visitDouble(ctx.double_());
-        }else  if(null!=ctx.double_()){
+        }else  if(null!=ctx.long_()){
             return visitLong(ctx.long_());
+        }else  if(null!=ctx.identifier()){
+            return visitIdentifier(ctx.identifier());
         }
         else {
             return null;
@@ -109,6 +112,15 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         String text = ctx.getText();
         long value = Long.parseLong(text.substring(0, text.length() - 1));
         return  Long.valueOf(value);
+    }
+    @Override
+    public Object visitIdentifier(JQuickLangParser.IdentifierContext ctx) {
+        JAssert.notNull(ctx.IDENTIFIER(),"identifier must not be null");
+        Object key =ctx.IDENTIFIER().getText();
+        if(null==context.get(key)){
+            JAssert.throwNewException("Cannot find identifier ["+key+"] in context");
+        }
+        return context.get(key);
     }
 
 }
