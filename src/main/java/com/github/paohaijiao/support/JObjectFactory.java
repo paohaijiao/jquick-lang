@@ -1,4 +1,6 @@
 package com.github.paohaijiao.support;
+import com.github.paohaijiao.console.JConsole;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -6,9 +8,11 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class JObjectFactory {
+    public static JConsole console=new JConsole();
 
     public static Object createByConstructor(String className, List<Object> args) throws Exception {
         Class<?> clazz = Class.forName(className);
+        buildArgs(args);
         Class<?>[] parameterTypes = getParameterTypes(args);
         Constructor<?> constructor = clazz.getConstructor(parameterTypes);
         return constructor.newInstance(args.toArray());
@@ -16,24 +20,118 @@ public class JObjectFactory {
 
     public static Object createByStaticMethod(String className, String methodName, List<Object> args) throws Exception {
         Class<?> clazz = Class.forName(className);
-        Class<?>[] parameterTypes = getParameterTypes(args);
-        Method method = clazz.getMethod(methodName, parameterTypes);
+        buildArgs(args);
+        Method method = findGenericMethod(clazz, methodName, args);
         return method.invoke(null, args.toArray());
     }
 
 
     public static Object createByInstanceMethod(Object target, String methodName, List<Object> args) throws Exception {
         Class<?> clazz = target.getClass();
-        Class<?>[] parameterTypes = getParameterTypes(args);
-        Method method = clazz.getMethod(methodName, parameterTypes);
+        buildArgs(args);
+        Method method = findGenericMethod(clazz, methodName, args);
         return method.invoke(target, args.toArray());
     }
+    private static void buildArgs(List<Object> args){
+        for (int i = 0; i < args.size(); i++) {
+            Object arg = args.get(i);
+            if (arg instanceof List && !(arg instanceof ArrayList)) {
+                args.set(i, new ArrayList<>((List<?>) arg));
+            }
+            if (arg instanceof Map && !(arg instanceof HashMap)) {
+                Map m = (Map) arg;
+                HashMap map= new HashMap<>();
+                map.putAll(m);
+                args.set(i, map);
+            }
+        }
+    }
+    public static Method findGenericMethod(Class<?> clazz, String methodName, List<Object> args)
+            throws NoSuchMethodException {
+        Class<?>[] paramTypes = getParameterTypes(args);
+        try {
+            try {
+                return clazz.getMethod(methodName, paramTypes);
+            } catch (NoSuchMethodException e) {
+                console.info("failed load by getMethod......... ");
+            }
+            console.info("try to  find method  by best match......... ");
+            Method[] methods = clazz.getMethods();
+            List<Method> candidates = new ArrayList<>();
+            for (Method method : methods) {
+                console.info("try to  match method  by ......... "+method.getName());
+                if (method.getName().equals(methodName) &&
+                        isMatch(method.getParameterTypes(), paramTypes)) {
+                    candidates.add(method);
+                }
+            }
+            if (candidates.isEmpty()) {
+                throw new NoSuchMethodException("No matching method found: " + methodName);
+            }
+
+            if (candidates.size() == 1) {
+                return candidates.get(0);
+            }
+            return findBestMatch(candidates, args);
+        } catch (SecurityException e) {
+            throw new IllegalArgumentException("Security violation while accessing method", e);
+        }
+    }
+
+
+    /**
+     * 检查参数类型是否匹配（宽松匹配）
+     */
+    private static boolean isMatch(Class<?>[] methodParams, Class<?>[] inputParams) {
+        if (methodParams.length != inputParams.length) {
+            return false;
+        }
+
+        for (int i = 0; i < methodParams.length; i++) {
+            if (!inputParams[i].isAssignableFrom(methodParams[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static Method findBestMatch(List<Method> candidates, List<Object> args) throws NoSuchMethodException {
+
+        for (Method method : candidates) {
+            Type[] genericParamTypes = method.getGenericParameterTypes();
+            boolean match = true;
+            for (int i = 0; i < genericParamTypes.length; i++) {
+                if (args.get(i)== null) continue;
+
+                if (genericParamTypes[i] instanceof ParameterizedType) {
+                    ParameterizedType pt = (ParameterizedType) genericParamTypes[i];
+                    Type[] actualTypeArgs = pt.getActualTypeArguments();
+                    if (args.get(i) instanceof Collection) {
+                        Collection<?> col = (Collection<?>) args.get(i);
+                        if (!col.isEmpty()) {
+                            Object first = col.iterator().next();
+                            if (first != null &&
+                                    !actualTypeArgs[0].equals(first.getClass())) {
+                                match = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (match) {
+                return method;
+            }
+        }
+        return candidates.get(0);
+    }
+
 
     private static Class<?>[] getParameterTypes(List<Object> args) {
         if (args == null || args.isEmpty()) {
             return new Class<?>[0];
         }
-
         Class<?>[] parameterTypes = new Class<?>[args.size()];
         for (int i = 0; i < args.size(); i++) {
             Object arg = args.get(i);
@@ -43,9 +141,9 @@ public class JObjectFactory {
             }
             parameterTypes[i] = handlePrimitiveTypes(arg.getClass());
             if (arg instanceof Collection) {
-                parameterTypes[i] = getCollectionType((Collection<?>) arg, i);
+                parameterTypes[i] = Collection.class;
             } else if (arg instanceof Map) {
-                parameterTypes[i] = getMapType((Map<?, ?>) arg, i);
+                parameterTypes[i] =Map.class;
             }
         }
         return parameterTypes;
@@ -59,6 +157,9 @@ public class JObjectFactory {
         if (clazz == Short.class) return short.class;
         if (clazz == Byte.class) return byte.class;
         if (clazz == Character.class) return char.class;
+        if (Collection.class.isAssignableFrom(clazz)) {
+            return Collection.class;
+        }
         return clazz;
     }
     public static Class<?> getCollectionType(Collection<?> collection, int paramIndex) {
@@ -74,13 +175,6 @@ public class JObjectFactory {
                     collectionClass = HashSet.class;
                 } else {
                     collectionClass = Collection.class;
-                }
-            }
-            if (!collection.isEmpty()) {
-                Object firstElement = collection.iterator().next();
-                if (firstElement != null) {
-                    Class<?> elementType = firstElement.getClass();
-                    return elementType;
                 }
             }
             return collectionClass;

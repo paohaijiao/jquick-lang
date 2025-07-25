@@ -1,4 +1,4 @@
-package evalue;
+package com.github.paohaijiao;
 
 import com.github.paohaijiao.model.JSchool;
 import com.github.paohaijiao.model.JStudent;
@@ -31,7 +31,6 @@ public class JObjectFactoryTest {
 
     @Test
     public void testCreateByStaticMethod() throws Exception {
-        // 测试静态工厂方法
         List<Object> args = Arrays.asList("staticName", 456);
         Object result = JObjectFactory.createByStaticMethod(
                 "com.github.paohaijiao.model.JStudent",

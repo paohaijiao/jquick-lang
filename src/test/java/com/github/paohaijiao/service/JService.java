@@ -15,6 +15,7 @@
  */
 package com.github.paohaijiao.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ import java.util.List;
  * @since 2025/7/25
  */
 public class JService {
+
     public String concat(String a, String b) {
         return a + b;
     }
@@ -38,6 +40,8 @@ public class JService {
     }
 
     public List<Integer> addToList(List<Integer> list, int value) {
+        Integer i=list.get(0);
+        list.add(i);
         list.add(value);
         return list;
     }
@@ -52,5 +56,13 @@ public class JService {
 
     public String methodWithVarArgs(String... strings) {
         return String.join(",", strings);
+    }
+
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        new JService().addToList(list,4);
     }
 }

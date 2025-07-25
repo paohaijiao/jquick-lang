@@ -41,7 +41,10 @@ public class JMethodInvocationTest {
         JService testInstance = new JService();
         JContext jContext=new JContext();
         jContext.put("testObj", testInstance);
+        List<Integer> listVar = new ArrayList<Integer>() {}; // 匿名内部类保留类型信息
+        listVar.addAll(Arrays.asList(1, 2, 3));
         jContext.put("listVar", Arrays.asList(1, 2, 3));
+//        jContext.put("listVar", listVar);
         Map<String,String> map=new HashMap<>();
         map.put("key", "value");
         return jContext;

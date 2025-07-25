@@ -8,6 +8,12 @@ public class JStudent {
 
 
     public JStudent() {
+
+    }
+    public JStudent(int i,float f,boolean b) {
+        this.name = "haha";
+
+        this.value = value;
     }
 
     public JStudent(String name, int value) {
