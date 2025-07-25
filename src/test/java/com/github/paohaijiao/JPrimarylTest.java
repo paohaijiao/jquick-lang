@@ -53,7 +53,7 @@ public class JPrimarylTest {
         JQuickLangParser.PrimaryContext tree = parser.primary();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
-        tv.getVariableContainer().put("a", 18);
+        tv.getContext().put("a", 18);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

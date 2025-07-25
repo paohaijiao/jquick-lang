@@ -117,7 +117,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     }
 
     private Object  resolveVariable(String var){
-            return this.variableContainer.get(var);
+        return this.context.get(var);
     }
 
 }

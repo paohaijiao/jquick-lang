@@ -9,11 +9,11 @@ public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
     @Override
     public Void visitVariableDecl(JQuickLangParser.VariableDeclContext ctx) {
         JAssert.notNull(ctx.IDENTIFIER(),"identifier required not null");
-        if(variableContainer.exists(ctx.IDENTIFIER().getText())){
+        if(null==context.get(ctx.IDENTIFIER().getText())){
             JAssert.throwNewException("identifier has been defined");
         }
         Object object=visitExpression(ctx.expression());
-        variableContainer.put(ctx.IDENTIFIER().getText(),object);
+        context.put(ctx.IDENTIFIER().getText(),object);
         return null;
     }
 

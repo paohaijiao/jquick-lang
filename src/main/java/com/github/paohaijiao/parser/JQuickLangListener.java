@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 package com.github.paohaijiao.parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -294,6 +294,16 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitLiteral(JQuickLangParser.LiteralContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(JQuickLangParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(JQuickLangParser.IdentifierContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#bool}.
 	 * @param ctx the parse tree
 	 */
@@ -303,16 +313,6 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBool(JQuickLangParser.BoolContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#number}.
-	 * @param ctx the parse tree
-	 */
-	void enterNumber(JQuickLangParser.NumberContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#number}.
-	 * @param ctx the parse tree
-	 */
-	void exitNumber(JQuickLangParser.NumberContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#string}.
 	 * @param ctx the parse tree

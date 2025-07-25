@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 package com.github.paohaijiao.parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -182,17 +182,17 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLiteral(JQuickLangParser.LiteralContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#identifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifier(JQuickLangParser.IdentifierContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#bool}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBool(JQuickLangParser.BoolContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#number}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNumber(JQuickLangParser.NumberContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#string}.
 	 * @param ctx the parse tree

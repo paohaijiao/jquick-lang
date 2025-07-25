@@ -41,14 +41,6 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         throw new RuntimeException("Invalid string: " + ctx.getText());
     }
 
-    @Override
-    public Object visitNumber(JQuickLangParser.NumberContext ctx) {
-        if (ctx.NUMBER() != null) {
-            String numText = ctx.NUMBER().getText();
-            return new BigDecimal(numText);
-        }
-        throw new RuntimeException("Unsupported number format: " + ctx.getText());
-    }
 
     @Override
     public Boolean visitBool(JQuickLangParser.BoolContext ctx) {

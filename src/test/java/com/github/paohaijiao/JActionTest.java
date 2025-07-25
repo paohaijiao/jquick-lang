@@ -46,7 +46,7 @@ public class JActionTest {
         String actionCode = "{ var area = PI * radius * radius; return area; }";
         Object result = executor.execute(actionCode);
         System.out.println("Area: " + result);
-        System.out.println("Variables: " + executor.getVariables());
+        System.out.println("Variables: " + executor.getContext());
     }
     @Test
     public void sample1() throws IOException {

@@ -202,9 +202,6 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
         return registry.getFunctionTable().get(functionName);
     }
 
-    public JVariableContainerModel getVariableContainer() {
-        return variableContainer;
-    }
 
     public static void main(String[] args) {
 //        List<JfunctionParamModel> params = new ArrayList<>();
