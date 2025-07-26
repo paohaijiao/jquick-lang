@@ -1,4 +1,4 @@
-package com.github.paohaijiao;
+package com.github.paohaijiao.function;
 
 import com.github.paohaijiao.model.JSchool;
 import com.github.paohaijiao.model.JStudent;

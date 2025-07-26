@@ -102,7 +102,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
             }
             return JObjectFactory.createByConstructor(className, args);
         } catch (Exception e) {
-            throw new RuntimeException("Constructor invocation failed: " + ctx.getText(), e);
+            throw new RuntimeException("constructor invocation failed: " + ctx.getText(), e);
         }
     }
     @Override

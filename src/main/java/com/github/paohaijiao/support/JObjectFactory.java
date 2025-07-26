@@ -141,7 +141,12 @@ public class JObjectFactory {
             }
             parameterTypes[i] = handlePrimitiveTypes(arg.getClass());
             if (arg instanceof Collection) {
-                parameterTypes[i] = Collection.class;
+                if(arg instanceof List) {
+                    parameterTypes[i] = List.class;
+                }else{
+                    parameterTypes[i] = Collection.class;
+                }
+
             } else if (arg instanceof Map) {
                 parameterTypes[i] =Map.class;
             }
