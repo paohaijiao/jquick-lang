@@ -41,7 +41,8 @@ public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
         if (left instanceof Number && right instanceof Number) {
             BigDecimal leftBigDecimal  = new BigDecimal(left.toString());
             BigDecimal rightBigDecimal  = new BigDecimal(right.toString());
-            return leftBigDecimal.multiply(rightBigDecimal);
+            BigDecimal result= leftBigDecimal.multiply(rightBigDecimal);
+            return convertToPrimaryType(result,left.getClass());
         }
         JAssert.throwNewException("multiplication of non-numeric types");
         return null;
@@ -50,7 +51,8 @@ public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
         if (left instanceof Number && right instanceof Number) {
             BigDecimal leftBigDecimal  = new BigDecimal(left.toString());
             BigDecimal rightBigDecimal  = new BigDecimal(right.toString());
-            return leftBigDecimal.divide(rightBigDecimal);
+            BigDecimal result= leftBigDecimal.divide(rightBigDecimal);
+            return convertToPrimaryType(result,left.getClass());
         }
         JAssert.throwNewException("division of non-numeric types");
         return null;
@@ -61,7 +63,8 @@ public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
         if (left instanceof Number && right instanceof Number) {
             BigDecimal leftBigDecimal  = new BigDecimal(left.toString());
             BigDecimal rightBigDecimal  = new BigDecimal(right.toString());
-            return leftBigDecimal.add(rightBigDecimal);
+            BigDecimal result= leftBigDecimal.add(rightBigDecimal);
+            return convertToPrimaryType(result,left.getClass());
         }
         else if (left instanceof String || right instanceof String) {
             return left.toString() + right.toString();
@@ -74,8 +77,28 @@ public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
         if (left instanceof Number && right instanceof Number) {
             BigDecimal leftBigDecimal  = new BigDecimal(left.toString());
             BigDecimal rightBigDecimal  = new BigDecimal(right.toString());
-            return leftBigDecimal.add(rightBigDecimal);
+            BigDecimal result= leftBigDecimal.subtract(rightBigDecimal);
+            return convertToPrimaryType(result,left.getClass());
         }
         throw new RuntimeException("Subtraction of non-numeric types");
+    }
+
+    private Object convertToPrimaryType(BigDecimal value,Class<?>  clazz){
+        if(clazz==Short.class||clazz==short.class){
+            return value.shortValue();
+        }
+        if(clazz==Integer.class||clazz==int.class){
+            return value.intValue();
+        }
+        if(clazz==Float.class||clazz==float.class){
+            return value.floatValue();
+        }
+        if(clazz==Double.class||clazz==double.class){
+            return value.doubleValue();
+        }
+        if(clazz==Long.class||clazz==long.class){
+            return value.longValue();
+        }
+        return value;
     }
 }

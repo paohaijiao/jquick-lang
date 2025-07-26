@@ -6,8 +6,11 @@ import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.factory.JBigDecimalComparatorFactory;
 import com.github.paohaijiao.factory.compare.JComparator;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import org.antlr.v4.runtime.Parser;
+import org.antlr.v4.runtime.Token;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
 
@@ -59,12 +62,14 @@ public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
         JAssert.isTrue(!ctx.comparison().isEmpty(),"left expression expected");
         boolean result = toBoolean(visit(ctx.comparison(0)));
         for (int i = 1; i < ctx.comparison().size(); i++) {
-            if (result) {
-                return true;
+            Token operatorToken = ((org.antlr.v4.runtime.tree.TerminalNode) ctx.getChild(2 * i - 1)).getSymbol();
+            int operatorType = operatorToken.getType();
+            if (operatorType == JQuickLangParser.AND) {
+                result = result && toBoolean(visit(ctx.comparison(i)));
+            }else{
+                result = result || toBoolean(visit(ctx.comparison(i)));
             }
-            result = result || toBoolean(visit(ctx.comparison(i)));
         }
-
         return result;
     }
 

@@ -1260,6 +1260,7 @@ public class JQuickLangParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class LogicalContext extends ParserRuleContext {
+		public Token op;
 		public List<ComparisonContext> comparison() {
 			return getRuleContexts(ComparisonContext.class);
 		}
@@ -1311,9 +1312,10 @@ public class JQuickLangParser extends Parser {
 					{
 					{
 					setState(214);
+					((LogicalContext)_localctx).op = _input.LT(1);
 					_la = _input.LA(1);
 					if ( !(_la==AND || _la==OR) ) {
-					_errHandler.recoverInline(this);
+						((LogicalContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 					}
 					else {
 						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -1344,6 +1346,7 @@ public class JQuickLangParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ComparisonContext extends ParserRuleContext {
+		public Token op;
 		public List<PrimaryContext> primary() {
 			return getRuleContexts(PrimaryContext.class);
 		}
@@ -1411,9 +1414,10 @@ public class JQuickLangParser extends Parser {
 					{
 					{
 					setState(222);
+					((ComparisonContext)_localctx).op = _input.LT(1);
 					_la = _input.LA(1);
 					if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 17317308137472L) != 0)) ) {
-					_errHandler.recoverInline(this);
+						((ComparisonContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 					}
 					else {
 						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
