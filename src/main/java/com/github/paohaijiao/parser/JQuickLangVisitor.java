@@ -131,6 +131,18 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParam(JQuickLangParser.ParamContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#functionVar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionVar(JQuickLangParser.FunctionVarContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#paramType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParamType(JQuickLangParser.ParamTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

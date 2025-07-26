@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class JfunctionParamModel {
 
-    private String type;
+    private  Class<?> type;
 
     private String name;
 }

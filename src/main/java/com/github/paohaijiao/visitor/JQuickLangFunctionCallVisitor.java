@@ -1,11 +1,7 @@
 package com.github.paohaijiao.visitor;
-
-
-import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
 import com.github.paohaijiao.model.JFunctionFieldModel;
-import com.github.paohaijiao.model.JImportModel;
 import com.github.paohaijiao.model.JfunctionParamModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.support.JObjectFactory;
@@ -36,28 +32,18 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
             JfunctionParamModel param=visitParam(ctx.param().get(i));
             model.setIndex(i);
             model.setFieldName(param.getName());
-            JLiteralEnums jLiteralEnums=JLiteralEnums.codeOf(param.getType());
-            if(null!=jLiteralEnums){
-                model.setClazz(jLiteralEnums.getClazz());
-            }else{
-                JImportModel importModel= this.importContainer.get(param.getType());
-                JAssert.notNull(importModel,"invalid variable claim type");
-                model.setClazz(importModel.getClazz());
-            }
+            model.setClazz(param.getType());
             list.add(model);
         }
         return list;
     }
     @Override
     public JfunctionParamModel visitParam(JQuickLangParser.ParamContext ctx) {
-        JAssert.notNull(ctx.IDENTIFIER(),"the function parameter name is not support");
-        JAssert.isTrue(2==ctx.IDENTIFIER().size(),"the function parameter name and type both require not null");
-        String paramType=ctx.IDENTIFIER().get(0).getText();
-        String paramName=ctx.IDENTIFIER().get(1).getText();
-        JAssert.isTrue(this.importContainer.validateType(paramType),"the  parameter type "+paramType+" not import");
-        JAssert.notNull(paramName,"the function parameter name "+paramType+" require not null");
+        JAssert.notNull(ctx.paramType(),"the function parameter type  not null");
+        Class<?> type=visitParamType(ctx.paramType());
+        String paramName=visitFunctionVar(ctx.functionVar());
         JfunctionParamModel model=new JfunctionParamModel();
-        model.setType(paramType);
+        model.setType(type);
         model.setName(paramName);
         return model;
 
@@ -136,5 +122,33 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     private Object  resolveVariable(String var){
         return this.context.get(var);
     }
+    @Override
+    public Class<?> visitParamType(JQuickLangParser.ParamTypeContext ctx) {
+        if(ctx.TYPESHORT()!=null){
+            return short.class;
+        }else if(ctx.TYPEINT()!=null){
+            return int.class;
+        } else if (ctx.TYPEFLOAT()!=null) {
+            return float.class;
+        }else if (ctx.TYPEDOUBLE()!=null){
+            return double.class;
+        }else if (ctx.TYPELONG()!=null){
+            return long.class;
+        }else if (ctx.TYPEBOOLEAN()!=null){
+            return boolean.class;
+        }else{
+            try {
+               return  Class.forName(ctx.qualifiedName().getText());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+    @Override
+    public String visitFunctionVar(JQuickLangParser.FunctionVarContext ctx) {
+        return ctx.IDENTIFIER().getText();
+    }
+
 
 }

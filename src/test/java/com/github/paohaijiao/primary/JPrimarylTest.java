@@ -1,4 +1,4 @@
-package com.github.paohaijiao;/*
+package com.github.paohaijiao.primary;/*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,12 +17,15 @@ package com.github.paohaijiao;/*
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.support.JObjectFactory;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * packageName PACKAGE_NAME
@@ -57,6 +60,43 @@ public class JPrimarylTest {
         Object object = tv.visit(tree);
         System.out.println(object);
     }
+    @Test
+    public void methodInvocation() throws IOException {
+        String rule = "new com.github.paohaijiao.model.JStudent(\"a\", \"b\", \"c\");";
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.PrimaryContext tree = parser.primary();
+        JContext params = new JContext();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        Object object = tv.visit(tree);
+        System.out.println(object);
+    }
+    @Test
+    public void expression() throws IOException {
+        String rule = "(3+2)";
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.PrimaryContext tree = parser.primary();
+        JContext params = new JContext();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        Object object = tv.visit(tree);
+        System.out.println(object);
+    }
+    @Test
+    public void variableDecl() throws IOException {
+        String rule = "var a=1;";
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.PrimaryContext tree = parser.primary();
+        JContext params = new JContext();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        Object object = tv.visit(tree);
+        System.out.println(object);
+    }
+
 
 
 

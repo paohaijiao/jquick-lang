@@ -208,6 +208,26 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitParam(JQuickLangParser.ParamContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#functionVar}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionVar(JQuickLangParser.FunctionVarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#functionVar}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionVar(JQuickLangParser.FunctionVarContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#paramType}.
+	 * @param ctx the parse tree
+	 */
+	void enterParamType(JQuickLangParser.ParamTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#paramType}.
+	 * @param ctx the parse tree
+	 */
+	void exitParamType(JQuickLangParser.ParamTypeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#primary}.
 	 * @param ctx the parse tree
 	 */
