@@ -1,10 +1,8 @@
 package com.github.paohaijiao.support;
 import com.github.paohaijiao.console.JConsole;
+import org.apache.commons.lang3.reflect.MethodUtils;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.*;
 
 public class JObjectFactory {
@@ -12,25 +10,189 @@ public class JObjectFactory {
 
     public static Object createByConstructor(String className, List<Object> args) throws Exception {
         Class<?> clazz = Class.forName(className);
-        buildArgs(args);
         Class<?>[] parameterTypes = getParameterTypes(args);
         Constructor<?> constructor = clazz.getConstructor(parameterTypes);
-        return constructor.newInstance(args.toArray());
+        Object[] methodArgs = prepareConstructorArguments(constructor, args);
+        return constructor.newInstance(methodArgs);
+    }
+    private static Object[] prepareConstructorArguments(Constructor<?> constructor, List<Object> args) {
+        Type[] genericParameterTypes = constructor.getGenericParameterTypes();
+        Class<?>[] parameterTypes = constructor.getParameterTypes();
+        Object[] arguments = new Object[args.size()];
+        boolean isVarArgs = constructor.isVarArgs();
+        int fixedParamCount = isVarArgs ? parameterTypes.length - 1 : parameterTypes.length;
+        for (int i = 0; i < args.size(); i++) {
+            Object arg = args.get(i);
+            if (arg == null) {
+                arguments[i] = null;
+                continue;
+            }
+            if (isVarArgs && i >= fixedParamCount) {
+                Class<?> varArgComponentType = parameterTypes[fixedParamCount].getComponentType();
+                if (arg instanceof Collection && varArgComponentType.isAssignableFrom(
+                        ((Collection<?>) arg).iterator().next().getClass())) {
+                    Collection<?> collection = (Collection<?>) arg;
+                    Object array = Array.newInstance(varArgComponentType, collection.size());
+                    int index = 0;
+                    for (Object item : collection) {
+                        Array.set(array, index++, item);
+                    }
+                    arguments[i] = array;
+                    continue;
+                }
+                if (varArgComponentType.isAssignableFrom(arg.getClass())) {
+                    arguments[i] = arg;
+                    continue;
+                }
+            }
+            if (i < genericParameterTypes.length) {
+                Type paramType = genericParameterTypes[i];
+                if (paramType instanceof ParameterizedType && arg instanceof Collection) {
+                    ParameterizedType pType = (ParameterizedType) paramType;
+                    Type rawType = pType.getRawType();
+                    if (rawType == List.class || rawType == Collection.class) {
+                        arguments[i] = new ArrayList<>((Collection<?>) arg);
+                        continue;
+                    } else if (rawType == Set.class) {
+                        arguments[i] = new HashSet<>((Collection<?>) arg);
+                        continue;
+                    }
+                }
+                if (paramType instanceof ParameterizedType && arg instanceof Map) {
+                    ParameterizedType pType = (ParameterizedType) paramType;
+                    Type rawType = pType.getRawType();
+                    if (rawType == Map.class) {
+                        arguments[i] = new HashMap<>((Map<?, ?>) arg);
+                        continue;
+                    }
+                }
+            }
+            arguments[i] = arg;
+        }
+        if (isVarArgs && args.size() > fixedParamCount) {
+            int varArgCount = args.size() - fixedParamCount;
+            Class<?> varArgComponentType = parameterTypes[fixedParamCount].getComponentType();
+            Object varArgsArray = Array.newInstance(varArgComponentType, varArgCount);
+            for (int i = 0; i < varArgCount; i++) {
+                Object arg = arguments[fixedParamCount + i];
+                Array.set(varArgsArray, i, arg);
+            }
+            Object[] newArguments = new Object[fixedParamCount + 1];
+            System.arraycopy(arguments, 0, newArguments, 0, fixedParamCount);
+            newArguments[fixedParamCount] = varArgsArray;
+            return newArguments;
+        }
+        return arguments;
     }
 
-    public static Object createByStaticMethod(String className, String methodName, List<Object> args) throws Exception {
+    public static Object  createByStaticMethod(String className, String methodName, List<Object> args) throws Exception {
         Class<?> clazz = Class.forName(className);
-        buildArgs(args);
-        Method method = findGenericMethod(clazz, methodName, args);
-        return method.invoke(null, args.toArray());
+        Class<?>[] paramTypes = new Class[args.size()];
+        for (int i = 0; i < args.size(); i++) {
+            Object arg = args.get(i);
+            paramTypes[i] = (arg != null) ? arg.getClass() : Object.class;
+        }
+        Method method = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, paramTypes);
+        if (method == null) {
+            throw new NoSuchMethodException(
+                    String.format("No accessible method '%s' found in class %s with parameters %s",
+                            methodName, className, Arrays.toString(paramTypes))
+            );
+        }
+        Object[] methodArgs = prepareMethodArguments(method, args);
+        return MethodUtils.invokeStaticMethod(clazz, methodName, methodArgs);
     }
-
 
     public static Object createByInstanceMethod(Object target, String methodName, List<Object> args) throws Exception {
         Class<?> clazz = target.getClass();
-        buildArgs(args);
-        Method method = findGenericMethod(clazz, methodName, args);
-        return method.invoke(target, args.toArray());
+        Class<?>[] paramTypes = args.stream()
+                .map(arg -> arg != null ? arg.getClass() : Object.class)
+                .toArray(Class<?>[]::new);
+        Method method = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, paramTypes);
+        if (method == null) {
+            throw new NoSuchMethodException(
+                    String.format("Method %s(%s) not found in %s", methodName, Arrays.toString(paramTypes), clazz.getName()));
+        }
+        Object[] methodArgs = prepareMethodArguments(method, args);
+        return MethodUtils.invokeMethod(target, methodName, methodArgs);
+    }
+    private static Object[] prepareMethodArguments(Method method, List<Object> args) {
+        Type[] genericParameterTypes = method.getGenericParameterTypes();
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        Object[] arguments = new Object[args.size()];
+        boolean isVarArgs = method.isVarArgs();
+        int fixedParamCount = isVarArgs ? parameterTypes.length - 1 : parameterTypes.length;//every method have no more than 1 var argue , and it occur in last index of method param
+        for (int i = 0; i < args.size(); i++) {
+            Object arg = args.get(i);
+            if (arg == null) {
+                arguments[i] = null;
+                continue;
+            }
+            if (isVarArgs && i >= fixedParamCount) {//process var argue
+                Class<?> varArgComponentType = parameterTypes[fixedParamCount].getComponentType();
+                if (arg instanceof Collection && varArgComponentType.isAssignableFrom(
+                        ((Collection<?>) arg).iterator().next().getClass())) {
+                    Collection<?> collection = (Collection<?>) arg;
+                    Object array = Array.newInstance(varArgComponentType, collection.size());
+                    int index = 0;
+                    for (Object item : collection) {
+                        Array.set(array, index++, item);
+                    }
+                    arguments[i] = array;
+                    continue;
+                }
+                // single element need add to argument array
+                if (varArgComponentType.isAssignableFrom(arg.getClass())) {
+                    arguments[i] = arg;
+                    continue;
+                }
+            }
+            // handle ordinary parameters (including non-array parts of fixed and variable parameters)
+            if (i < genericParameterTypes.length) {
+                Type paramType = genericParameterTypes[i];
+                // handling generic collections
+                if (paramType instanceof ParameterizedType && arg instanceof Collection) {
+                    ParameterizedType pType = (ParameterizedType) paramType;
+                    Type rawType = pType.getRawType();
+                    if (rawType == List.class || rawType == Collection.class) {
+                        arguments[i] = new ArrayList<>((Collection<?>) arg);
+                        continue;
+                    } else if (rawType == Set.class) {
+                        arguments[i] = new HashSet<>((Collection<?>) arg);
+                        continue;
+                    }
+                }
+                // handling generic map
+                if (paramType instanceof ParameterizedType && arg instanceof Map) {
+                    ParameterizedType pType = (ParameterizedType) paramType;
+                    Type rawType = pType.getRawType();
+                    if (rawType == Map.class) {
+                        arguments[i] = new HashMap<>((Map<?, ?>) arg);
+                        continue;
+                    }
+                }
+            }
+            arguments[i] = arg;
+        }
+
+        //if it is a variable parameter method and the number of parameters exceeds the fixed number,
+        // it is necessary to package the variable parameters
+        if (isVarArgs && args.size() > fixedParamCount) {
+            int varArgCount = args.size() - fixedParamCount;
+            Class<?> varArgComponentType = parameterTypes[fixedParamCount].getComponentType();
+            //create a variable parameter array
+            Object varArgsArray = Array.newInstance(varArgComponentType, varArgCount);
+            for (int i = 0; i < varArgCount; i++) {
+                Object arg = arguments[fixedParamCount + i];
+                Array.set(varArgsArray, i, arg);
+            }
+            //create a new parameter array, merge fixed parameter and variable parameter arrays
+            Object[] newArguments = new Object[fixedParamCount + 1];
+            System.arraycopy(arguments, 0, newArguments, 0, fixedParamCount);
+            newArguments[fixedParamCount] = varArgsArray;
+            return newArguments;
+        }
+        return arguments;
     }
     private static void buildArgs(List<Object> args){
         for (int i = 0; i < args.size(); i++) {
@@ -46,87 +208,6 @@ public class JObjectFactory {
             }
         }
     }
-    public static Method findGenericMethod(Class<?> clazz, String methodName, List<Object> args)
-            throws NoSuchMethodException {
-        Class<?>[] paramTypes = getParameterTypes(args);
-        try {
-            try {
-                return clazz.getMethod(methodName, paramTypes);
-            } catch (NoSuchMethodException e) {
-                console.info("failed load by getMethod......... ");
-            }
-            console.info("try to  find method  by best match......... ");
-            Method[] methods = clazz.getMethods();
-            List<Method> candidates = new ArrayList<>();
-            for (Method method : methods) {
-                console.info("try to  match method  by ......... "+method.getName());
-                if (method.getName().equals(methodName) &&
-                        isMatch(method.getParameterTypes(), paramTypes)) {
-                    candidates.add(method);
-                }
-            }
-            if (candidates.isEmpty()) {
-                throw new NoSuchMethodException("No matching method found: " + methodName);
-            }
-
-            if (candidates.size() == 1) {
-                return candidates.get(0);
-            }
-            return findBestMatch(candidates, args);
-        } catch (SecurityException e) {
-            throw new IllegalArgumentException("Security violation while accessing method", e);
-        }
-    }
-
-
-    /**
-     * 检查参数类型是否匹配（宽松匹配）
-     */
-    private static boolean isMatch(Class<?>[] methodParams, Class<?>[] inputParams) {
-        if (methodParams.length != inputParams.length) {
-            return false;
-        }
-
-        for (int i = 0; i < methodParams.length; i++) {
-            if (!inputParams[i].isAssignableFrom(methodParams[i])) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private static Method findBestMatch(List<Method> candidates, List<Object> args) throws NoSuchMethodException {
-
-        for (Method method : candidates) {
-            Type[] genericParamTypes = method.getGenericParameterTypes();
-            boolean match = true;
-            for (int i = 0; i < genericParamTypes.length; i++) {
-                if (args.get(i)== null) continue;
-
-                if (genericParamTypes[i] instanceof ParameterizedType) {
-                    ParameterizedType pt = (ParameterizedType) genericParamTypes[i];
-                    Type[] actualTypeArgs = pt.getActualTypeArguments();
-                    if (args.get(i) instanceof Collection) {
-                        Collection<?> col = (Collection<?>) args.get(i);
-                        if (!col.isEmpty()) {
-                            Object first = col.iterator().next();
-                            if (first != null &&
-                                    !actualTypeArgs[0].equals(first.getClass())) {
-                                match = false;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            if (match) {
-                return method;
-            }
-        }
-        return candidates.get(0);
-    }
-
 
     private static Class<?>[] getParameterTypes(List<Object> args) {
         if (args == null || args.isEmpty()) {
