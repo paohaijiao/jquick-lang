@@ -11,7 +11,7 @@ import java.util.List;
 
 public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     @Override
-    public Void visitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) {
+    public JFunctionDefinitionModel visitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) {
         JAssert.notNull(ctx.IDENTIFIER(), "functionName must not be null");
         String functionName = ctx.IDENTIFIER().getText();
         List<JFunctionFieldModel> paramDefine = new ArrayList<>();
@@ -21,7 +21,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         String action = ctx.action().getText();
         JFunctionDefinitionModel jFunctionDefinitionModel =createFunctionDefinition(functionName,paramDefine,action);
         registry.registerFunction(jFunctionDefinitionModel);
-        return null;
+        return jFunctionDefinitionModel;
 
     }
     @Override
