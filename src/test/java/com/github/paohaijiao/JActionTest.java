@@ -55,9 +55,9 @@ public class JActionTest {
         JQuickLangActionExecutor executor = new JQuickLangActionExecutor(context, new JVariableContainerModel());
         String constructorExample =
                 "{" +
-                        "  var str1 = new String(\"Hello\");" +
-                        "  var str2 = new String(charArray);" +
-                        "  var joinedStr = String.join(\"-\", \"Java\", \"Quick\", \"Lang\");" +
+                        "  var str1 = new java.lang.String(\"Hello\");" +
+                        "  var str2 = new java.lang.String(charArray);" +
+                        "  var joinedStr = java.lang.String.join(\"-\", \"Java\", \"Quick\", \"Lang\");" +
                         "  var upperStr = str1.toUpperCase();" +
                         "  var subStr = str2.substring(1, 3);" +
                         "  var result = new java.util.HashMap();" +

@@ -3,6 +3,7 @@ package com.github.paohaijiao.visitor;
 import com.github.paohaijiao.constants.JConstants;
 import com.github.paohaijiao.date.JDateUtil;
 import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.util.JStringUtils;
 
@@ -115,6 +116,8 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
     }
     @Override
     public Object visitIdentifier(JQuickLangParser.IdentifierContext ctx) {
+        JContext context=this.context;
+        System.out.println(context);
         JAssert.notNull(ctx.IDENTIFIER(),"identifier must not be null");
         Object key =ctx.IDENTIFIER().getText();
         if(null==context.get(key)){

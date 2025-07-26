@@ -23,6 +23,9 @@ public class JQuickLangExpressionVisitor extends JQuickLangBoolVisitor {
         if(ctx.primary()!=null) {
             return visitPrimary(ctx.primary());
         }
+        if(ctx.methodInvocation()!=null) {
+            return visit(ctx.methodInvocation());
+        }
         throw new RuntimeException("unexpected expression");
     }
 

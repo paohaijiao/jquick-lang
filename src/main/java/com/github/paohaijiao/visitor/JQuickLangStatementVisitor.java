@@ -41,6 +41,11 @@ public class JQuickLangStatementVisitor extends JQuickLangIfStatementVisitor{
     @Override
     public Object visitAction(JQuickLangParser.ActionContext ctx) {
         Object result = null;
+        if(ctx.variableDecl()!=null&&!ctx.variableDecl().isEmpty()){
+            for (JQuickLangParser.VariableDeclContext stmt : ctx.variableDecl()) {
+                result = visit(stmt);
+            }
+        }
         List<JQuickLangParser.StatementContext> statements = ctx.statement();
         List<JQuickLangParser.ControlStatementContext> controlStatements = ctx.controlStatement();
         for (JQuickLangParser.StatementContext stmt : statements) {
