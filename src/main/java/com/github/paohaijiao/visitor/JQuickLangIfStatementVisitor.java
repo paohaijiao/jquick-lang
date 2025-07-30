@@ -1,20 +1,41 @@
 package com.github.paohaijiao.visitor;
-
 import com.github.paohaijiao.parser.JQuickLangParser;
-
 public class JQuickLangIfStatementVisitor  extends JQuickLangForStatementVisitor{
     @Override
     public Object visitIfStatement(JQuickLangParser.IfStatementContext ctx) {
-        if (toBoolean(visit(ctx.expression(0)))) {
-            return visit(ctx.action(0));
+        if (toBoolean(visitConExpression(ctx.conExpression()))) {
+            return visitAction(ctx.action());
         }
-        for (int i = 1; i < ctx.expression().size(); i++) {
-            if (toBoolean(visit(ctx.expression(i)))) {
-                return visit(ctx.action(i));
+        for (int i = 0; i < ctx.elseIfConExpression().size(); i++) {
+            if (toBoolean(visitElseIfConExpression(ctx.elseIfConExpression(i)))) {
+                return visitElseIfAction(ctx.elseIfAction(i));
             }
         }
-        if (ctx.action().size() > ctx.expression().size()) {
-            return visit(ctx.action(ctx.action().size() - 1));
+        if (null!=ctx.elseAction()) {
+            return visitElseAction(ctx.elseAction());
+        }
+        return null;
+    }
+    @Override
+    public Object visitElseIfAction(JQuickLangParser.ElseIfActionContext ctx) {
+         if(ctx.action()!=null) {
+             visitAction(ctx.action());
+         }
+         return null;
+    }
+
+    @Override
+    public Object visitElseIfConExpression(JQuickLangParser.ElseIfConExpressionContext ctx) {
+        if(ctx.expression()!=null) {
+            return visitExpression(ctx.expression());
+        }
+        return null;
+    }
+
+    @Override
+    public Object visitElseAction(JQuickLangParser.ElseActionContext ctx) {
+        if(null!=ctx.action()) {
+            visitAction(ctx.action());
         }
         return null;
     }

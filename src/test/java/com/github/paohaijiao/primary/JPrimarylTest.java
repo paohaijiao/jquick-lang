@@ -44,7 +44,7 @@ public class JPrimarylTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.PrimaryContext tree = parser.primary();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -55,7 +55,7 @@ public class JPrimarylTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.PrimaryContext tree = parser.primary();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         tv.getContext().put("a", 18);
         Object object = tv.visit(tree);
         System.out.println(object);
@@ -68,7 +68,7 @@ public class JPrimarylTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.PrimaryContext tree = parser.primary();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -80,7 +80,7 @@ public class JPrimarylTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.PrimaryContext tree = parser.primary();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -92,7 +92,7 @@ public class JPrimarylTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.PrimaryContext tree = parser.primary();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

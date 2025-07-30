@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 package com.github.paohaijiao.parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -48,15 +48,45 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitStatement(JQuickLangParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#rule}.
+	 * Enter a parse tree produced by {@link JQuickLangParser#accessStaticVariable}.
 	 * @param ctx the parse tree
 	 */
-	void enterRule(JQuickLangParser.RuleContext ctx);
+	void enterAccessStaticVariable(JQuickLangParser.AccessStaticVariableContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#rule}.
+	 * Exit a parse tree produced by {@link JQuickLangParser#accessStaticVariable}.
 	 * @param ctx the parse tree
 	 */
-	void exitRule(JQuickLangParser.RuleContext ctx);
+	void exitAccessStaticVariable(JQuickLangParser.AccessStaticVariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#accessClassName}.
+	 * @param ctx the parse tree
+	 */
+	void enterAccessClassName(JQuickLangParser.AccessClassNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#accessClassName}.
+	 * @param ctx the parse tree
+	 */
+	void exitAccessClassName(JQuickLangParser.AccessClassNameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#accessObjectName}.
+	 * @param ctx the parse tree
+	 */
+	void enterAccessObjectName(JQuickLangParser.AccessObjectNameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#accessObjectName}.
+	 * @param ctx the parse tree
+	 */
+	void exitAccessObjectName(JQuickLangParser.AccessObjectNameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#method}.
+	 * @param ctx the parse tree
+	 */
+	void enterMethod(JQuickLangParser.MethodContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#method}.
+	 * @param ctx the parse tree
+	 */
+	void exitMethod(JQuickLangParser.MethodContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#action}.
 	 * @param ctx the parse tree
@@ -88,6 +118,36 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitIfStatement(JQuickLangParser.IfStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#elseIfConExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseIfConExpression(JQuickLangParser.ElseIfConExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#elseIfConExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseIfConExpression(JQuickLangParser.ElseIfConExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#elseIfAction}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseIfAction(JQuickLangParser.ElseIfActionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#elseIfAction}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseIfAction(JQuickLangParser.ElseIfActionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#elseAction}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseAction(JQuickLangParser.ElseActionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#elseAction}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseAction(JQuickLangParser.ElseActionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#forStatement}.
 	 * @param ctx the parse tree
 	 */
@@ -97,6 +157,36 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitForStatement(JQuickLangParser.ForStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#initExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterInitExpression(JQuickLangParser.InitExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#initExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitInitExpression(JQuickLangParser.InitExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#conExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterConExpression(JQuickLangParser.ConExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#conExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitConExpression(JQuickLangParser.ConExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#stopExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterStopExpression(JQuickLangParser.StopExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#stopExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitStopExpression(JQuickLangParser.StopExpressionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#whileStatement}.
 	 * @param ctx the parse tree
@@ -117,6 +207,26 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitReturnStatement(JQuickLangParser.ReturnStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#breakStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterBreakStatement(JQuickLangParser.BreakStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#breakStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitBreakStatement(JQuickLangParser.BreakStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#continueStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterContinueStatement(JQuickLangParser.ContinueStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#continueStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitContinueStatement(JQuickLangParser.ContinueStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#expressionStatement}.
 	 * @param ctx the parse tree
@@ -147,6 +257,16 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpression(JQuickLangParser.ExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#sout}.
+	 * @param ctx the parse tree
+	 */
+	void enterSout(JQuickLangParser.SoutContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#sout}.
+	 * @param ctx the parse tree
+	 */
+	void exitSout(JQuickLangParser.SoutContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#logical}.
 	 * @param ctx the parse tree
@@ -273,6 +393,40 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInstanceMethodCall(JQuickLangParser.InstanceMethodCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code thisMethodCall}
+	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterThisMethodCall(JQuickLangParser.ThisMethodCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code thisMethodCall}
+	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitThisMethodCall(JQuickLangParser.ThisMethodCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code accessStaticMethodCall}
+	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void enterAccessStaticMethodCall(JQuickLangParser.AccessStaticMethodCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code accessStaticMethodCall}
+	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 */
+	void exitAccessStaticMethodCall(JQuickLangParser.AccessStaticMethodCallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#this}.
+	 * @param ctx the parse tree
+	 */
+	void enterThis(JQuickLangParser.ThisContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#this}.
+	 * @param ctx the parse tree
+	 */
+	void exitThis(JQuickLangParser.ThisContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#instanceName}.
 	 * @param ctx the parse tree

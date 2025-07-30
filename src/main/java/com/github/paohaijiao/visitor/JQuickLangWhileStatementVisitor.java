@@ -14,7 +14,7 @@ public class JQuickLangWhileStatementVisitor extends JQuickLangReturnStatementVi
         Object result = null;
         while (toBoolean(visit(ctx.expression()))) {
             try {
-                result = visit(ctx.action());
+                result = visitAction(ctx.action());
             } catch (JBreakException e) {
                 break;
             } catch (JContinueException e) {

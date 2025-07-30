@@ -51,7 +51,6 @@ public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
                 default:
                     throw new RuntimeException("Unknown comparison operator: " + operator);
             }
-            // For chained comparisons (a > b > c), use the right value as new left
             left = result;
         }
         return left;
@@ -120,8 +119,8 @@ public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
         if (left instanceof Number && right instanceof Number) {
             BigDecimal leftBigDecimal  = new BigDecimal(left.toString());
             BigDecimal rightBigDecimal  = new BigDecimal(right.toString());
-            JComparator comparator=JBigDecimalComparatorFactory.lessThan(leftBigDecimal);
-            return comparator.compare(rightBigDecimal);
+            JComparator comparator=JBigDecimalComparatorFactory.lessThan(rightBigDecimal);
+            return comparator.compare(leftBigDecimal);
         }
         throw new RuntimeException("cannot compare non-numeric values with <");
     }

@@ -41,7 +41,7 @@ public class JExpressionTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ExpressionContext tree = parser.expression();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -53,7 +53,7 @@ public class JExpressionTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ExpressionContext tree = parser.expression();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -65,7 +65,7 @@ public class JExpressionTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ExpressionContext tree = parser.expression();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -77,7 +77,7 @@ public class JExpressionTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ExpressionContext tree = parser.expression();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -89,7 +89,7 @@ public class JExpressionTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ExpressionStatementContext tree = parser.expressionStatement();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

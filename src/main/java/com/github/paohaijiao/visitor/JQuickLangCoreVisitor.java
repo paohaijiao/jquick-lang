@@ -5,11 +5,20 @@ import com.github.paohaijiao.model.JImportContainerModel;
 import com.github.paohaijiao.model.JVariableContainerModel;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangBaseVisitor;
+import com.github.paohaijiao.parser.JQuickLangLexer;
+import com.github.paohaijiao.parser.JQuickLangParser;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 
 public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
 
     protected JContext context;
+
+    protected CommonTokenStream tokenStream;
+
+    protected JQuickLangLexer lexer ;
+
+    protected JQuickLangParser parser;
 
     protected JImportContainerModel importContainer=new JImportContainerModel();
 

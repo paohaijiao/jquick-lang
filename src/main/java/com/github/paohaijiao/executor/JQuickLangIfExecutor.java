@@ -7,13 +7,17 @@ import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.Parser;
-import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.*;
 
 public class JQuickLangIfExecutor extends JAbstractAntlrExecutor<String, Object> {
 
     private  JContext context;
+
+    private JQuickLangLexer lexer;
+
+    private JQuickLangParser parser;
+
+    private TokenStream tokenStream;
 
     public JQuickLangIfExecutor() {
         this(new JContext(), new JVariableContainerModel());
@@ -36,21 +40,27 @@ public class JQuickLangIfExecutor extends JAbstractAntlrExecutor<String, Object>
         }
     }
 
+
     @Override
-    protected JQuickLangLexer createLexer(CharStream input) {
-        return new JQuickLangLexer(input);
+    protected Lexer createLexer(CharStream input) {
+        this.lexer= new JQuickLangLexer(input);
+        return lexer;
     }
 
     @Override
-    protected JQuickLangParser createParser(TokenStream tokens) {
-        return new JQuickLangParser(tokens);
+    protected Parser createParser(TokenStream tokens) {
+        this.tokenStream=tokens;
+        this.parser= new JQuickLangParser(tokens);
+        return parser;
     }
+
 
     @Override
     protected Object parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser actionPaser = (JQuickLangParser) parser;
         JQuickLangParser.IfStatementContext actionContext = actionPaser.ifStatement();
-        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context);
+        CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
+        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,actionPaser);
         return visitor.visit(actionContext);
     }
     public void intExecuteEnv(JContext context, JVariableContainerModel variableContainerModel) {

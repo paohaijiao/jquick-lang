@@ -1,0 +1,6 @@
+    function getSquare(int:a,int:b){
+        return a*b;
+    }
+    var a=1;
+    var b=2;
+    var c=getSquare(a,b);

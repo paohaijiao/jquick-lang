@@ -42,7 +42,7 @@ public class JImportTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ProgramContext tree = parser.program();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         JImportContainerModel importContainerModel=tv.getImportContainer();
         System.out.println(tv);

@@ -22,7 +22,7 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
             var=ctx.importVar().getText();
         }
         JAssert.notNull(var,"var not null");
-        JAssert.isTrue(!this.importContainer.existsIdentify(var),"var ["+var+"] has been  exist can't be assign");
+        JAssert.isTrue(!this.importContainer.existsIdentify(var),"var ["+var+"] akready has been  imported, can't be assign again");
         this.importContainer.addImport(var,qualifiedName);
         return null;
     }

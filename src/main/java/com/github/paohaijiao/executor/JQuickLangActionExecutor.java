@@ -13,6 +13,12 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
 
     private  JContext context;
 
+    private JQuickLangLexer lexer;
+
+    private JQuickLangParser parser;
+
+    private TokenStream tokenStream;
+
     public JQuickLangActionExecutor() {
         this(new JContext(), new JVariableContainerModel());
     }
@@ -24,7 +30,7 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
         this.context = new JContext();
         if (context != null) {
             for (String key : context.keySet()) {
-                this.context.addConstant(key, context.get(key));
+                this.context.put(key, context.get(key));
             }
         }
         if (variableContainerModel != null) {
@@ -35,20 +41,25 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
     }
 
     @Override
-    protected JQuickLangLexer createLexer(CharStream input) {
-        return new JQuickLangLexer(input);
+    protected Lexer createLexer(CharStream input) {
+        this.lexer= new JQuickLangLexer(input);
+        return lexer;
     }
 
     @Override
-    protected JQuickLangParser createParser(TokenStream tokens) {
-        return new JQuickLangParser(tokens);
+    protected Parser createParser(TokenStream tokens) {
+        this.tokenStream=tokens;
+        this.parser= new JQuickLangParser(tokens);
+        return parser;
     }
+
 
     @Override
     protected Object parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser actionPaser = (JQuickLangParser) parser;
         JQuickLangParser.ActionContext actionContext = actionPaser.action();
-        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context);
+        CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
+        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,actionPaser);
         return visitor.visit(actionContext);
     }
     public void intExecuteEnv(JContext context, JVariableContainerModel variableContainerModel) {

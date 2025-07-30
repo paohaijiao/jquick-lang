@@ -117,7 +117,6 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
     @Override
     public Object visitIdentifier(JQuickLangParser.IdentifierContext ctx) {
         JContext context=this.context;
-        System.out.println(context);
         JAssert.notNull(ctx.IDENTIFIER(),"identifier must not be null");
         Object key =ctx.IDENTIFIER().getText();
         if(null==context.get(key)){

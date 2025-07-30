@@ -27,7 +27,7 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ParamTypeContext tree = parser.paramType();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -39,7 +39,7 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ParamTypeContext tree = parser.paramType();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -51,7 +51,7 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ParamTypeContext tree = parser.paramType();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -63,7 +63,7 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ParamTypeContext tree = parser.paramType();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -75,7 +75,7 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ParamTypeContext tree = parser.paramType();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -87,7 +87,7 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ParamTypeContext tree = parser.paramType();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -99,7 +99,7 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ParamTypeContext tree = parser.paramType();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -111,7 +111,7 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.FunctionVarContext tree = parser.functionVar();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -123,7 +123,7 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ParamContext tree = parser.param();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -135,19 +135,19 @@ public class JOtherTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ParameterListContext tree = parser.parameterList();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
     @Test
     public void  functionDefinition() throws IOException {
-        String rule = "function name(int:a,float:b){var a=1;}";
+        String rule = "function.txt name(int:a,float:b){var a=1;}";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.FunctionDefinitionContext tree = parser.functionDefinition();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

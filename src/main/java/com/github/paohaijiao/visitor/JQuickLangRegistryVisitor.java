@@ -34,7 +34,6 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
         validateArguments(function, arguments);
         JVariableContainerModel localVariables = new JVariableContainerModel();
         bindParameters(function, arguments, localVariables);
-        System.out.println("Executing function: " + functionName);
         return localVariables;
     }
 

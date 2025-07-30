@@ -2,16 +2,24 @@ package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.model.JReturnValueModel;
 import com.github.paohaijiao.param.JContext;
+import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 public class JQuickLangCommonVisitor extends JQuickLangStatementVisitor {
 
-    public JQuickLangCommonVisitor(JContext context) {
+    public JQuickLangCommonVisitor(JContext context, JQuickLangLexer lexer, CommonTokenStream tokenStream,JQuickLangParser parser) {
         this.context = context;
+        this.lexer = lexer;
+        this.tokenStream = tokenStream;
+        this.parser = parser;
     }
 
-    public JQuickLangCommonVisitor() {
+    public JQuickLangCommonVisitor(JQuickLangLexer lexer, CommonTokenStream tokenStream,JQuickLangParser parser) {
         this.context = new JContext();
+        this.lexer = lexer;
+        this.tokenStream = tokenStream;
+        this.parser = parser;
     }
 
     @Override

@@ -41,7 +41,7 @@ public class JVariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

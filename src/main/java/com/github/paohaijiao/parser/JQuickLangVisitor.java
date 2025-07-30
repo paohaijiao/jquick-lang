@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 package com.github.paohaijiao.parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -35,11 +35,29 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(JQuickLangParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#rule}.
+	 * Visit a parse tree produced by {@link JQuickLangParser#accessStaticVariable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRule(JQuickLangParser.RuleContext ctx);
+	T visitAccessStaticVariable(JQuickLangParser.AccessStaticVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#accessClassName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAccessClassName(JQuickLangParser.AccessClassNameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#accessObjectName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAccessObjectName(JQuickLangParser.AccessObjectNameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#method}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMethod(JQuickLangParser.MethodContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#action}.
 	 * @param ctx the parse tree
@@ -59,11 +77,47 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfStatement(JQuickLangParser.IfStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#elseIfConExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseIfConExpression(JQuickLangParser.ElseIfConExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#elseIfAction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseIfAction(JQuickLangParser.ElseIfActionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#elseAction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseAction(JQuickLangParser.ElseActionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#forStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitForStatement(JQuickLangParser.ForStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#initExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInitExpression(JQuickLangParser.InitExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#conExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConExpression(JQuickLangParser.ConExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#stopExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStopExpression(JQuickLangParser.StopExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#whileStatement}.
 	 * @param ctx the parse tree
@@ -76,6 +130,18 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitReturnStatement(JQuickLangParser.ReturnStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#breakStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBreakStatement(JQuickLangParser.BreakStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#continueStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitContinueStatement(JQuickLangParser.ContinueStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#expressionStatement}.
 	 * @param ctx the parse tree
@@ -94,6 +160,12 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExpression(JQuickLangParser.ExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#sout}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSout(JQuickLangParser.SoutContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#logical}.
 	 * @param ctx the parse tree
@@ -169,6 +241,26 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInstanceMethodCall(JQuickLangParser.InstanceMethodCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code thisMethodCall}
+	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitThisMethodCall(JQuickLangParser.ThisMethodCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code accessStaticMethodCall}
+	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAccessStaticMethodCall(JQuickLangParser.AccessStaticMethodCallContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#this}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitThis(JQuickLangParser.ThisContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#instanceName}.
 	 * @param ctx the parse tree

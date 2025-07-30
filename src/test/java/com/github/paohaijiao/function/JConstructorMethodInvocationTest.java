@@ -58,7 +58,7 @@ public class JConstructorMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params = setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -71,7 +71,7 @@ public class JConstructorMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params = setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -84,7 +84,7 @@ public class JConstructorMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params = setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -97,7 +97,7 @@ public class JConstructorMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params = setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -113,7 +113,7 @@ public class JConstructorMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params = setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -126,7 +126,7 @@ public class JConstructorMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params = setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
         assert (object instanceof ArrayList);
@@ -140,7 +140,7 @@ public class JConstructorMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params = setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

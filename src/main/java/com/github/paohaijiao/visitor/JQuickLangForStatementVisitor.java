@@ -9,24 +9,49 @@ public class JQuickLangForStatementVisitor  extends JQuickLangWhileStatementVisi
     public Object visitForStatement(JQuickLangParser.ForStatementContext ctx) {
         if (ctx.variableDecl() != null) {
             visit(ctx.variableDecl());
-        } else if (ctx.expression(0) != null) {
-            visit(ctx.expression(0));
+        } else if (ctx.initExpression() != null) {
+            visitInitExpression(ctx.initExpression());
         }
         Object result = null;
-        while (ctx.expression(1) == null || toBoolean(visit(ctx.expression(1)))) {
+        while (ctx.conExpression() == null || toBoolean(visitConExpression(ctx.conExpression()))) {
             try {
                 result = visit(ctx.action());
             } catch (JBreakException e) {
                 break;
             } catch (JContinueException e) {
+                if (ctx.stopExpression() != null) {
+                    visit(ctx.stopExpression());
+                }
                 continue;
             }
-            if (ctx.expression(2) != null) {
-                visit(ctx.expression(2));
+            if (ctx.stopExpression() != null) {
+                visitStopExpression(ctx.stopExpression());
             }
         }
 
         return result;
     }
+    @Override
+    public Object visitInitExpression(JQuickLangParser.InitExpressionContext ctx) {
+        if(null!=ctx.expression()){
+            return visitExpression( ctx.expression());
+        }
+        return null;
+    }
+    @Override
+    public Object visitConExpression(JQuickLangParser.ConExpressionContext ctx) {
+        if(null!=ctx.expression()){
+            return visitExpression( ctx.expression());
+        }
+        return null;
+    }
+    @Override
+    public Object visitStopExpression(JQuickLangParser.StopExpressionContext ctx) {
+        if(null!=ctx.expression()){
+            return visitExpression( ctx.expression());
+        }
+        return null;
+    }
+
 
 }

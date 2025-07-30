@@ -41,7 +41,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.LongContext tree = parser.long_();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -52,7 +52,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.DoubleContext tree = parser.double_();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -63,7 +63,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.FloatContext tree = parser.float_();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -74,7 +74,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.IntContext tree = parser.int_();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -85,7 +85,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ShortContext tree = parser.short_();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -97,7 +97,7 @@ public class JValueTest {
         JQuickLangParser.VariablesContext tree = parser.variables();
         JContext params = new JContext();
         params.put("type", "string");
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -109,7 +109,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.DateContext tree = parser.date();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -121,7 +121,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.DateContext tree = parser.date();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -133,7 +133,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.StringContext tree = parser.string();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -147,7 +147,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.BoolContext tree = parser.bool();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -158,7 +158,7 @@ public class JValueTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.LiteralContext tree = parser.literal();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
