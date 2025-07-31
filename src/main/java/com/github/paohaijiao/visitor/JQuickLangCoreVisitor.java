@@ -20,7 +20,7 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
 
     protected JQuickLangParser parser;
 
-    protected JImportContainerModel importContainer=new JImportContainerModel();
+    protected JImportContainerModel importContainer=JImportContainerModel.getInstance();
 
 
     JFunctionRegistry registry= JFunctionRegistry.getInstance();

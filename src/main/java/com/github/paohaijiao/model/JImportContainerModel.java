@@ -16,6 +16,7 @@
 package com.github.paohaijiao.model;
 
 import com.github.paohaijiao.enums.JLiteralEnums;
+import com.github.paohaijiao.factory.JFunctionRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +31,13 @@ import java.util.stream.Collectors;
  * @since 2025/7/22
  */
 public class JImportContainerModel extends HashMap<String, JImportModel> {
+
+    private static final JImportContainerModel INSTANCE = new JImportContainerModel();
+    private JImportContainerModel() {
+    }
+    public static JImportContainerModel getInstance() {
+        return INSTANCE;
+    }
 
     public JImportModel addImport(String identify,String fullPath) {
         String className = extractClassName(fullPath);

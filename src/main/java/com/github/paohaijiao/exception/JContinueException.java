@@ -1,4 +1,9 @@
 package com.github.paohaijiao.exception;
 
-public class JContinueException extends RuntimeException{
+import java.util.List;
+
+public class JContinueException extends JAntlrExecutionException{
+    public JContinueException(List<JAntlrError> errors) {
+        super(errors);
+    }
 }

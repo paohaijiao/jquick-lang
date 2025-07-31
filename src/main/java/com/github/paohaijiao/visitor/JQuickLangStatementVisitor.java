@@ -5,8 +5,8 @@ import com.github.paohaijiao.exception.JContinueException;
 import com.github.paohaijiao.model.JImportModel;
 import com.github.paohaijiao.model.JReturnValueModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
-
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JQuickLangStatementVisitor extends JQuickLangIfStatementVisitor{
@@ -14,7 +14,7 @@ public class JQuickLangStatementVisitor extends JQuickLangIfStatementVisitor{
     @Override
     public Object visitControlStatement(JQuickLangParser.ControlStatementContext ctx) {
         if (ctx.ifStatement() != null) {
-            return visit(ctx.ifStatement());
+        return  visit(ctx.ifStatement());
         } else if (ctx.forStatement() != null) {
             return visit(ctx.forStatement());
         } else if (ctx.whileStatement() != null) {
@@ -96,11 +96,11 @@ public class JQuickLangStatementVisitor extends JQuickLangIfStatementVisitor{
     }
     @Override
     public Void visitBreakStatement(JQuickLangParser.BreakStatementContext ctx) {
-        throw new JBreakException();
+        throw new JBreakException(new ArrayList<>());
     }
     @Override
     public Void visitContinueStatement(JQuickLangParser.ContinueStatementContext ctx) {
-        throw new JContinueException();
+        throw new JContinueException(new ArrayList<>());
     }
     @Override
     public Object visitSout(JQuickLangParser.SoutContext ctx) {

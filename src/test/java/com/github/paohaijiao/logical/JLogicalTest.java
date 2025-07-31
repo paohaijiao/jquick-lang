@@ -59,7 +59,7 @@ public class JLogicalTest {
     }
     @Test
     public void  gt() throws IOException {
-        String rule = "1>1";
+        String rule = "2>1";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -71,7 +71,7 @@ public class JLogicalTest {
     }
     @Test
     public void  ge() throws IOException {
-        String rule = "1>=1";
+        String rule = "2>=1";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -83,7 +83,7 @@ public class JLogicalTest {
     }
     @Test
     public void  lt() throws IOException {
-        String rule = "1<1";
+        String rule = "1<3";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -95,7 +95,7 @@ public class JLogicalTest {
     }
     @Test
     public void  le() throws IOException {
-        String rule = "1<=1";
+        String rule = "6<=5";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);

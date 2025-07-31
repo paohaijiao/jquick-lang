@@ -4,9 +4,6 @@ import com.github.paohaijiao.executor.JQuickLangActionExecutor;
 import com.github.paohaijiao.model.*;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.support.JObjectFactory;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.TokenSource;
-import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 import org.antlr.v4.runtime.misc.Interval;
 import org.apache.commons.lang3.StringUtils;
@@ -16,22 +13,30 @@ import java.util.List;
 
 public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     @Override
-    public JFunctionDefinitionModel visitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) {
+    public Object  visitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) {
         JAssert.notNull(ctx.IDENTIFIER(), "functionName must not be null");
         String functionName = ctx.IDENTIFIER().getText();
+        parser.enterScope("FUNCTION");
         List<JFunctionFieldModel> paramDefine = new ArrayList<>();
         if (ctx.parameterList() != null) {
             paramDefine=visitParameterList(ctx.parameterList())  ;
+        }
+        if (ctx.parameterList() != null) {
+            for (JQuickLangParser.ParamContext paramCtx : ctx.parameterList().param()) {
+                String paramType = paramCtx.paramType().getText();
+                String paramName = paramCtx.functionVar().getText();
+                parser.addVariable(paramName, paramType, null, true, paramCtx.getStart().getLine());
+            }
         }
         int startIndex = ctx.action().start.getTokenIndex();
         int stopIndex = ctx.action().stop.getTokenIndex();
         String action = tokenStream.getText(Interval.of(startIndex, stopIndex));
         TokenStreamRewriter rewriter = new TokenStreamRewriter(tokenStream);
-        String actionToken = rewriter.getText();
         JFunctionDefinitionModel jFunctionDefinitionModel =createFunctionDefinition(functionName,paramDefine,action);
         registry.registerFunction(jFunctionDefinitionModel);
-        return jFunctionDefinitionModel;
-
+        parser.exitScope();
+        parser.addVariable(functionName, "function", ctx, true, ctx.getStart().getLine());
+        return null;
     }
     @Override
     public List<JFunctionFieldModel> visitParameterList(JQuickLangParser.ParameterListContext ctx) {

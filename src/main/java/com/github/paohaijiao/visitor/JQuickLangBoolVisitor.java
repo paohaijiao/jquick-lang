@@ -99,8 +99,8 @@ public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
         if (left instanceof Number && right instanceof Number) {
             BigDecimal leftBigDecimal  = new BigDecimal(left.toString());
             BigDecimal rightBigDecimal  = new BigDecimal(right.toString());
-            JComparator comparator=JBigDecimalComparatorFactory.greaterThan(leftBigDecimal);
-            return comparator.compare(rightBigDecimal);
+            JComparator comparator=JBigDecimalComparatorFactory.greaterThan(rightBigDecimal);
+            return comparator.compare(leftBigDecimal);
         }
         throw new RuntimeException("cannot compare non-numeric values with >");
     }
@@ -109,8 +109,8 @@ public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
         if (left instanceof Number && right instanceof Number) {
             BigDecimal leftBigDecimal  = new BigDecimal(left.toString());
             BigDecimal rightBigDecimal  = new BigDecimal(right.toString());
-            JComparator comparator=JBigDecimalComparatorFactory.greaterThanOrEqual(leftBigDecimal);
-            return comparator.compare(rightBigDecimal);
+            JComparator comparator=JBigDecimalComparatorFactory.greaterThanOrEqual(rightBigDecimal);
+            return comparator.compare(leftBigDecimal);
         }
         throw new RuntimeException("cannot compare non-numeric values with >=");
     }
@@ -129,8 +129,8 @@ public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
         if (left instanceof Number && right instanceof Number) {
             BigDecimal leftBigDecimal  = new BigDecimal(left.toString());
             BigDecimal rightBigDecimal  = new BigDecimal(right.toString());
-            JComparator comparator=JBigDecimalComparatorFactory.lessThanOrEqual(leftBigDecimal);
-            return comparator.compare(rightBigDecimal);
+            JComparator comparator=JBigDecimalComparatorFactory.lessThanOrEqual(rightBigDecimal);
+            return comparator.compare(leftBigDecimal);
         }
         throw new RuntimeException("cannot compare non-numeric values with <=");
     }

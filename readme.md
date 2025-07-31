@@ -112,7 +112,7 @@ console.log("Result: " + result);
 */
 ```
 ### appendix
-```string
+```string preserve keyword
 var, 
 import, 
 as, 

@@ -41,9 +41,12 @@ public class JQuickLangExecutor extends JAbstractAntlrExecutor<String, Object> {
     @Override
     protected Object parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser calcParser = (JQuickLangParser) parser;
+        calcParser.enterScope("GLOBAL");
         JQuickLangParser.ProgramContext tree = calcParser.program();
         CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
         JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,calcParser);
-        return visitor.visit(tree);
+        Object object=visitor.visit(tree);
+        calcParser.exitScope();
+        return object;
     }
 }

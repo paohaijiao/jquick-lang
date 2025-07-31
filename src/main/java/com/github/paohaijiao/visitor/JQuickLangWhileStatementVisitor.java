@@ -12,15 +12,22 @@ public class JQuickLangWhileStatementVisitor extends JQuickLangReturnStatementVi
     @Override
     public Object visitWhileStatement(JQuickLangParser.WhileStatementContext ctx) {
         Object result = null;
+        parser.enterScope("LOOP");
+
         while (toBoolean(visit(ctx.expression()))) {
             try {
                 result = visitAction(ctx.action());
-            } catch (JBreakException e) {
-                break;
-            } catch (JContinueException e) {
-                continue;
-            }
+            } catch (Exception e) {
+                if (e instanceof JContinueException) {
+                    continue;
+                }else if (e instanceof JBreakException) {
+                    break;
+                }else{
+                    e.printStackTrace();
+                }
         }
+        }
+        parser.exitScope();
         return result;
     }
 

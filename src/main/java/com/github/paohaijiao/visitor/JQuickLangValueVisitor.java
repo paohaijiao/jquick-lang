@@ -116,13 +116,13 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
     }
     @Override
     public Object visitIdentifier(JQuickLangParser.IdentifierContext ctx) {
-        JContext context=this.context;
-        JAssert.notNull(ctx.IDENTIFIER(),"identifier must not be null");
-        Object key =ctx.IDENTIFIER().getText();
-        if(null==context.get(key)){
-            JAssert.throwNewException("Cannot find identifier ["+key+"] in context");
+        String varName = ctx.getText();
+        JQuickLangParser.Variable var = parser.lookupVariable(varName);
+        if (var == null) {
+            System.err.println("Error: Variable '" + varName + "' not found");
+            return null;
         }
-        return context.get(key);
+        return var.value;
     }
 
 }
