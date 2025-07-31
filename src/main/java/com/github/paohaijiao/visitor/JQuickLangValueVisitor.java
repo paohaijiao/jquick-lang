@@ -134,8 +134,7 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         String varName = ctx.getText();
         JQuickLangParser.Variable var = parser.lookupVariable(varName);
         if (var == null) {
-            System.err.println("Error: Variable '" + varName + "' not found");
-            return null;
+           return  this.context.get(varName);
         }
         return var.value;
     }
