@@ -24,9 +24,13 @@ import com.github.paohaijiao.support.JObjectFactory;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.*;
@@ -165,6 +169,20 @@ public class JOtherTest {
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
+    }
+    @Test
+    public void  join() throws IOException, NoSuchMethodException, IllegalAccessException {
+        MethodHandles.Lookup lookup = MethodHandles.lookup();
+        MethodHandle joinHandle = lookup.findStatic(
+                String.class,
+                "join",
+                MethodType.methodType(
+                        String.class,
+                        CharSequence.class,
+                        CharSequence[].class
+                )
+        );
+        System.out.println(joinHandle.toString());
     }
 
 }

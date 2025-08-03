@@ -103,31 +103,29 @@ public class JObjectFactory {
 
     public static Object  createByStaticMethod(String className, String methodName, List<Object> args) throws Exception {
         Class<?> clazz = Class.forName(className);
-        Class<?>[] paramTypes = buildParamClass(args);
+        Class<?>[] paramTypes = args.stream()
+                .map(arg -> arg != null ? arg.getClass() : Object.class)
+                .toArray(Class<?>[]::new);
         Method method = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, paramTypes);
         if (method == null) {
-            throw new NoSuchMethodException(
-                    String.format("No accessible method '%s' found in class %s with parameters %s",
-                            methodName, className, Arrays.toString(paramTypes))
-            );
+            method=findMethod(clazz,methodName,paramTypes);
+            if(method==null){
+                throw new NoSuchMethodException(
+                        String.format("No accessible method '%s' found in class %s with parameters %s",
+                                methodName, className, Arrays.toString(paramTypes))
+                );
+            }
         }
         Object[] methodArgs = prepareMethodArguments(method, args);
         return MethodUtils.invokeStaticMethod(clazz, methodName, methodArgs);
     }
-    private static  Class<?>[] buildParamClass(List<Object> args){
-        Class<?>[] paramTypes = new Class[args.size()];
-        for (int i = 0; i < args.size(); i++) {
-            Object arg = args.get(i);
-            if(null==arg){
-                paramTypes[i] =Object.class;
-            }else if(arg instanceof JForceTypeModel){
-                JForceTypeModel type=(JForceTypeModel)arg;
-                paramTypes[i] =type.getClazz();
-            }else{
-                paramTypes[i] =arg.getClass();
-            }
-        }
-        return paramTypes;
+    private static Method  findMethod(Class<?> clazz, String methodName, Class<?>[] paramTypes){
+        Method method = MethodUtils.getMatchingMethod(
+                clazz,
+                methodName,
+                paramTypes
+        );
+        return method;
     }
 
     public static Object createByInstanceMethod(Object target, String methodName, List<Object> args) throws Exception {
