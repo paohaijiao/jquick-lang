@@ -18,6 +18,7 @@ package com.github.paohaijiao.visitor;
 import com.github.paohaijiao.constants.JConstants;
 import com.github.paohaijiao.date.JDateUtil;
 import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.model.JForceTypeModel;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.util.JStringUtils;
@@ -90,11 +91,42 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
             return visitLong(ctx.long_());
         }else  if(null!=ctx.identifier()){
             return visitIdentifier(ctx.identifier());
-        }
-        else {
+        }else  if(null!=ctx.literal()&&null!=ctx.forceType()){
+            Object object= visitLiteral(ctx.literal());
+            Class<?> clazz=visitForceType(ctx.forceType());
+            Object value=clazz.cast(object);
+            JForceTypeModel jForceTypeModel=new JForceTypeModel();
+            jForceTypeModel.setClazz(clazz);
+            jForceTypeModel.setValue(value);
+            return jForceTypeModel;
+        } else {
             return null;
         }
     }
+    @Override
+    public Class<?> visitForceType(JQuickLangParser.ForceTypeContext ctx) {
+        if(ctx.importVar()!=null){
+            String var=null;
+            if(ctx.importVar() != null) {
+                var=ctx.importVar().getText();
+            }
+            JAssert.notNull(var,"var not null");
+            JAssert.isTrue(!this.importContainer.existsIdentify(var),"var ["+var+"] akready has been  imported, can't be assign again");
+            return this.importContainer.get(var).getClazz();
+        }else if(ctx.qualifiedName()!=null){
+            String qualifiedName=visitQualifiedName(ctx.qualifiedName());
+            try {
+                Class<?> clazz = Class.forName(qualifiedName);
+                return clazz;
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        JAssert.throwNewException("can't find the force convert type ");
+        return null;
+
+    }
+
     @Override
     public Short visitShort(JQuickLangParser.ShortContext ctx) {
         String text = ctx.getText();

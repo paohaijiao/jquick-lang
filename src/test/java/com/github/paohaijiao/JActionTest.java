@@ -51,22 +51,17 @@ public class JActionTest {
     @Test
     public void sample1() throws IOException {
         JContext context = new JContext();
-        context.addConstant("charArray", new char[]{'W', 'o', 'r', 'l', 'd'});
+        context.put("charArray", new char[]{'W', 'o', 'r', 'l', 'd'});
         JQuickLangActionExecutor executor = new JQuickLangActionExecutor(context, new JVariableContainerModel());
+        String join=null;
         String constructorExample =
                 "{" +
-                        "  var str1 = new java.lang.String(\"Hello\");" +
-                        "  var str2 = new java.lang.String(charArray);" +
-                        "  var joinedStr = java.lang.String.join(\"-\", \"Java\", \"Quick\", \"Lang\");" +
-                        "  var upperStr = str1.toUpperCase();" +
-                        "  var subStr = str2.substring(1, 3);" +
-                        "  var result = new java.util.HashMap();" +
-                        "  result.put(\"constructed1\", str1);" +
-                        "  result.put(\"constructed2\", str2);" +
-                        "  result.put(\"joined\", joinedStr);" +
-                        "  result.put(\"uppercased\", upperStr);" +
-                        "  result.put(\"substring\", subStr);" +
-                        "  return result;" +
+                        "var delimiter=\"-\"->java.lang.CharSequence;"+
+                        "var list=new ArrayList<java.lang.CharSequence>()"+
+                        "  var joinedStr =  java.lang.String::join(\"-\"->java.lang.CharSequence, " +
+                        "\"Java\"->java.lang.CharSequence," +
+                        " \"Quick\"->java.lang.CharSequence, \"Lang\"->java.lang.CharSequence);" +
+                        "  return joinedStr;" +
                         "}";
         System.out.println(constructorExample);
         Object result1 = executor.execute(constructorExample);

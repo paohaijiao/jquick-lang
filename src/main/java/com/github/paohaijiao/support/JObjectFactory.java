@@ -15,6 +15,7 @@
  */
 package com.github.paohaijiao.support;
 import com.github.paohaijiao.console.JConsole;
+import com.github.paohaijiao.model.JForceTypeModel;
 import org.apache.commons.lang3.reflect.MethodUtils;
 
 import java.lang.reflect.*;
@@ -102,11 +103,7 @@ public class JObjectFactory {
 
     public static Object  createByStaticMethod(String className, String methodName, List<Object> args) throws Exception {
         Class<?> clazz = Class.forName(className);
-        Class<?>[] paramTypes = new Class[args.size()];
-        for (int i = 0; i < args.size(); i++) {
-            Object arg = args.get(i);
-            paramTypes[i] = (arg != null) ? arg.getClass() : Object.class;
-        }
+        Class<?>[] paramTypes = buildParamClass(args);
         Method method = MethodUtils.getMatchingAccessibleMethod(clazz, methodName, paramTypes);
         if (method == null) {
             throw new NoSuchMethodException(
@@ -116,6 +113,21 @@ public class JObjectFactory {
         }
         Object[] methodArgs = prepareMethodArguments(method, args);
         return MethodUtils.invokeStaticMethod(clazz, methodName, methodArgs);
+    }
+    private static  Class<?>[] buildParamClass(List<Object> args){
+        Class<?>[] paramTypes = new Class[args.size()];
+        for (int i = 0; i < args.size(); i++) {
+            Object arg = args.get(i);
+            if(null==arg){
+                paramTypes[i] =Object.class;
+            }else if(arg instanceof JForceTypeModel){
+                JForceTypeModel type=(JForceTypeModel)arg;
+                paramTypes[i] =type.getClazz();
+            }else{
+                paramTypes[i] =arg.getClass();
+            }
+        }
+        return paramTypes;
     }
 
     public static Object createByInstanceMethod(Object target, String methodName, List<Object> args) throws Exception {
