@@ -31,6 +31,18 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitQualifiedName(JQuickLangParser.QualifiedNameContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#typeArguments}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#typeArgument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeArgument(JQuickLangParser.TypeArgumentContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -288,11 +300,23 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLiteral(JQuickLangParser.LiteralContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#forceType}.
+	 * Visit a parse tree produced by {@link JQuickLangParser#listLiteral}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitForceType(JQuickLangParser.ForceTypeContext ctx);
+	T visitListLiteral(JQuickLangParser.ListLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#mapLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMapLiteral(JQuickLangParser.MapLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#mapEntry}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMapEntry(JQuickLangParser.MapEntryContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#importVar}.
 	 * @param ctx the parse tree

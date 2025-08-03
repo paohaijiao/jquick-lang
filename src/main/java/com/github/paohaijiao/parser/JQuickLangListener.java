@@ -40,6 +40,26 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitQualifiedName(JQuickLangParser.QualifiedNameContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#typeArguments}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeArguments(JQuickLangParser.TypeArgumentsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#typeArguments}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#typeArgument}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypeArgument(JQuickLangParser.TypeArgumentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#typeArgument}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypeArgument(JQuickLangParser.TypeArgumentContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#statement}.
 	 * @param ctx the parse tree
 	 */
@@ -470,15 +490,35 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitLiteral(JQuickLangParser.LiteralContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JQuickLangParser#forceType}.
+	 * Enter a parse tree produced by {@link JQuickLangParser#listLiteral}.
 	 * @param ctx the parse tree
 	 */
-	void enterForceType(JQuickLangParser.ForceTypeContext ctx);
+	void enterListLiteral(JQuickLangParser.ListLiteralContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JQuickLangParser#forceType}.
+	 * Exit a parse tree produced by {@link JQuickLangParser#listLiteral}.
 	 * @param ctx the parse tree
 	 */
-	void exitForceType(JQuickLangParser.ForceTypeContext ctx);
+	void exitListLiteral(JQuickLangParser.ListLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#mapLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapLiteral(JQuickLangParser.MapLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#mapLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapLiteral(JQuickLangParser.MapLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#mapEntry}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapEntry(JQuickLangParser.MapEntryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#mapEntry}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapEntry(JQuickLangParser.MapEntryContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#importVar}.
 	 * @param ctx the parse tree

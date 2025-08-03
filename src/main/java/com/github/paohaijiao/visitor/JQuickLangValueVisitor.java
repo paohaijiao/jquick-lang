@@ -24,7 +24,7 @@ import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.util.JStringUtils;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.*;
 
 
 public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
@@ -91,41 +91,48 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
             return visitLong(ctx.long_());
         }else  if(null!=ctx.identifier()){
             return visitIdentifier(ctx.identifier());
-        }else  if(null!=ctx.literal()&&null!=ctx.forceType()){
-            Object object= visitLiteral(ctx.literal());
-            Class<?> clazz=visitForceType(ctx.forceType());
-            Object value=clazz.cast(object);
-            JForceTypeModel jForceTypeModel=new JForceTypeModel();
-            jForceTypeModel.setClazz(clazz);
-            jForceTypeModel.setValue(value);
-            return jForceTypeModel;
-        } else {
+        }else  if(null!=ctx.listLiteral()){
+            List<Object> list=visitListLiteral(ctx.listLiteral());
+            return list;
+        } else  if(null!=ctx.mapLiteral()){
+            Map<Object,Object> map=visitMapLiteral(ctx.mapLiteral());
+            return map;
+        }else {
             return null;
         }
     }
     @Override
-    public Class<?> visitForceType(JQuickLangParser.ForceTypeContext ctx) {
-        if(ctx.importVar()!=null){
-            String var=null;
-            if(ctx.importVar() != null) {
-                var=ctx.importVar().getText();
-            }
-            JAssert.notNull(var,"var not null");
-            JAssert.isTrue(!this.importContainer.existsIdentify(var),"var ["+var+"] akready has been  imported, can't be assign again");
-            return this.importContainer.get(var).getClazz();
-        }else if(ctx.qualifiedName()!=null){
-            String qualifiedName=visitQualifiedName(ctx.qualifiedName());
-            try {
-                Class<?> clazz = Class.forName(qualifiedName);
-                return clazz;
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+    public Map<Object,Object> visitMapLiteral(JQuickLangParser.MapLiteralContext ctx) {
+        Map<Object,Object> map=new HashMap<>();
+        for (int i = 0; i < ctx.mapEntry().size(); i++) {
+            Map<Object,Object> entry=visitMapEntry(ctx.mapEntry(i));
+            map.putAll(entry);
         }
-        JAssert.throwNewException("can't find the force convert type ");
-        return null;
-
+        return map;
     }
+    @Override
+    public Map<Object,Object> visitMapEntry(JQuickLangParser.MapEntryContext ctx) {
+        Map<Object,Object> map=new HashMap<>();
+        if(ctx.expression() != null&&ctx.expression().size()==2) {
+            Object key=visitExpression(ctx.expression().get(0));
+            Object value=visitExpression(ctx.expression().get(1));
+            map.put(key,value);
+        }
+        JAssert.throwNewException("invalidat the map entry");
+        return map;
+    }
+
+
+    @Override
+    public List<Object> visitListLiteral(JQuickLangParser.ListLiteralContext ctx) {
+        List<Object> list=new ArrayList<>();
+        for (int i = 0; i <ctx.expression().size() ; i++) {
+            Object object=(ctx.expression().get(i)) ;
+            list.add(object);
+        }
+        return list;
+    }
+
 
     @Override
     public Short visitShort(JQuickLangParser.ShortContext ctx) {
