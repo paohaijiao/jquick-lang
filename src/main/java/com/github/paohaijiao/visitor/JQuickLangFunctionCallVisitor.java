@@ -63,10 +63,10 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         List<JFunctionFieldModel> list=new ArrayList<>();
         for (int i = 0; i < ctx.param().size(); i++) {
             JFunctionFieldModel model=new JFunctionFieldModel();
-//            JfunctionParamModel param=visitParam(ctx.param().get(i));
-//            model.setIndex(i);
-//            model.setFieldName(param.getName());
-//            model.setClazz(param.getType());
+            JfunctionParamModel param=visitParam(ctx.param().get(i));
+            model.setIndex(i);
+            model.setFieldName(param.getName());
+            model.setClazz(param.getType());
             list.add(model);
         }
         return list;

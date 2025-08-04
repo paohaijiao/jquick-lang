@@ -24,6 +24,7 @@ import com.github.paohaijiao.parser.JQuickLangBaseVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.support.JTypeReference;
+import com.github.paohaijiao.type.JGenericlTypeConverter;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.util.List;
@@ -57,6 +58,15 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
         try{
             Class<?> clazz = Class.forName(className);
             return clazz;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    protected Object mergeDataWithTypeReference(String data,JTypeReference<?> typeReference){
+        JGenericlTypeConverter converter = new JGenericlTypeConverter();
+        try {
+            return  converter.convert(data,typeReference);
         }catch (Exception e){
             e.printStackTrace();
         }
