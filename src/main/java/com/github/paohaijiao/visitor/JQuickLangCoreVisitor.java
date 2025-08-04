@@ -17,12 +17,17 @@ package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.factory.JFunctionRegistry;
 import com.github.paohaijiao.model.JImportContainerModel;
+import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.model.JVariableContainerModel;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangBaseVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.support.JTypeReference;
 import org.antlr.v4.runtime.CommonTokenStream;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
@@ -47,6 +52,23 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
             return Boolean.parseBoolean((String) value);
         }
         throw new RuntimeException("cannot convert value to boolean: " + value);
+    }
+    protected Class<?> loadClass(String className){
+        try{
+            Class<?> clazz = Class.forName(className);
+            return clazz;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    protected Object[] buildParamArray(List<JLiteralModel> list){
+        if(null==list){
+            return new Object[]{};
+        }else{
+           List<Object> data= list.stream().map(e->e.getValue()).collect(Collectors.toList());
+            return data.toArray();
+        }
     }
 
 

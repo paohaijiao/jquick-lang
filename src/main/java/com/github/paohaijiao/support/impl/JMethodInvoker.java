@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class MethodInvoker {
+public class JMethodInvoker {
 
     @SuppressWarnings("unchecked")
     static <R> R invoke(Object target, Class<?> clazz, String methodName,

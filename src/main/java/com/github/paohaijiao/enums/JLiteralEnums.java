@@ -16,34 +16,35 @@
 package com.github.paohaijiao.enums;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.github.paohaijiao.support.JTypeReference;
 import lombok.Getter;
 
 
 @Getter
 public enum JLiteralEnums {
-    String("string", new TypeReference<String>() {}, new TypeReference<String>() {}),
-    Date("date", new TypeReference<java.util.Date>() {}, new TypeReference<java.util.Date>() {}),
-    Boolean("boolean", new TypeReference<Boolean>() {}, new TypeReference<Boolean>() {}),
-    Null("null", new TypeReference<Object>() {}, new TypeReference<Object>() {}),
-    Variable("variable", new TypeReference<Object>() {}, new TypeReference<Object>() {}),
-    Identifier("identifier", new TypeReference<Object>() {}, new TypeReference<Object>() {}),
+    String("string", new JTypeReference<String>() {}, new JTypeReference<String>() {}),
+    Date("date", new JTypeReference<java.util.Date>() {}, new JTypeReference<java.util.Date>() {}),
+    Boolean("boolean", new JTypeReference<Boolean>() {}, new JTypeReference<Boolean>() {}),
+    Null("null", new JTypeReference<Object>() {}, new JTypeReference<Object>() {}),
+    Variable("variable", new JTypeReference<Object>() {}, new JTypeReference<Object>() {}),
+    Identifier("identifier", new JTypeReference<Object>() {}, new JTypeReference<Object>() {}),
 
-    Int("int", new TypeReference<Integer>() {}, new TypeReference<Integer>() {}),
-    Long("long", new TypeReference<Long>() {}, new TypeReference<Long>() {}),
-    Short("short", new TypeReference<Short>() {}, new TypeReference<Short>() {}),
-    Byte("byte", new TypeReference<Byte>() {}, new TypeReference<Byte>() {}),
-    Float("float", new TypeReference<Float>() {}, new TypeReference<Float>() {}),
-    Double("double", new TypeReference<Double>() {}, new TypeReference<Double>() {}),
-    Char("char", new TypeReference<Character>() {}, new TypeReference<Character>() {}),
+    Int("int", new JTypeReference<Integer>() {}, new JTypeReference<Integer>() {}),
+    Long("long", new JTypeReference<Long>() {}, new JTypeReference<Long>() {}),
+    Short("short", new JTypeReference<Short>() {}, new JTypeReference<Short>() {}),
+    Byte("byte", new JTypeReference<Byte>() {}, new JTypeReference<Byte>() {}),
+    Float("float", new JTypeReference<Float>() {}, new JTypeReference<Float>() {}),
+    Double("double", new JTypeReference<Double>() {}, new JTypeReference<Double>() {}),
+    Char("char", new JTypeReference<Character>() {}, new JTypeReference<Character>() {}),
 
-    ClassLiteral("class", new TypeReference<Class<?>>() {}, new TypeReference<Class<?>>() {}),
-    List("list", new TypeReference<java.util.List<?>>() {}, new TypeReference<java.util.List<?>>() {}),
-    Map("map", new TypeReference<java.util.Map<?, ?>>() {}, new TypeReference<java.util.Map<?, ?>>() {});
+    ClassLiteral("class", new JTypeReference<Class<?>>() {}, new JTypeReference<Class<?>>() {}),
+    List("list", new JTypeReference<java.util.List<?>>() {}, new JTypeReference<java.util.List<?>>() {}),
+    Map("map", new JTypeReference<java.util.Map<?, ?>>() {}, new JTypeReference<java.util.Map<?, ?>>() {});
     private String code;
-    private TypeReference<?> typeReference;
-    private TypeReference<?> aliasTypeReference;
+    private JTypeReference<?> typeReference;
+    private JTypeReference<?> aliasTypeReference;
 
-    private JLiteralEnums(String code, TypeReference<?> typeReference, TypeReference<?> aliasTypeReference) {
+    private JLiteralEnums(String code, JTypeReference<?> typeReference, JTypeReference<?> aliasTypeReference) {
         this.code = code;
         this.typeReference = typeReference;
         this.aliasTypeReference = aliasTypeReference;
@@ -58,7 +59,7 @@ public enum JLiteralEnums {
         return null;
     }
 
-    public static JLiteralEnums typeOf(TypeReference<?> typeReference) {
+    public static JLiteralEnums typeOf(JTypeReference<?> typeReference) {
         for (JLiteralEnums jiteral : values()) {
             if (typeReference.getType().equals(jiteral.getTypeReference().getType()) ||
                     typeReference.getType().equals(jiteral.getAliasTypeReference().getType())) {

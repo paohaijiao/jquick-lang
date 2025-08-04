@@ -1,4 +1,4 @@
-// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 
 package com.github.paohaijiao.parser;
 
@@ -380,17 +380,17 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 */
 	void exitPrimary(JQuickLangParser.PrimaryContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code standardCall}
+	 * Enter a parse tree produced by the {@code staticCall}
 	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
 	 * @param ctx the parse tree
 	 */
-	void enterStandardCall(JQuickLangParser.StandardCallContext ctx);
+	void enterStaticCall(JQuickLangParser.StaticCallContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code standardCall}
+	 * Exit a parse tree produced by the {@code staticCall}
 	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
 	 * @param ctx the parse tree
 	 */
-	void exitStandardCall(JQuickLangParser.StandardCallContext ctx);
+	void exitStaticCall(JQuickLangParser.StaticCallContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code constructorCall}
 	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.

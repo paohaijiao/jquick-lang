@@ -6,9 +6,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-import static com.github.paohaijiao.support.impl.MethodInvoker.*;
+import static com.github.paohaijiao.support.impl.JMethodInvoker.*;
 
-public class ConstructorInvoker {
+public class JConstructorInvoker {
     public static <T> T invoke(Class<T> clazz, JTypeReference<?>[] argTypes, Object... args) {
         try {
             Class<?>[] parameterTypes = convertToClassArray(argTypes);

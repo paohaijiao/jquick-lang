@@ -4,14 +4,15 @@ import com.github.paohaijiao.support.JTypeReference;
 
 import java.util.Objects;
 
-public class InstanceMethodFactory {
-    private final Object target;
-    public InstanceMethodFactory(Object target) {
-        this.target = Objects.requireNonNull(target, "Target object cannot be null");
+public class JStaticMethodFactory {
+    private final Class<?> clazz;
+
+    public JStaticMethodFactory(Class<?> clazz) {
+        this.clazz = Objects.requireNonNull(clazz, "Class cannot be null");
     }
 
     public <R> R invoke(String methodName, JTypeReference<?>[] argTypes, Object... args) {
-        return MethodInvoker.invoke(target, target.getClass(), methodName, argTypes, args);
+        return JMethodInvoker.invoke(null, clazz, methodName, argTypes, args);
     }
 
     public <R> R invoke(String methodName) {

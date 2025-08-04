@@ -1,9 +1,10 @@
 package com.github.paohaijiao.support;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.paohaijiao.exception.JAssert;
 
 import java.lang.reflect.*;
 import java.util.*;
-public class JTypeReference <T> implements Comparable<JTypeReference<T>>{
+public class JTypeReference <T> extends TypeReference<T> {
 
     protected final Type type;
 
@@ -106,10 +107,6 @@ public class JTypeReference <T> implements Comparable<JTypeReference<T>>{
         return type.toString();
     }
 
-    @Override
-    public int compareTo(JTypeReference<T> o) {
-        return toString().compareTo(o.toString());
-    }
 
     private static Class<?> getRawType(Type type) {
         if (type instanceof Class<?>) {

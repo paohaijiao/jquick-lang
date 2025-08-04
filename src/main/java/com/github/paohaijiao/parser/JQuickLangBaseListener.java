@@ -1,4 +1,4 @@
-// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 
 package com.github.paohaijiao.parser;
 
@@ -462,13 +462,13 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStandardCall(JQuickLangParser.StandardCallContext ctx) { }
+	@Override public void enterStaticCall(JQuickLangParser.StaticCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStandardCall(JQuickLangParser.StandardCallContext ctx) { }
+	@Override public void exitStaticCall(JQuickLangParser.StaticCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

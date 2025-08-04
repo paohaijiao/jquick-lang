@@ -15,7 +15,9 @@
  */
 package com.github.paohaijiao.visitor;
 import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.model.JImportModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.support.JTypeReference;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
@@ -53,5 +55,56 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
             return StringUtils.join(list, ".");
         }
 
+    @Override
+    public  JTypeReference<?>[] visitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx) {
+        JAssert.notNull(ctx.typeArgument(),"typeArgument not null");
+        JTypeReference<?>[] typeReference=new JTypeReference<?>[ctx.typeArgument().size()];
+        if(ctx.typeArgument()!=null&&!ctx.typeArgument().isEmpty()){
+           for (int i = 0; i < ctx.typeArgument().size(); i++) {
+            typeReference[i]=visitTypeArgument(ctx.typeArgument().get(i));
+           }
+       }
+        return typeReference;
+    }
+    @Override
+    public JTypeReference<?> visitTypeArgument(JQuickLangParser.TypeArgumentContext ctx) {
+        if(ctx.paramType()!=null){
+            return visitParamType(ctx.paramType());
+        }
+        JAssert.throwNewException("unexpected type Reference type");
+        return null;
+
+    }
+    @Override
+    public JTypeReference<?> visitParamType(JQuickLangParser.ParamTypeContext ctx) {
+        if(ctx.TYPESHORT()!=null){
+            return JTypeReference.of(short.class);
+        }else if(ctx.TYPEINT()!=null){
+            return JTypeReference.of(int.class);
+        } else if (ctx.TYPEFLOAT()!=null) {
+            return JTypeReference.of(float.class);
+        }else if (ctx.TYPEDOUBLE()!=null){
+            return JTypeReference.of(double.class);
+        }else if (ctx.TYPELONG()!=null){
+            return JTypeReference.of(long.class);
+        }else if (ctx.TYPEBOOLEAN()!=null){
+            return JTypeReference.of(boolean.class);
+        }else if (ctx.paramType()!=null){
+            return JTypeReference.of(boolean.class);
+        }else if(ctx.qualifiedName()!=null){
+            String varType=ctx.qualifiedName().getText();
+            boolean exists=this.importContainer.existsIdentify(varType);
+            if(exists){
+                JImportModel type=(JImportModel)this.importContainer.get(varType);
+                Class<?> clazz=type.getClazz();
+                return JTypeReference.of(clazz);
+            }else{
+                Class<?> clazz=loadClass(varType);
+                return JTypeReference.of(clazz);
+            }
+        }
+        JAssert.throwNewException("unsupported type argument type");
+        return null;
+    }
 
 }

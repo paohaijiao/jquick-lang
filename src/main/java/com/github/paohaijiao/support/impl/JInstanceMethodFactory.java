@@ -1,19 +1,17 @@
 package com.github.paohaijiao.support.impl;
 
 import com.github.paohaijiao.support.JTypeReference;
-import com.github.paohaijiao.support.ReflectionFactory;
 
 import java.util.Objects;
 
-public class StaticMethodFactory {
-    private final Class<?> clazz;
-
-    public StaticMethodFactory(Class<?> clazz) {
-        this.clazz = Objects.requireNonNull(clazz, "Class cannot be null");
+public class JInstanceMethodFactory {
+    private final Object target;
+    public JInstanceMethodFactory(Object target) {
+        this.target = Objects.requireNonNull(target, "Target object cannot be null");
     }
 
     public <R> R invoke(String methodName, JTypeReference<?>[] argTypes, Object... args) {
-        return MethodInvoker.invoke(null, clazz, methodName, argTypes, args);
+        return JMethodInvoker.invoke(target, target.getClass(), methodName, argTypes, args);
     }
 
     public <R> R invoke(String methodName) {

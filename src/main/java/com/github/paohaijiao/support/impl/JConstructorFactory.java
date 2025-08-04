@@ -4,15 +4,15 @@ import com.github.paohaijiao.support.JTypeReference;
 
 import java.util.Objects;
 
-public class ConstructorFactory <T>{
+public class JConstructorFactory<T>{
     private final Class<T> clazz;
 
-    public ConstructorFactory(Class<T> clazz) {
+    public JConstructorFactory(Class<T> clazz) {
         this.clazz = Objects.requireNonNull(clazz, "Class cannot be null");
     }
 
     public T newInstance(JTypeReference<?>[] argTypes, Object... args) {
-        return ConstructorInvoker.invoke(clazz, argTypes, args);
+        return JConstructorInvoker.invoke(clazz, argTypes, args);
     }
 
     public T newInstance() {

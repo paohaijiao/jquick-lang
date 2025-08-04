@@ -1,4 +1,4 @@
-// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 
 package com.github.paohaijiao.parser;
 
@@ -235,12 +235,12 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrimary(JQuickLangParser.PrimaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code standardCall}
+	 * Visit a parse tree produced by the {@code staticCall}
 	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStandardCall(JQuickLangParser.StandardCallContext ctx);
+	T visitStaticCall(JQuickLangParser.StaticCallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code constructorCall}
 	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
