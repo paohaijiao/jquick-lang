@@ -81,11 +81,11 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
 
 
     @Override
-    public List<Object> visitArgumentList(JQuickLangParser.ArgumentListContext ctx) {
-        List<Object> list = new ArrayList<>();
+    public List<JLiteralModel> visitArgumentList(JQuickLangParser.ArgumentListContext ctx) {
+        List<JLiteralModel> list = new ArrayList<>();
         if (null != ctx.literal() && !ctx.literal().isEmpty()) {
             for (JQuickLangParser.LiteralContext literalContext : ctx.literal()) {
-                Object object = visitLiteral(literalContext);
+                JLiteralModel object = visitLiteral(literalContext);
                 list.add(object);
             }
         }
@@ -98,11 +98,12 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         String qualifiedName = ctx.qualifiedName() != null ? ctx.qualifiedName().getText() : null;
         String methodName = visitMethodName(ctx.methodName());
         try {
-            List<Object> args = new ArrayList<>();
+            List<JLiteralModel> args = new ArrayList<>();
             if(null!=ctx.argumentList()&&null!=ctx.argumentList().literal()&&ctx.argumentList().literal().size()>0){
                 args=visitArgumentList(ctx.argumentList());
             }
-            return  JObjectFactory.createByStaticMethod(qualifiedName, methodName, args);
+            return null;
+            //return  JObjectFactory.createByStaticMethod(qualifiedName, methodName, args);
         } catch (Exception e) {
             throw new RuntimeException("please double check static method invocation : " + methodName, e);
         }
@@ -111,11 +112,12 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     public Object visitConstructorCall(JQuickLangParser.ConstructorCallContext ctx) {
         try {
             String className = ctx.qualifiedName().getText();
-            List<Object> args = new ArrayList<>();
+            List<JLiteralModel> args = new ArrayList<>();
             if(null!=ctx.argumentList()&&null!=ctx.argumentList().literal()&&ctx.argumentList().literal().size()>0){
                 args=visitArgumentList(ctx.argumentList());
             }
-            return JObjectFactory.createByConstructor(className, args);
+//            return JObjectFactory.createByConstructor(className, args);
+            return null;
         } catch (Exception e) {
             throw new RuntimeException("constructor invocation failed: " + ctx.getText(), e);
         }
@@ -128,11 +130,12 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
                 target = resolveVariable(ctx.instanceName().getText());
             }
             String methodName = visitMethodName(ctx.methodName());
-            List<Object> args = new ArrayList<>();
+            List<JLiteralModel> args = new ArrayList<>();
             if(null!=ctx.argumentList()&&null!=ctx.argumentList().literal()&&ctx.argumentList().literal().size()>0){
                 args=visitArgumentList(ctx.argumentList());
             }
-            return  JObjectFactory.createByInstanceMethod(target, methodName, args);
+            return null;
+//            return  JObjectFactory.createByInstanceMethod(target, methodName, args);
         } catch (Exception e) {
             throw new RuntimeException("Instance method invocation failed: " + ctx.getText(), e);
         }
@@ -143,18 +146,18 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         String methodName = visitMethodName(ctx.methodName());
         boolean flag=this.hasFunction(methodName);
         JAssert.isTrue(flag,"the method [ "+methodName+" ] did not define in this context");
-        List<Object> args = new ArrayList<>();
+        List<JLiteralModel> args = new ArrayList<>();
         if(null!=ctx.argumentList()&&null!=ctx.argumentList().literal()&&!ctx.argumentList().literal().isEmpty()){
             args=visitArgumentList(ctx.argumentList());
         }
-        String params= StringUtils.join(args, ",");
-        JFunctionDefinitionModel function = registry.lookupFunction(methodName,args);//find the best match method
-        JAssert.notNull(function,"can't find function ["+methodName+"] based the parameter [ "+params+" ] you gived");
-        JVariableContainerModel varModel= super.invoke(methodName,args);
-        JQuickLangActionExecutor executor=new JQuickLangActionExecutor();
-        executor.intExecuteEnv(this.context,varModel);
-        Object object=executor.execute(function.getAction());
-        return object;
+//        String params= StringUtils.join(args, ",");
+//        JFunctionDefinitionModel function = registry.lookupFunction(methodName,args);//find the best match method
+//        JAssert.notNull(function,"can't find function ["+methodName+"] based the parameter [ "+params+" ] you gived");
+//        JVariableContainerModel varModel= super.invoke(methodName,args);
+//        JQuickLangActionExecutor executor=new JQuickLangActionExecutor();
+//        executor.intExecuteEnv(this.context,varModel);
+//        Object object=executor.execute(function.getAction());
+        return null;
     }
     @Override
     public Object visitAccessStaticMethodCall(JQuickLangParser.AccessStaticMethodCallContext ctx) {
@@ -163,11 +166,12 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         String methodName = visitMethodName(ctx.methodName());
         try {
             Object target=visitAccessStaticVariable(ctx.accessStaticVariable());
-            List<Object> args = new ArrayList<>();
+            List<JLiteralModel> args = new ArrayList<>();
             if(null!=ctx.argumentList()&&null!=ctx.argumentList().literal()&&ctx.argumentList().literal().size()>0){
                 args=visitArgumentList(ctx.argumentList());
             }
-            return  JObjectFactory.createByInstanceMethod(target, methodName, args);
+            return null;
+//            return  JObjectFactory.createByInstanceMethod(target, methodName, args);
         } catch (Exception e) {
             throw new RuntimeException("please double check static method invocation : " + methodName, e);
         }

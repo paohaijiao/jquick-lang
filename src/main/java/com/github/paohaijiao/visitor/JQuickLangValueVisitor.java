@@ -17,8 +17,11 @@ package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.constants.JConstants;
 import com.github.paohaijiao.date.JDateUtil;
+import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.type.JGenericlTypeConverter;
 import com.github.paohaijiao.util.JStringUtils;
 
 import java.util.*;
@@ -67,36 +70,71 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         throw new RuntimeException("Unsupported Boolean format: " + ctx.getText());
     }
     @Override
-    public Object visitLiteral(JQuickLangParser.LiteralContext ctx) {
+    public JLiteralModel visitLiteral(JQuickLangParser.LiteralContext ctx) {
+        JLiteralModel model = new JLiteralModel();
+        model.setLiteral(ctx.getText());
         if(null!=ctx.bool()){
-            return visitBool(ctx.bool());
+            model.setValue(visitBool(ctx.bool()));
+            model.setType(JLiteralEnums.Boolean);
+            return model;
         }else  if(null!=ctx.string()){
-            return visitString(ctx.string());
+            model.setValue(visitString(ctx.string()));
+            model.setType(JLiteralEnums.String);
+            return model;
         }else  if(null!=ctx.date()){
-            return visitDate(ctx.date());
+            model.setValue(visitDate(ctx.date()));
+            model.setType(JLiteralEnums.Date);
+            return model;
         }else  if(null!=ctx.variables()){
-            return visitVariables(ctx.variables());
+            model.setValue(visitVariables(ctx.variables()));
+            model.setType(JLiteralEnums.Variable);
+            return model;
          }else  if(null!=ctx.short_()){
-            return visitShort(ctx.short_());
+            model.setValue(visitShort(ctx.short_()));
+            model.setType(JLiteralEnums.Short);
+            return model;
         }else  if(null!=ctx.int_()){
-            return visitInt(ctx.int_());
+            model.setValue(visitInt(ctx.int_()));
+            model.setType(JLiteralEnums.Int);
+            return model;
         }else  if(null!=ctx.float_()){
-            return visitFloat(ctx.float_());
+            model.setValue(visitFloat(ctx.float_()));
+            model.setType(JLiteralEnums.Float);
+            return model;
         }else  if(null!=ctx.double_()){
-            return visitDouble(ctx.double_());
+            model.setValue(visitDouble(ctx.double_()));
+            model.setType(JLiteralEnums.Double);
+            return model;
         }else  if(null!=ctx.long_()){
-            return visitLong(ctx.long_());
+            model.setValue(visitLong(ctx.long_()));
+            model.setType(JLiteralEnums.Long);
+            return model;
         }else  if(null!=ctx.identifier()){
-            return visitIdentifier(ctx.identifier());
+            model.setValue(visitIdentifier(ctx.identifier()));
+            model.setType(JLiteralEnums.Identifier);
+            return model;
         }else  if(null!=ctx.listLiteral()){
-            List<Object> list=visitListLiteral(ctx.listLiteral());
-            return list;
+            model.setType(JLiteralEnums.List);
+            return model;
         } else  if(null!=ctx.mapLiteral()){
-            Map<Object,Object> map=visitMapLiteral(ctx.mapLiteral());
-            return map;
-        }else {
-            return null;
+            model.setType(JLiteralEnums.Map);
+            return model;
+        }else if(ctx.qualifiedName() != null) {
+            try {
+                Class<?> clazz = Class.forName(ctx.qualifiedName().getText());
+                model.setValue(clazz);
+                model.setType(JLiteralEnums.ClassLiteral);
+                return model;
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }else if (null!=ctx.null_()){
+            model.setValue(null);
+            model.setType(JLiteralEnums.Null);
+            return model;
         }
+        JAssert.throwNewException("invalid literalsyntax:"+ctx.getText());
+        return null;
     }
     @Override
     public Map<Object,Object> visitMapLiteral(JQuickLangParser.MapLiteralContext ctx) {
@@ -120,15 +158,7 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
     }
 
 
-    @Override
-    public List<Object> visitListLiteral(JQuickLangParser.ListLiteralContext ctx) {
-        List<Object> list=new ArrayList<>();
-        for (int i = 0; i <ctx.expression().size() ; i++) {
-            Object object=(ctx.expression().get(i)) ;
-            list.add(object);
-        }
-        return list;
-    }
+
 
 
     @Override

@@ -15,42 +15,39 @@
  */
 package com.github.paohaijiao.enums;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.Getter;
 
 
 @Getter
 public enum JLiteralEnums {
+    String("string", new TypeReference<String>() {}, new TypeReference<String>() {}),
+    Date("date", new TypeReference<java.util.Date>() {}, new TypeReference<java.util.Date>() {}),
+    Boolean("boolean", new TypeReference<Boolean>() {}, new TypeReference<Boolean>() {}),
+    Null("null", new TypeReference<Object>() {}, new TypeReference<Object>() {}),
+    Variable("variable", new TypeReference<Object>() {}, new TypeReference<Object>() {}),
+    Identifier("identifier", new TypeReference<Object>() {}, new TypeReference<Object>() {}),
 
+    Int("int", new TypeReference<Integer>() {}, new TypeReference<Integer>() {}),
+    Long("long", new TypeReference<Long>() {}, new TypeReference<Long>() {}),
+    Short("short", new TypeReference<Short>() {}, new TypeReference<Short>() {}),
+    Byte("byte", new TypeReference<Byte>() {}, new TypeReference<Byte>() {}),
+    Float("float", new TypeReference<Float>() {}, new TypeReference<Float>() {}),
+    Double("double", new TypeReference<Double>() {}, new TypeReference<Double>() {}),
+    Char("char", new TypeReference<Character>() {}, new TypeReference<Character>() {}),
 
-
-    Int("int", int.class,Integer.class),
-
-    Long("long",long.class, Long.class),
-
-    Short("short",short.class, Short.class),
-
-    Byte("byte", byte.class,Byte.class),
-
-    Float("float", float.class, Float.class),
-
-    Double("double", double.class, Double.class),
-
-    Boolean("boolean",boolean.class,  Boolean.class),
-
-    Char("char",char.class , Character.class);
-
+    ClassLiteral("class", new TypeReference<Class<?>>() {}, new TypeReference<Class<?>>() {}),
+    List("list", new TypeReference<java.util.List<?>>() {}, new TypeReference<java.util.List<?>>() {}),
+    Map("map", new TypeReference<java.util.Map<?, ?>>() {}, new TypeReference<java.util.Map<?, ?>>() {});
     private String code;
+    private TypeReference<?> typeReference;
+    private TypeReference<?> aliasTypeReference;
 
-    private Class clazz;
-
-    private Class alias;
-
-    private JLiteralEnums(String code, Class clazz, Class alias) {
+    private JLiteralEnums(String code, TypeReference<?> typeReference, TypeReference<?> aliasTypeReference) {
         this.code = code;
-        this.alias = alias;
-        this.clazz = clazz;
+        this.typeReference = typeReference;
+        this.aliasTypeReference = aliasTypeReference;
     }
-
 
     public static JLiteralEnums codeOf(String code) {
         for (JLiteralEnums jiteral : values()) {
@@ -60,9 +57,11 @@ public enum JLiteralEnums {
         }
         return null;
     }
-    public static JLiteralEnums classOf(Class<?> clazz) {
+
+    public static JLiteralEnums typeOf(TypeReference<?> typeReference) {
         for (JLiteralEnums jiteral : values()) {
-            if (clazz.equals(jiteral.getClazz())||clazz.equals(jiteral.getAlias())) {
+            if (typeReference.getType().equals(jiteral.getTypeReference().getType()) ||
+                    typeReference.getType().equals(jiteral.getAliasTypeReference().getType())) {
                 return jiteral;
             }
         }

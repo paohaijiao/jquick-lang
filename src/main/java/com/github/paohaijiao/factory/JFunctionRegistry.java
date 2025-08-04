@@ -58,8 +58,8 @@ public class JFunctionRegistry {
                 Object value = arguments.get(j);
                 Class<?> clazz = value.getClass();
                 if(define.getClazz().isPrimitive()){
-                    JLiteralEnums cla=JLiteralEnums.classOf(define.getClazz());
-                    if(cla==null) return null;
+                  //  JLiteralEnums cla=JLiteralEnums.classOf(define.getClazz());
+                    //if(cla==null) return null;
                 }else{
                     if(!define.getClazz().equals(clazz)){
                         return null;

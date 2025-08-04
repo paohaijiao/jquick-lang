@@ -27,12 +27,12 @@ public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
         JAssert.notNull(ctx.IDENTIFIER(),"identifier required not null");
         JAssert.notNull(ctx.expression(),"expression required not null");
         String varName = ctx.IDENTIFIER().getText();
-        boolean isVar = ctx.VAR() != null;
+//        boolean isVar = ctx.VAR() != null;
         Object value = ctx.expression() != null ? visit(ctx.expression()) : null;
-        String type = isVar ? "var" : inferType(ctx.expression());
-        if (!parser.addVariable(varName, type, value, !isVar, ctx.getStart().getLine())) {
-            System.err.println("Error: Variable '" + varName + "' already declared in this scope");
-        }
+//        String type = isVar ? "var" : inferType(ctx.expression());
+//        if (!parser.addVariable(varName, type, value, !isVar, ctx.getStart().getLine())) {
+//            System.err.println("Error: Variable '" + varName + "' already declared in this scope");
+//        }
         return value;
     }
     private String inferType(JQuickLangParser.ExpressionContext expr) {
