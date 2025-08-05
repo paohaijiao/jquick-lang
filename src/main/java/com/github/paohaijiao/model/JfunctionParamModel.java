@@ -15,12 +15,13 @@
  */
 package com.github.paohaijiao.model;
 
+import com.github.paohaijiao.support.JTypeReference;
 import lombok.Data;
 
 @Data
 public class JfunctionParamModel {
 
-    private  Class<?> type;
+    private JTypeReference<?> type;
 
     private String name;
 }

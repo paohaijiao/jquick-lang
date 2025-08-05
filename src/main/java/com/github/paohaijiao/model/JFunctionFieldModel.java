@@ -15,6 +15,7 @@
  */
 package com.github.paohaijiao.model;
 
+import com.github.paohaijiao.support.JTypeReference;
 import lombok.Data;
 
 /**
@@ -31,7 +32,7 @@ public class JFunctionFieldModel {
 
     private String fieldName;
 
-    private Class<?> clazz;
+    private JTypeReference<?> type;
 
 
     @Override
@@ -41,14 +42,14 @@ public class JFunctionFieldModel {
         JFunctionFieldModel that = (JFunctionFieldModel) o;
         if (index != null ? !index.equals(that.index) : that.index != null) return false;
         if (fieldName != null ? !fieldName.equals(that.fieldName) : that.fieldName != null) return false;
-        return clazz != null ? clazz.equals(that.clazz) : that.clazz == null;
+        return type != null ? type.equals(that.type) : that.type == null;
     }
 
     @Override
     public int hashCode() {
         int result = index != null ? index.hashCode() : 0;
         result = 31 * result + (fieldName != null ? fieldName.hashCode() : 0);
-        result = 31 * result + (clazz != null ? clazz.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
 }

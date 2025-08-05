@@ -100,7 +100,7 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
     @Override
     public JTypeReference<?> visitParamType(JQuickLangParser.ParamTypeContext ctx) {
         if(ctx.simpleType()!=null){
-            visitSimpleType(ctx.simpleType());
+          return   visitSimpleType(ctx.simpleType());
         }else if(ctx.genericType()!=null){
             String type=ctx.getText();
             JTypeReference<?> stringRef = JTypeReferenceFactory.fromTypeString(type);

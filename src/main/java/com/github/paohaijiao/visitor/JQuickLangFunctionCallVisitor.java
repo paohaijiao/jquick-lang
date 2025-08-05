@@ -16,6 +16,7 @@
 package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.executor.JQuickLangActionExecutor;
 import com.github.paohaijiao.model.*;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.support.JReflectionFactory;
@@ -25,6 +26,7 @@ import com.github.paohaijiao.support.impl.JInstanceMethodFactory;
 import com.github.paohaijiao.support.impl.JStaticMethodFactory;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 import org.antlr.v4.runtime.misc.Interval;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,15 +66,22 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
             JfunctionParamModel param=visitParam(ctx.param().get(i));
             model.setIndex(i);
             model.setFieldName(param.getName());
-            model.setClazz(param.getType());
+            model.setType(param.getType());
             list.add(model);
         }
         return list;
     }
 
     @Override
-    public T visitParam(JQuickLangParser.ParamContext ctx) {
-
+    public JfunctionParamModel visitParam(JQuickLangParser.ParamContext ctx) {
+        JfunctionParamModel model=new JfunctionParamModel();
+        if(ctx.functionVar() != null) {
+            model.setName(visitFunctionVar(ctx.functionVar()));
+        }
+        if(ctx.paramType() != null) {
+            model.setType(visitParamType(ctx.paramType()));
+        }
+        return model;
     }
 
 
@@ -168,14 +177,18 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         if(null!=ctx.argumentList()&&null!=ctx.argumentList().literal()&&!ctx.argumentList().literal().isEmpty()){
             args=visitArgumentList(ctx.argumentList());
         }
-//        String params= StringUtils.join(args, ",");
-//        JFunctionDefinitionModel function = registry.lookupFunction(methodName,args);//find the best match method
-//        JAssert.notNull(function,"can't find function ["+methodName+"] based the parameter [ "+params+" ] you gived");
-//        JVariableContainerModel varModel= super.invoke(methodName,args);
-//        JQuickLangActionExecutor executor=new JQuickLangActionExecutor();
-//        executor.intExecuteEnv(this.context,varModel);
-//        Object object=executor.execute(function.getAction());
-        return null;
+        JTypeReference<?>[] typeReferences = new JTypeReference<?>[0];
+        if(null!=ctx.typeArguments()&&!ctx.typeArguments().isEmpty()){
+            typeReferences= visitTypeArguments(ctx.typeArguments());
+        }
+        JTypeReferenceAndValueModel typeReferenceAndValueModel=mergeDataWithTypeReference(args,typeReferences);
+        JFunctionDefinitionModel function = registry.lookupFunction(methodName,typeReferenceAndValueModel.getTypeArguments());//find the best match method
+        JAssert.notNull(function,"can't find function ["+methodName+"] based the parameter [ "+args+" ] you gived");
+        JVariableContainerModel varModel= super.invoke(methodName,typeReferenceAndValueModel);
+        JQuickLangActionExecutor executor=new JQuickLangActionExecutor();
+        executor.intExecuteEnv(this.context,varModel);
+        Object object=executor.execute(function.getAction());
+        return object;
     }
     @Override
     public Object visitAccessStaticMethodCall(JQuickLangParser.AccessStaticMethodCallContext ctx) {

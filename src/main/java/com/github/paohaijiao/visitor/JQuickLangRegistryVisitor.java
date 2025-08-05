@@ -18,9 +18,8 @@ package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.factory.JFunctionRegistry;
-import com.github.paohaijiao.model.JFunctionDefinitionModel;
-import com.github.paohaijiao.model.JFunctionFieldModel;
-import com.github.paohaijiao.model.JVariableContainerModel;
+import com.github.paohaijiao.model.*;
+import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.util.JNumberUtil;
 
 import java.math.BigDecimal;
@@ -41,21 +40,21 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
         return registry.isFunctionDefined(functionName);
     }
 
-    public  JVariableContainerModel invoke(String functionName, List<Object> arguments) {
+    public  JVariableContainerModel invoke(String functionName, JTypeReferenceAndValueModel arguments) {
         if (!hasFunction(functionName)) {
             throw new IllegalArgumentException("Function '" + functionName + "' is not defined");
         }
-        JFunctionDefinitionModel function = registry.lookupFunction(functionName,arguments);
-        validateArguments(function, arguments);
+        JFunctionDefinitionModel function = registry.lookupFunction(functionName,arguments.getTypeArguments());
+        validateArguments(function, arguments.getTypeArguments());
         JVariableContainerModel localVariables = new JVariableContainerModel();
-        bindParameters(function, arguments, localVariables);
+        bindParameters(function, arguments.getData(), localVariables);
         return localVariables;
     }
 
-    private void validateArguments(JFunctionDefinitionModel function, List<Object> arguments) {
+    private void validateArguments(JFunctionDefinitionModel function,  JTypeReference<?>[] typeReferences) {
         JAssert.notNull(function, "Function cannot be null");
         int expectedCount = function.getParameterCount();
-        int actualCount = arguments != null ? arguments.size() : 0;
+        int actualCount = typeReferences != null ? typeReferences.length : 0;
         if (expectedCount != actualCount) {
             throw new IllegalArgumentException(String.format(
                     "the number of parameters does not match. Function '%s' need %d parameter，but actually %d ",
@@ -69,17 +68,17 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
         List<JFunctionFieldModel> fields = function.getFields();
         for (int i = 0; i < expectedCount; i++) {
             JFunctionFieldModel expectedField = fields.get(i);
-            Object actualValue = arguments.get(i);
-            if (actualValue == null && !isNullableType(expectedField.getClazz())) {
+            JTypeReference<?> actualValue = typeReferences[i];
+            if (actualValue.getType() == null && !isNullableType(expectedField.getType())) {
                 throw new IllegalArgumentException(String.format(
                         "parameter '%s'(index:%d) can not be null，need type: %s",
-                        actualValue.getClass().getSimpleName(), i + 1, expectedField.getClazz().getSimpleName()
+                        actualValue.getClass().getSimpleName(), i + 1, expectedField.getType().getRawType().getSimpleName()
                 ));
             }
-            if (actualValue != null && !isTypeMatch(expectedField.getClazz(), actualValue)) {
+            if (actualValue != null && !isTypeMatch(expectedField.getType().getRawType(), actualValue)) {
                 throw new IllegalArgumentException(String.format(
                         "parameter '%s'(index:%d) type ca not match.need %s，but  %s",
-                        actualValue.getClass().getSimpleName(), i + 1, expectedField.getClazz().getSimpleName(),
+                        actualValue.getClass().getSimpleName(), i + 1, expectedField.getType().getRawType().getSimpleName(),
                         actualValue.getClass().getSimpleName()
                 ));
             }
@@ -137,8 +136,8 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
         }
         return false;
     }
-    private boolean isNullableType(Class<?> type) {
-        switch (type.getSimpleName()) {
+    private boolean isNullableType(JTypeReference<?> type) {
+        switch (type.getRawType().getSimpleName()) {
             case "int":
             case "long":
             case "double":
@@ -151,17 +150,16 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
     }
 
     private void bindParameters(JFunctionDefinitionModel function,
-                                List<Object> arguments,
+                                Object[] arguments,
                                 JVariableContainerModel localVariables) {
         List<String> paramNames = function.getParameterNames();
         List<JFunctionFieldModel> paramTypes = function.getFields();
         for (int i = 0; i < paramNames.size(); i++) {
             String paramName = paramNames.get(i);
             JFunctionFieldModel expectedType = paramTypes.get(i);
-            Object argValue = arguments.get(i);
+            Object argValue = arguments[i];
             try {
-                Object convertedValue = convertArgument(expectedType, paramName, argValue, i + 1);
-                localVariables.set(paramName, convertedValue);
+                localVariables.set(paramName, argValue);
             } catch (Exception e) {
                 throw new IllegalArgumentException(String.format(
                         "bindParameters failed - %s(index:%d): %s",
@@ -171,34 +169,8 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
         }
     }
 
-    private Object convertArgument(JFunctionFieldModel expectedType,
-                                   String paramName,
-                                   Object argValue,
-                                   int position) {
-        if (argValue == null) {
-            if (!isNullableType(expectedType.getClazz())) {
-                throw new IllegalArgumentException("require not null");
-            }
-            return null;
-        }
-        if(numberClassEqual(expectedType.getClazz(), argValue)){
-            return JNumberUtil.attemptCustomConversion(expectedType.getClazz(), argValue);
-        }
-        return attemptCustomConversion(expectedType.getClazz(), argValue);
-
-    }
-
-    private Object attemptCustomConversion(Class<?> expectedType, Object value) {
-        if(expectedType.isAssignableFrom(value.getClass())){
-            return expectedType.cast(value);
-        }else{
-            throw new IllegalArgumentException("can't support convert: " +
-                    value.getClass().getName() + " to -> " + expectedType);
-        }
 
 
-
-    }
 
     public static JFunctionDefinitionModel createFunctionDefinition(String name, List<JFunctionFieldModel> paramDefine, String action) {
         if (name == null || name.trim().isEmpty()) {

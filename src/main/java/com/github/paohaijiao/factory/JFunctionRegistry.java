@@ -18,6 +18,8 @@ import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
 import com.github.paohaijiao.model.JFunctionFieldModel;
+import com.github.paohaijiao.model.JLiteralModel;
+import com.github.paohaijiao.support.JTypeReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,39 +48,24 @@ public class JFunctionRegistry {
         functionTable.computeIfAbsent(function.getName(), k -> new ArrayList<>()).add(function);
     }
 
-    public JFunctionDefinitionModel lookupFunction(String name,  List<Object> arguments) {
+    public JFunctionDefinitionModel lookupFunction(String name,  JTypeReference<?>[]  arguments) {
         List<JFunctionDefinitionModel> candidates = functionTable.get(name);
         if (candidates == null) return null;
         if(arguments==null) return null;
         for(int i=0; i<candidates.size(); i++) {
             JFunctionDefinitionModel functionDefinitionModel= candidates.get(i);
-            if(functionDefinitionModel.getFields().size()!=arguments.size()) return null;
+            if(functionDefinitionModel.getFields().size()!=arguments.length) return null;
             for(int j=0; j<functionDefinitionModel.getFields().size(); j++) {
                 JFunctionFieldModel define = functionDefinitionModel.getFields().get(j);
-                Object value = arguments.get(j);
-                Class<?> clazz = value.getClass();
-                if(define.getClazz().isPrimitive()){
-                  //  JLiteralEnums cla=JLiteralEnums.classOf(define.getClazz());
-                    //if(cla==null) return null;
-                }else{
-                    if(!define.getClazz().equals(clazz)){
-                        return null;
-                    }
+                JTypeReference<?> literalModel = arguments[j];
+                if(!define.getType().isAssignableFrom(literalModel)) {
+                    return null;
                 }
             }
             return functionDefinitionModel;
 
         }
         return null;
-    }
-
-
-    private boolean isTypeCompatible(String expectedType, String actualType) {
-        if (expectedType.equals(actualType)){
-            return true;
-        }else{
-            return false;
-        }
     }
 
     public boolean isFunctionDefined(String name) {

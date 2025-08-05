@@ -137,4 +137,25 @@ public class JTypeReference <T> extends TypeReference<T> {
             return null;
         }
     }
+    public boolean isAssignableFrom(JTypeReference<?> targetType) {
+        Class<?> targetRawType = targetType.getRawType();
+        if (!this.rawType.isAssignableFrom(targetRawType)) {
+            return false;
+        }
+        if (this.type instanceof ParameterizedType && targetType.type instanceof ParameterizedType) {
+            Type[] thisTypeArgs = this.getActualTypeArguments();
+            Type[] targetTypeArgs = targetType.getActualTypeArguments();
+            if (thisTypeArgs.length != targetTypeArgs.length) {
+                return false;
+            }
+            for (int i = 0; i < thisTypeArgs.length; i++) {
+                Class<?> thisArgClass = getRawType(thisTypeArgs[i]);
+                Class<?> targetArgClass = getRawType(targetTypeArgs[i]);
+                if (!thisArgClass.isAssignableFrom(targetArgClass)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

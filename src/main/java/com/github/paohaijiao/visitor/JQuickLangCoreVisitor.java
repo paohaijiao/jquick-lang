@@ -67,6 +67,19 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
         }
         return null;
     }
+    protected  List<JLiteralModel> buildLiteralModels(List<JLiteralModel> literalList){
+        List<JLiteralModel> list=new ArrayList<>();
+        for(JLiteralModel literalModel:literalList){
+            if(literalModel.getType().getCode().equals(JLiteralEnums.Identifier)){
+                JLiteralModel model=new JLiteralModel();
+                list.add(model);
+            }else{
+                list.add(literalModel);
+            }
+
+        }
+
+    }
     protected JTypeReferenceAndValueModel mergeDataWithTypeReference(List<JLiteralModel> literalList,  JTypeReference<?>[] typeReference){
         JAssert.notNull(literalList,"literalList must not be null");
         JAssert.notNull(typeReference,"typeReference must not be null");
