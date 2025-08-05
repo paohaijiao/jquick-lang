@@ -1,7 +1,8 @@
-// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 
 package com.github.paohaijiao.parser;
 
+import com.github.paohaijiao.support.JTypeReference;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.atn.ATNDeserializer;
@@ -162,16 +163,16 @@ public class JQuickLangParser extends Parser {
 	     }
 	    public static class Variable {
 	        public String name;
-	        public String type;
+	        public JTypeReference<?> type;
 	        public Object value;
-	        public boolean isConstant;
+	        public String literal;
 	        public int declarationLine;
 
-	        public Variable(String name, String type, Object value, boolean isConstant, int line) {
+	        public Variable(String name, JTypeReference<?> type, Object value, String literal, int line) {
 	            this.name = name;
 	            this.type = type;
 	            this.value = value;
-	            this.isConstant = isConstant;
+	            this.literal = literal;
 	            this.declarationLine = line;
 	        }
 	    }
@@ -216,9 +217,9 @@ public class JQuickLangParser extends Parser {
 	        }
 	    }
 
-	    public boolean addVariable(String name, String type, Object value, boolean isConstant, int line) {
+	    public boolean addVariable(String name, JTypeReference<?> type, Object value, String literal, int line) {
 	        if (scopeStack.isEmpty()) return false;
-	        return scopeStack.peek().addVariable(new Variable(name, type, value, isConstant, line));
+	        return scopeStack.peek().addVariable(new Variable(name, type, value, literal, line));
 	    }
 
 	    public Variable lookupVariable(String name) {
@@ -226,10 +227,12 @@ public class JQuickLangParser extends Parser {
 	        return scopeStack.peek().lookupVariable(name);
 	    }
 
-	    public boolean updateVariable(String name, Object value) {
+	    public boolean updateVariable(String name, JTypeReference<?> type,Object value, String literal) {
 	        Variable var = lookupVariable(name);
-	        if (var != null && !var.isConstant) {
+	        if (var != null &&var.type==type) {
 	            var.value = value;
+	            var.type = type;
+	            var.literal = literal;
 	            return true;
 	        }
 	        return false;

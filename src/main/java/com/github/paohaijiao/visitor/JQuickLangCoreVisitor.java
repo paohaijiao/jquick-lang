@@ -78,6 +78,7 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
             }
 
         }
+        return new ArrayList<>();
 
     }
     protected JTypeReferenceAndValueModel mergeDataWithTypeReference(List<JLiteralModel> literalList,  JTypeReference<?>[] typeReference){

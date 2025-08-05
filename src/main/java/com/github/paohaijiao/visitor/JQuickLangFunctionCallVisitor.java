@@ -43,9 +43,9 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         }
         if (ctx.parameterList() != null) {
             for (JQuickLangParser.ParamContext paramCtx : ctx.parameterList().param()) {
-                String paramType = paramCtx.paramType().getText();
+                JTypeReference<?> paramType = visitParamType(paramCtx.paramType());
                 String paramName = paramCtx.functionVar().getText();
-                parser.addVariable(paramName, paramType, null, true, paramCtx.getStart().getLine());
+                parser.addVariable(paramName, paramType, null, paramName, paramCtx.getStart().getLine());
             }
         }
         int startIndex = ctx.action().start.getTokenIndex();
@@ -55,7 +55,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         JFunctionDefinitionModel jFunctionDefinitionModel =createFunctionDefinition(functionName,paramDefine,action);
         registry.registerFunction(jFunctionDefinitionModel);
         parser.exitScope();
-        parser.addVariable(functionName, "function", ctx, true, ctx.getStart().getLine());
+        parser.addVariable(functionName, null, ctx, null, ctx.getStart().getLine());
         return null;
     }
     @Override

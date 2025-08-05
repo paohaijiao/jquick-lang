@@ -97,7 +97,7 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
             this.context.entrySet().forEach(entry->{
                 String key=entry.getKey();
                 Object value=entry.getValue();
-                actionPaser.addVariable(key,value.getClass().getName(),value,false,1);
+                actionPaser.addVariable(key,null,value,null,1);
             });
         }
 
