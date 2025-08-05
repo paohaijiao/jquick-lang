@@ -17,6 +17,7 @@ package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.executor.JQuickParamTypeExecutor;
 import com.github.paohaijiao.factory.JFunctionRegistry;
 import com.github.paohaijiao.model.JImportContainerModel;
 import com.github.paohaijiao.model.JLiteralModel;
@@ -95,6 +96,8 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
             if(!list.isEmpty()){
                 JAssert.throwNewException("the map parameter must use JTypeReference to convert value");
             }
+            JQuickParamTypeExecutor jQuickParamTypeExecutor=new JQuickParamTypeExecutor();
+
             List<Object> values=literalList.stream().map(JLiteralModel::getValue).collect(Collectors.toList());
             List<JLiteralEnums> literalEnumsList=literalList.stream().map(JLiteralModel::getType).collect(Collectors.toList());
             List<JTypeReference<?>> reference=literalEnumsList.stream().map(JLiteralEnums::getTypeReference).collect(Collectors.toList());
