@@ -39,7 +39,7 @@ public class JService {
         return num % 2 == 0;
     }
 
-    public List<Integer> addToList(List<Integer> list, int value) {
+    public List<Integer> addToList(List<Integer> list, Integer value) {
         Integer i=list.get(0);
         list.add(i);
         list.add(value);
@@ -59,7 +59,7 @@ public class JService {
     }
 
     public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(3);

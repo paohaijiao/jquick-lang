@@ -15,7 +15,6 @@
  */
 package com.github.paohaijiao.enums;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.paohaijiao.support.JTypeReference;
 import lombok.Getter;
 

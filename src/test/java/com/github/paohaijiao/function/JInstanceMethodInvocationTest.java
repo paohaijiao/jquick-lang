@@ -41,9 +41,9 @@ public class JInstanceMethodInvocationTest {
         JService testInstance = new JService();
         JContext jContext=new JContext();
         jContext.put("testObj", testInstance);
-        List<Integer> listVar = new ArrayList<Integer>() {}; // 匿名内部类保留类型信息
+        ArrayList<Integer> listVar = new ArrayList<Integer>() {}; // 匿名内部类保留类型信息
         listVar.addAll(Arrays.asList(1, 2, 3));
-        jContext.put("listVar", Arrays.asList(1, 2, 3));
+        jContext.put("listVar", listVar);
 //        jContext.put("listVar", listVar);
         Map<String,String> map=new HashMap<>();
         map.put("key", "value");
@@ -87,7 +87,8 @@ public class JInstanceMethodInvocationTest {
     }
     @Test
     public void testCollectionArgument() {
-        String rule = "testObj.addToList(listVar, 4);";
+        String rule = "testObj.addToList<java.util.ArrayList<java.lang.Integer>,java.lang.Integer>(listVar, 4);";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);

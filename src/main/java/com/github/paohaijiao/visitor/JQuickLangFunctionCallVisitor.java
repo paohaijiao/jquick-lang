@@ -14,11 +14,10 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.visitor;
+
 import com.github.paohaijiao.exception.JAssert;
-import com.github.paohaijiao.executor.JQuickLangActionExecutor;
 import com.github.paohaijiao.model.*;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.support.JObjectFactory;
 import com.github.paohaijiao.support.JReflectionFactory;
 import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.support.impl.JConstructorFactory;
@@ -26,7 +25,6 @@ import com.github.paohaijiao.support.impl.JInstanceMethodFactory;
 import com.github.paohaijiao.support.impl.JStaticMethodFactory;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 import org.antlr.v4.runtime.misc.Interval;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +70,10 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         return list;
     }
 
+    @Override
+    public T visitParam(JQuickLangParser.ParamContext ctx) {
+
+    }
 
 
     @Override
@@ -89,42 +91,43 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     public Object visitStaticCall(JQuickLangParser.StaticCallContext ctx) {
         JAssert.notNull(ctx.qualifiedName(),"the class name is not support");
         JAssert.notNull(ctx.methodName(),"the method name is not support");
-        JAssert.notNull(ctx.typeArguments(),"the type arguments  is not support");
         String qualifiedName = ctx.qualifiedName() != null ? ctx.qualifiedName().getText() : null;
         String methodName = visitMethodName(ctx.methodName());
         List<JLiteralModel> args = new ArrayList<>();
         if(null!=ctx.argumentList()&&null!=ctx.argumentList().literal()&&ctx.argumentList().literal().size()>0){
             args=visitArgumentList(ctx.argumentList());
         }
-        JTypeReference<?>[] typeReferences=new JTypeReference[ctx.typeArguments().typeArgument().size()];
-        if(null!=ctx.typeArguments()&&ctx.typeArguments().isEmpty()){
-            typeReferences= visitTypeArguments(ctx.typeArguments());
+        JTypeReference<?>[] typeReferences = new JTypeReference<?>[0];
+        if (null != ctx.typeArguments() ) {
+            typeReferences = visitTypeArguments(ctx.typeArguments());
         }
         try {
-            Class<?> clazz=loadClass(qualifiedName);
-            JStaticMethodFactory instance =JReflectionFactory.staticMethod(clazz);
-            return instance.invoke(methodName,typeReferences,this.buildParamArray(args));
+            Class<?> clazz = loadClass(qualifiedName);
+            JTypeReferenceAndValueModel typeReferenceAndValueModel=mergeDataWithTypeReference(args,typeReferences);
+            JStaticMethodFactory instance = JReflectionFactory.staticMethod(clazz);
+            return instance.invoke(methodName, typeReferenceAndValueModel.getTypeArguments(), typeReferenceAndValueModel.getData());
         } catch (Exception e) {
             throw new RuntimeException("please double check static method invocation : " + methodName, e);
         }
+
     }
     @Override
     public Object visitConstructorCall(JQuickLangParser.ConstructorCallContext ctx) {
         JAssert.notNull(ctx.qualifiedName(),"the class name is not support");
-        JAssert.notNull(ctx.typeArguments(),"the type arguments  is not support");
         List<JLiteralModel> args = new ArrayList<>();
         if(null!=ctx.argumentList()&&null!=ctx.argumentList().literal()&&ctx.argumentList().literal().size()>0){
             args=visitArgumentList(ctx.argumentList());
         }
-        JTypeReference<?>[] typeReferences=new JTypeReference[ctx.typeArguments().typeArgument().size()];
-        if(null!=ctx.typeArguments()&&ctx.typeArguments().isEmpty()){
+        JTypeReference<?>[] typeReferences = new JTypeReference<?>[0];
+        if(null!=ctx.typeArguments()&&!ctx.typeArguments().isEmpty()){
             typeReferences= visitTypeArguments(ctx.typeArguments());
         }
         String qualifiedName = ctx.qualifiedName() != null ? ctx.qualifiedName().getText() : null;
         try {
             Class<?> clazz=loadClass(qualifiedName);
             JConstructorFactory<?> instance =JReflectionFactory.constructor(clazz);
-            return instance.newInstance(typeReferences,this.buildParamArray(args));
+            JTypeReferenceAndValueModel typeReferenceAndValueModel=mergeDataWithTypeReference(args,typeReferences);
+            return instance.newInstance(typeReferenceAndValueModel.getTypeArguments(),typeReferenceAndValueModel.getData());
         } catch (Exception e) {
             throw new RuntimeException("please double check constructor method   " , e);
         }
@@ -132,7 +135,6 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     @Override
     public Object visitInstanceMethodCall(JQuickLangParser.InstanceMethodCallContext ctx) {
         JAssert.notNull(ctx.instanceName(),"the instanceName  is not support"+ctx.instanceName());
-        JAssert.notNull(ctx.typeArguments(),"the type arguments  is not support");
         JAssert.notNull(ctx.methodName(),"the method name is not support: "+ctx.methodName().getText());
         String methodName = visitMethodName(ctx.methodName());
         Object target=null;
@@ -144,13 +146,14 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         if(null!=ctx.argumentList()&&null!=ctx.argumentList().literal()&&ctx.argumentList().literal().size()>0){
             args=visitArgumentList(ctx.argumentList());
         }
-        JTypeReference<?>[] typeReferences=new JTypeReference[ctx.typeArguments().typeArgument().size()];
-        if(null!=ctx.typeArguments()&&ctx.typeArguments().isEmpty()){
+        JTypeReference<?>[] typeReferences = new JTypeReference<?>[0];
+        if(null!=ctx.typeArguments()&&!ctx.typeArguments().isEmpty()){
             typeReferences= visitTypeArguments(ctx.typeArguments());
         }
         try {
             JInstanceMethodFactory instance =JReflectionFactory.instanceMethod(target);
-            return instance.invoke(methodName,typeReferences,this.buildParamArray(args));
+            JTypeReferenceAndValueModel typeReferenceAndValueModel=mergeDataWithTypeReference(args,typeReferences);
+            return instance.invoke(methodName,typeReferenceAndValueModel.getTypeArguments(),typeReferenceAndValueModel.getData());
         } catch (Exception e) {
             throw new RuntimeException("please double check constructor method   " , e);
         }

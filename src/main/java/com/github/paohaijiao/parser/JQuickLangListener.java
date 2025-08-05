@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 
 package com.github.paohaijiao.parser;
 
@@ -369,6 +369,66 @@ public interface JQuickLangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParamType(JQuickLangParser.ParamTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#genericType}.
+	 * @param ctx the parse tree
+	 */
+	void enterGenericType(JQuickLangParser.GenericTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#genericType}.
+	 * @param ctx the parse tree
+	 */
+	void exitGenericType(JQuickLangParser.GenericTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#simpleType}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimpleType(JQuickLangParser.SimpleTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#simpleType}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimpleType(JQuickLangParser.SimpleTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#arrayType}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayType(JQuickLangParser.ArrayTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#arrayType}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayType(JQuickLangParser.ArrayTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#listType}.
+	 * @param ctx the parse tree
+	 */
+	void enterListType(JQuickLangParser.ListTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#listType}.
+	 * @param ctx the parse tree
+	 */
+	void exitListType(JQuickLangParser.ListTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#setType}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetType(JQuickLangParser.SetTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#setType}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetType(JQuickLangParser.SetTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JQuickLangParser#mapType}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapType(JQuickLangParser.MapTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JQuickLangParser#mapType}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapType(JQuickLangParser.MapTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JQuickLangParser#primary}.
 	 * @param ctx the parse tree

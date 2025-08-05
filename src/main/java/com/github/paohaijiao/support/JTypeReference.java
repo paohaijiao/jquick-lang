@@ -19,11 +19,15 @@ public class JTypeReference <T> extends TypeReference<T> {
         this.rawType = (Class<? super T>) getRawType(this.type);
     }
 
-    protected JTypeReference(Type type) {
+    public JTypeReference(Type type) {
         this.type = type;
         this.rawType = (Class<? super T>) getRawType(type);
     }
-
+    public static class AccessibleJTypeReference<T> extends JTypeReference<T> {
+        public AccessibleJTypeReference(Type type) {
+            super(type);
+        }
+    }
     public Class<? super T> getRawType() {
         return rawType;
     }
@@ -109,6 +113,9 @@ public class JTypeReference <T> extends TypeReference<T> {
 
 
     private static Class<?> getRawType(Type type) {
+        if (type instanceof com.fasterxml.jackson.databind.JavaType) {// special Type
+            return ((com.fasterxml.jackson.databind.JavaType) type).getRawClass();
+        }
         if (type instanceof Class<?>) {
             return (Class<?>) type;
         } else if (type instanceof ParameterizedType) {
@@ -122,10 +129,10 @@ public class JTypeReference <T> extends TypeReference<T> {
             TypeVariable<?> tv = (TypeVariable<?>) type;
             Type[] bounds = tv.getBounds();
             if (bounds.length > 0) {
-                return getRawType(bounds[0]); // 使用第一个边界作为原始类型
+                return getRawType(bounds[0]);
             }
             return Object.class;
-        }else {
+        } else {
             JAssert.throwNewException("unsupported type: " + type + " of " + type.getClass());
             return null;
         }

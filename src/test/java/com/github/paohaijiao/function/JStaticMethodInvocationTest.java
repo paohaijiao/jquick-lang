@@ -93,8 +93,10 @@ public class JStaticMethodInvocationTest {
 
     @Test
     public void testStaticMethodWithCollectionArgument() {
-        java.util.Collections collections=null;
-        String rule = "java.util.Collections::sort(listVar);";
+        java.util.List collections=null;
+        //String rule = "java.util.Collections::sort<java.util.List<java.lang.Integer>>(listVar);";
+        String rule = "java.util.Collections::sort<List<java.lang.Integer>>(listVar);";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -175,6 +177,20 @@ public class JStaticMethodInvocationTest {
     @Test
     public void testStaticMethodFromCustomClass() {
         String rule = "com.github.paohaijiao.service.JService::sum(1,2);";
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
+        JContext params = setUp();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        Object result = tv.visit(tree);
+        System.out.println(result);
+    }
+    @Test
+    public void join() {
+        String rule = "java.lang.String::join<java.lang.CharSequence,java.lang.CharSequence,java.lang.CharSequence" +
+                ",java.lang.CharSequence,java.lang.CharSequence>(\",\",\"1\",\"22\",\"33\")";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);

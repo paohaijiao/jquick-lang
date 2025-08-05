@@ -1,5 +1,6 @@
 package com.github.paohaijiao;
 
+import com.github.paohaijiao.factory.JTypeReferenceFactory;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -16,7 +17,7 @@ import java.util.Set;
 
 public class JTypeReferenceTest {
     @Test
-    public void Long() throws IOException {
+    public void reference() throws IOException {
         JTypeReference<String> stringType = new JTypeReference<String>() {};
         JTypeReference<Integer> integerType = JTypeReference.of(Integer.class);
         JTypeReference<JTypeReference<String>> stringListType = new JTypeReference<JTypeReference<String>>() {};
@@ -30,5 +31,14 @@ public class JTypeReferenceTest {
 
         JTypeReference type=JTypeReference.of(String.class);
         System.out.println(type);
+    }
+    @Test
+    public void factory() throws IOException {
+        JTypeReference<?> stringRef = JTypeReferenceFactory.fromClassName("java.lang.String");
+        JTypeReference<?> listRef = JTypeReferenceFactory.listFromElementType("java.lang.Integer");
+        JTypeReference<?> mapRef = JTypeReferenceFactory.mapFromTypes("java.lang.String", "java.lang.Object");
+        JTypeReference<?> arrayRef = JTypeReferenceFactory.arrayFromElementType("java.lang.Integer");
+        JTypeReference<?> complexRef = JTypeReferenceFactory.fromTypeString("java.util.Map<java.lang.String, java.util.List<java.lang.Integer>>");
+        System.out.println(complexRef);
     }
 }

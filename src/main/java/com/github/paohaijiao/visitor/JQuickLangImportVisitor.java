@@ -15,6 +15,7 @@
  */
 package com.github.paohaijiao.visitor;
 import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.factory.JTypeReferenceFactory;
 import com.github.paohaijiao.model.JImportModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.support.JTypeReference;
@@ -52,7 +53,7 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
                 list.add(terminalNode.getText());
             }
         }
-            return StringUtils.join(list, ".");
+        return StringUtils.join(list, ".");
         }
 
     @Override
@@ -76,7 +77,7 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
 
     }
     @Override
-    public JTypeReference<?> visitParamType(JQuickLangParser.ParamTypeContext ctx) {
+    public JTypeReference visitSimpleType(JQuickLangParser.SimpleTypeContext ctx) {
         if(ctx.TYPESHORT()!=null){
             return JTypeReference.of(short.class);
         }else if(ctx.TYPEINT()!=null){
@@ -89,22 +90,71 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
             return JTypeReference.of(long.class);
         }else if (ctx.TYPEBOOLEAN()!=null){
             return JTypeReference.of(boolean.class);
-        }else if (ctx.paramType()!=null){
-            return JTypeReference.of(boolean.class);
-        }else if(ctx.qualifiedName()!=null){
-            String varType=ctx.qualifiedName().getText();
-            boolean exists=this.importContainer.existsIdentify(varType);
-            if(exists){
-                JImportModel type=(JImportModel)this.importContainer.get(varType);
-                Class<?> clazz=type.getClazz();
-                return JTypeReference.of(clazz);
+        }else if (ctx.TYPEBYTE()!=null){
+            return JTypeReference.of(byte.class);
+        }
+        JAssert.throwNewException("unexpected type data type");
+        return null;
+    }
+
+    @Override
+    public JTypeReference<?> visitParamType(JQuickLangParser.ParamTypeContext ctx) {
+        if(ctx.simpleType()!=null){
+            visitSimpleType(ctx.simpleType());
+        }else if(ctx.genericType()!=null){
+            String type=ctx.getText();
+            JTypeReference<?> stringRef = JTypeReferenceFactory.fromTypeString(type);
+            return stringRef;
+        }else if(ctx.listType()!=null){
+            String paramType=ctx.listType().paramType().getText();
+            JTypeReference<?> listRef = JTypeReferenceFactory.listFromElementType(paramType);
+            return listRef;
+        }else if(ctx.setType()!=null){
+            String paramType=ctx.setType().paramType().getText();
+            JTypeReference<?> listRef = JTypeReferenceFactory.setFromElementType(paramType);
+            return listRef;
+        }else if(ctx.mapType()!=null){
+            JAssert.isTrue( ctx.mapType().paramType().size()==2,"map type  have two parameters one for key , and one for value");
+            String keyType=ctx.mapType().paramType(0).getText();
+            String valueType=ctx.mapType().paramType(1).getText();
+            JTypeReference<?> mapRef = JTypeReferenceFactory.mapFromTypes(keyType,valueType);
+            return mapRef;
+        }else if(ctx.arrayType()!=null){
+            String type="";
+            if(null!=ctx.arrayType().simpleType()){
+                type=ctx.arrayType().simpleType().getText();
             }else{
-                Class<?> clazz=loadClass(varType);
-                return JTypeReference.of(clazz);
+                type=ctx.arrayType().qualifiedName().getText();
             }
+            JTypeReference<?> arrayRef = JTypeReferenceFactory.arrayFromElementType(type);
+            return arrayRef;
         }
         JAssert.throwNewException("unsupported type argument type");
         return null;
     }
+
+    protected JTypeReference<?> getComplexReferenceRef(String varType){
+        JTypeReference<?> stringRef = JTypeReferenceFactory.fromClassName(varType);
+        JTypeReference<?> listRef = JTypeReferenceFactory.listFromElementType(varType);
+        JTypeReference<?> mapRef = JTypeReferenceFactory.mapFromTypes(varType, varType);
+        JTypeReference<?> arrayRef = JTypeReferenceFactory.arrayFromElementType(varType);
+        JTypeReference<?> complexRef = JTypeReferenceFactory.fromTypeString("java.util.Map<java.lang.String, java.util.List<java.lang.Integer>>");
+        if(null!=listRef){
+            return listRef;
+        }else if(null!=mapRef){
+            return mapRef;
+        }else if(null!=arrayRef){
+            return arrayRef;
+        }else if(null!=complexRef){
+            return complexRef;
+        }else if(null!=stringRef){
+            return stringRef;
+        }
+        JAssert.throwNewException("unsupported type argument type");
+        return null;
+    }
+
+
+
 
 }
