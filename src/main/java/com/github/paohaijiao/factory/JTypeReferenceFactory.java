@@ -36,7 +36,6 @@ public class JTypeReferenceFactory {
         }
     }
 
-
     public static JTypeReference<?> setFromElementType(String elementTypeClassName) {
         try {
             Class<?> elementType = Class.forName(elementTypeClassName);
