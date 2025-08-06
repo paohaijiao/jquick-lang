@@ -1,6 +1,6 @@
 package com.github.paohaijiao.enums;
 
-public enum JNodeTypeEnums {
+public enum JNodeType {
     GLOBAL,
     METHOD,
     IF,

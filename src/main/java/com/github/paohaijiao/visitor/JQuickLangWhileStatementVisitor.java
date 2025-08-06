@@ -16,9 +16,11 @@
 package com.github.paohaijiao.visitor;
 
 
+import com.github.paohaijiao.enums.JNodeType;
 import com.github.paohaijiao.exception.JBreakException;
 import com.github.paohaijiao.exception.JContinueException;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.VariableTree;
 
 
 public class JQuickLangWhileStatementVisitor extends JQuickLangReturnStatementVisitor {
@@ -27,7 +29,7 @@ public class JQuickLangWhileStatementVisitor extends JQuickLangReturnStatementVi
     @Override
     public Object visitWhileStatement(JQuickLangParser.WhileStatementContext ctx) {
         Object result = null;
-//        parser.enterScope("LOOP");
+        VariableTree variableTree = current.createChild("while", JNodeType.WHILE);
         while (toBoolean(visit(ctx.expression()))) {
             try {
                 result = visitAction(ctx.action());
@@ -41,7 +43,7 @@ public class JQuickLangWhileStatementVisitor extends JQuickLangReturnStatementVi
                 }
         }
         }
-//        parser.exitScope();
+        current=getParentVariableTree();
         return result;
     }
 

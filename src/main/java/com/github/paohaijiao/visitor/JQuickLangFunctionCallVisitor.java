@@ -15,11 +15,12 @@
  */
 package com.github.paohaijiao.visitor;
 
+import com.github.paohaijiao.enums.JNodeType;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.executor.JQuickLangActionExecutor;
 import com.github.paohaijiao.model.*;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.scope.VariableStorage;
+import com.github.paohaijiao.scope.VariableTree;
 import com.github.paohaijiao.support.JReflectionFactory;
 import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.support.impl.JConstructorFactory;
@@ -36,7 +37,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     public Object  visitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) {
         JAssert.notNull(ctx.IDENTIFIER(), "functionName must not be null");
         String functionName = ctx.IDENTIFIER().getText();
-        VariableStorage methodScope = parser.getScope().createChildScope( functionName);
+        VariableTree methodScope = current.createChild(functionName, JNodeType.METHOD);
         List<JFunctionFieldModel> paramDefine = new ArrayList<>();
         if (ctx.parameterList() != null) {
             paramDefine=visitParameterList(ctx.parameterList())  ;
@@ -45,7 +46,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
             for (JQuickLangParser.ParamContext paramCtx : ctx.parameterList().param()) {
                 JTypeReference<?> paramType = visitClasssType(paramCtx.classsType());
                 String paramName = paramCtx.functionVar().getText();
-                methodScope.addVariable(paramName, paramType, null, false, null);
+                methodScope.addVariable(paramName, paramType, paramType);
             }
         }
         int startIndex = ctx.action().start.getTokenIndex();
@@ -54,8 +55,8 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         TokenStreamRewriter rewriter = new TokenStreamRewriter(tokenStream);
         JFunctionDefinitionModel jFunctionDefinitionModel =createFunctionDefinition(functionName,paramDefine,action);
         registry.registerFunction(jFunctionDefinitionModel);
+        current=getParentVariableTree();
         //VariableStorage variableStorage=methodScope.getParentScope();
-        parser.setScope(methodScope);
 //        parser.exitScope();
 //        parser.addVariable(functionName, null, ctx, null, ctx.getStart().getLine());
         return null;

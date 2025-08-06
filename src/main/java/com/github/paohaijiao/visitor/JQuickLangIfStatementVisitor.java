@@ -14,11 +14,14 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.visitor;
+import com.github.paohaijiao.enums.JNodeType;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.VariableTree;
+
 public class JQuickLangIfStatementVisitor  extends JQuickLangForStatementVisitor{
     @Override
     public Object visitIfStatement(JQuickLangParser.IfStatementContext ctx) {
-//        parser.enterScope("BLOCK");
+        VariableTree variableTree = current.createChild("if", JNodeType.IF);
         if (toBoolean(visitConExpression(ctx.conExpression()))) {
             return visitAction(ctx.action());
         }
@@ -30,7 +33,7 @@ public class JQuickLangIfStatementVisitor  extends JQuickLangForStatementVisitor
         if (null!=ctx.elseAction()) {
             return visitElseAction(ctx.elseAction());
         }
-//        parser.exitScope();
+        current=getParentVariableTree();
         return null;
     }
     @Override

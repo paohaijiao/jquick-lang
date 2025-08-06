@@ -14,25 +14,28 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.visitor;
+import com.github.paohaijiao.enums.JNodeType;
 import com.github.paohaijiao.exception.JAntlrExecutionException;
 import com.github.paohaijiao.exception.JBreakException;
 import com.github.paohaijiao.exception.JContinueException;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.VariableTree;
 
 public class JQuickLangForStatementVisitor  extends JQuickLangWhileStatementVisitor {
 
     @Override
     public Object visitForStatement(JQuickLangParser.ForStatementContext ctx) {
+        VariableTree variableTree = current.createChild("for", JNodeType.FOR);
         if (ctx.variableDecl() != null) {
             visit(ctx.variableDecl());
         } else if (ctx.initExpression() != null) {
             visitInitExpression(ctx.initExpression());
         }
-//        parser.enterScope("LOOP");
         Object result = null;
         while (ctx.conExpression() == null || toBoolean(visitConExpression(ctx.conExpression()))) {
             try {
                 result = visitAction(ctx.action());
+
             } catch (JAntlrExecutionException e) {
                 if (e instanceof JContinueException) {
                     if (ctx.stopExpression() != null) {
@@ -49,7 +52,7 @@ public class JQuickLangForStatementVisitor  extends JQuickLangWhileStatementVisi
                 visitStopExpression(ctx.stopExpression());
             }
         }
-//        parser.exitScope();
+        current=getParentVariableTree();
         return result;
     }
     @Override

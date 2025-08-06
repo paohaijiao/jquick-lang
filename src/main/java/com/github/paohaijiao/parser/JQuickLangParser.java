@@ -2,7 +2,6 @@
 
 package com.github.paohaijiao.parser;
 
-import com.github.paohaijiao.scope.VariableStorage;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.atn.ATNDeserializer;
@@ -149,7 +148,6 @@ public class JQuickLangParser extends Parser {
 
 
 	    public static boolean banner=true;
-	    protected static VariableStorage scope = new VariableStorage("global", null);
 	    void start(){
 	        if(banner){
 	          System.out.println("########################################################################################################");
@@ -157,12 +155,6 @@ public class JQuickLangParser extends Parser {
 	          System.out.println("#########################\033[31m  for technical support, contact me via goudingcheng@gmail.com \033[0m################");
 	          System.out.println("########################################################################################################");
 	        }
-	     }
-	     public VariableStorage getScope() {
-	             return scope;
-	     }
-	     public void setScope(VariableStorage newScope) {
-	             this.scope = newScope;
 	     }
 
 	public JQuickLangParser(TokenStream input) {
@@ -2627,7 +2619,6 @@ public class JQuickLangParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class FunctionDefinitionContext extends ParserRuleContext {
-		public Token IDENTIFIER;
 		public TerminalNode FUNCTION() { return getToken(JQuickLangParser.FUNCTION, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(JQuickLangParser.IDENTIFIER, 0); }
 		public TerminalNode LPAREN() { return getToken(JQuickLangParser.LPAREN, 0); }
@@ -2680,7 +2671,7 @@ public class JQuickLangParser extends Parser {
 			setState(374);
 			match(FUNCTION);
 			setState(375);
-			((FunctionDefinitionContext)_localctx).IDENTIFIER = match(IDENTIFIER);
+			match(IDENTIFIER);
 			setState(376);
 			match(LPAREN);
 			setState(378);
@@ -2696,13 +2687,11 @@ public class JQuickLangParser extends Parser {
 			setState(380);
 			match(RPAREN);
 
-			            VariableStorage methodScope = scope.createChildScope("method:" + (((FunctionDefinitionContext)_localctx).IDENTIFIER!=null?((FunctionDefinitionContext)_localctx).IDENTIFIER.getText():null));
-			            scope = methodScope;
+
 			       
 			setState(382);
 			action();
 
-			               scope = scope.getParentScope();
 			       
 			}
 		}

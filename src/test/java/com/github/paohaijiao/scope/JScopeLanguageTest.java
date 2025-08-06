@@ -13,7 +13,7 @@ public class JScopeLanguageTest {
                     "function a(int:a,float:b){\n" +
                             "}" +
                             "int c=1;" +
-                            "int d=8.1f" ;
+                            "int d=8.1f;" ;
             System.out.println(rule);
             JQuickLangExecutor executor = new JQuickLangExecutor();
             Object result=executor.execute(rule);

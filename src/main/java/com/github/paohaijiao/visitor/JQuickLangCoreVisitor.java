@@ -17,6 +17,7 @@ package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.console.JConsole;
 import com.github.paohaijiao.enums.JLiteralEnums;
+import com.github.paohaijiao.enums.JNodeType;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.executor.JQuickParamTypeExecutor;
 import com.github.paohaijiao.factory.JFunctionRegistry;
@@ -27,7 +28,7 @@ import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangBaseVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.scope.VariableStorage;
+import com.github.paohaijiao.scope.VariableTree;
 import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.type.JGenericlTypeConverter;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -47,12 +48,27 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
 
     protected JQuickLangParser parser;
 
+    protected VariableTree root=new VariableTree("root", JNodeType.GLOBAL);
+
+    protected VariableTree current=root;
+
     protected static JConsole console=new JConsole();
 
     protected JImportContainerModel importContainer=JImportContainerModel.getInstance();
 
 
     JFunctionRegistry registry= JFunctionRegistry.getInstance();
+
+    public VariableTree getVariableTree(){
+        return this.root;
+    }
+    public VariableTree getParentVariableTree(){
+        if(null!=this.current.getParent()){
+            return this.current.getParent();
+        }else{
+            return root;
+        }
+    }
 
     protected boolean toBoolean(Object value) {
         if (value instanceof Boolean) {

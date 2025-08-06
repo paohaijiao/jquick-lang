@@ -18,7 +18,7 @@ package com.github.paohaijiao.executor;
 import com.github.paohaijiao.antlr.impl.JAbstractAntlrExecutor;
 import com.github.paohaijiao.exception.JAntlrExecutionException;
 import com.github.paohaijiao.param.JContext;
-import com.github.paohaijiao.scope.VariableStorage;
+import com.github.paohaijiao.scope.VariableTree;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -34,7 +34,6 @@ public class JQuickLangExecutor extends JAbstractAntlrExecutor<String, Object> {
 
     private JContext context;
 
-    private VariableStorage currentScope;
 
 
 
@@ -55,7 +54,6 @@ public class JQuickLangExecutor extends JAbstractAntlrExecutor<String, Object> {
     protected Parser createParser(TokenStream tokens) {
         this.tokenStream=tokens;
         this.parser= new JQuickLangParser(tokens);
-        this.currentScope = parser.getScope(); // 获取初始作用域
         return parser;
     }
 
@@ -66,7 +64,7 @@ public class JQuickLangExecutor extends JAbstractAntlrExecutor<String, Object> {
         CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
         JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,calcParser);
         Object object=visitor.visit(tree);
-        VariableStorage scope=calcParser.getScope();
+        VariableTree root=visitor.getVariableTree();
         return object;
     }
 }

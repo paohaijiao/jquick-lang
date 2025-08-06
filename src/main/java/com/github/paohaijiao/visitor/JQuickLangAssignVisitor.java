@@ -16,9 +16,11 @@
 package com.github.paohaijiao.visitor;
 
 
+import com.github.paohaijiao.enums.JNodeType;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.VariableTree;
 import com.github.paohaijiao.support.JTypeReference;
 
 public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
@@ -28,6 +30,7 @@ public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
         JAssert.notNull(ctx.IDENTIFIER(),"identifier required not null");
         JAssert.notNull(ctx.expression(),"expression required not null");
         String varName = ctx.IDENTIFIER().getText();
+        VariableTree variableTree = current.createChild(varName, JNodeType.GLOBAL);
         Object value = ctx.expression() != null ? visit(ctx.expression()) : null;
         JTypeReference<?> type=null;
         if(ctx.paramType() != null){
@@ -35,18 +38,13 @@ public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
         }else{
             if(value instanceof JLiteralModel){
                 JLiteralModel literalModel=(JLiteralModel)value;
-//                if (!parser.addVariable(varName, literalModel.getType().getTypeReference(), value, ctx.expression().getText(), ctx.getStart().getLine())) {
-//                    System.err.println("error: Variable '" + varName + "' already declared in this scope");
-//                }
+                variableTree.addVariable(varName,literalModel.getValue(),literalModel.getType().getTypeReference());
             }else{
                 JLiteralModel literalModel=convert(value,ctx.getText());
-//                if (!parser.addVariable(varName, literalModel.getType().getTypeReference(), value, ctx.expression().getText(), ctx.getStart().getLine())) {
-//                    System.err.println("error: Variable '" + varName + "' already declared in this scope");
-//                }
+                variableTree.addVariable(varName,literalModel.getValue(),literalModel.getType().getTypeReference());
             }
-
-
         }
+        current=getParentVariableTree();
         return value;
     }
 
