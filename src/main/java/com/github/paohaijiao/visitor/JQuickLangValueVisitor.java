@@ -205,12 +205,13 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
     }
     @Override
     public JLiteralModel visitIdentifier(JQuickLangParser.IdentifierContext ctx) {
-        String varName = ctx.getText();
-        JQuickLangParser.Variable var = parser.lookupVariable(varName);
-        if (var == null) {
-           return  (JLiteralModel)this.context.get(varName);
-        }
-        return convert(var.value, ctx.getText());
+//        String varName = ctx.getText();
+//        JQuickLangParser.Variable var = parser.lookupVariable(varName);
+//        if (var == null) {
+//           return  (JLiteralModel)this.context.get(varName);
+//        }
+//        return convert(var.value, ctx.getText());
+        return null;
     }
 
 }

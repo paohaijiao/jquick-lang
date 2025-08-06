@@ -39,6 +39,7 @@ public class JQuickLangCommonVisitor extends JQuickLangStatementVisitor {
 
     @Override
     public Object visitProgram(JQuickLangParser.ProgramContext ctx) {
+//        ctx.scope.get();
         for (JQuickLangParser.ImportDeclarationContext importCtx : ctx.importDeclaration()) {
             visit(importCtx);
         }

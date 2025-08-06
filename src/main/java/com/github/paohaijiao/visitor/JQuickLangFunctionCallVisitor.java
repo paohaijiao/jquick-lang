@@ -19,6 +19,7 @@ import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.executor.JQuickLangActionExecutor;
 import com.github.paohaijiao.model.*;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.VariableStorage;
 import com.github.paohaijiao.support.JReflectionFactory;
 import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.support.impl.JConstructorFactory;
@@ -35,7 +36,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     public Object  visitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) {
         JAssert.notNull(ctx.IDENTIFIER(), "functionName must not be null");
         String functionName = ctx.IDENTIFIER().getText();
-        parser.enterScope("FUNCTION");
+        VariableStorage methodScope = parser.getScope().createChildScope( functionName);
         List<JFunctionFieldModel> paramDefine = new ArrayList<>();
         if (ctx.parameterList() != null) {
             paramDefine=visitParameterList(ctx.parameterList())  ;
@@ -44,7 +45,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
             for (JQuickLangParser.ParamContext paramCtx : ctx.parameterList().param()) {
                 JTypeReference<?> paramType = visitClasssType(paramCtx.classsType());
                 String paramName = paramCtx.functionVar().getText();
-                parser.addVariable(paramName, paramType, null, paramName, paramCtx.getStart().getLine());
+                methodScope.addVariable(paramName, paramType, null, false, null);
             }
         }
         int startIndex = ctx.action().start.getTokenIndex();
@@ -53,8 +54,10 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         TokenStreamRewriter rewriter = new TokenStreamRewriter(tokenStream);
         JFunctionDefinitionModel jFunctionDefinitionModel =createFunctionDefinition(functionName,paramDefine,action);
         registry.registerFunction(jFunctionDefinitionModel);
-        parser.exitScope();
-        parser.addVariable(functionName, null, ctx, null, ctx.getStart().getLine());
+        //VariableStorage variableStorage=methodScope.getParentScope();
+        parser.setScope(methodScope);
+//        parser.exitScope();
+//        parser.addVariable(functionName, null, ctx, null, ctx.getStart().getLine());
         return null;
     }
     @Override

@@ -18,6 +18,7 @@ package com.github.paohaijiao.executor;
 import com.github.paohaijiao.antlr.impl.JAbstractAntlrExecutor;
 import com.github.paohaijiao.exception.JAntlrExecutionException;
 import com.github.paohaijiao.param.JContext;
+import com.github.paohaijiao.scope.VariableStorage;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -33,11 +34,15 @@ public class JQuickLangExecutor extends JAbstractAntlrExecutor<String, Object> {
 
     private JContext context;
 
+    private VariableStorage currentScope;
+
+
+
     public JQuickLangExecutor(){
-        context=new JContext();
+        this.context=new JContext();
     }
     public JQuickLangExecutor(JContext context){
-        context=context;
+        this.context=context;
     }
 
     @Override
@@ -50,18 +55,18 @@ public class JQuickLangExecutor extends JAbstractAntlrExecutor<String, Object> {
     protected Parser createParser(TokenStream tokens) {
         this.tokenStream=tokens;
         this.parser= new JQuickLangParser(tokens);
+        this.currentScope = parser.getScope(); // 获取初始作用域
         return parser;
     }
 
     @Override
     protected Object parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser calcParser = (JQuickLangParser) parser;
-        calcParser.enterScope("GLOBAL");
         JQuickLangParser.ProgramContext tree = calcParser.program();
         CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
         JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,calcParser);
         Object object=visitor.visit(tree);
-        calcParser.exitScope();
+        VariableStorage scope=calcParser.getScope();
         return object;
     }
 }

@@ -1,4 +1,5 @@
 package com.github.paohaijiao.scope;
+import com.github.paohaijiao.support.JTypeReference;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class VariableStorage {
         this.scopeLevel = parentScope != null ? parentScope.scopeLevel + 1 : 0;
     }
 
-    public void addVariable(String name, Class<?> type, Object value, boolean isConstant, String description) {
+    public void addVariable(String name, JTypeReference<?> type, Object value, boolean isConstant, String description) {
         if (variables.containsKey(name)) {
             throw new IllegalArgumentException("Variable already exists in this scope: " + name);
         }

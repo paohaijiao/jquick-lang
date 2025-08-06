@@ -18,7 +18,7 @@ import com.github.paohaijiao.parser.JQuickLangParser;
 public class JQuickLangIfStatementVisitor  extends JQuickLangForStatementVisitor{
     @Override
     public Object visitIfStatement(JQuickLangParser.IfStatementContext ctx) {
-        parser.enterScope("BLOCK");
+//        parser.enterScope("BLOCK");
         if (toBoolean(visitConExpression(ctx.conExpression()))) {
             return visitAction(ctx.action());
         }
@@ -30,7 +30,7 @@ public class JQuickLangIfStatementVisitor  extends JQuickLangForStatementVisitor
         if (null!=ctx.elseAction()) {
             return visitElseAction(ctx.elseAction());
         }
-        parser.exitScope();
+//        parser.exitScope();
         return null;
     }
     @Override

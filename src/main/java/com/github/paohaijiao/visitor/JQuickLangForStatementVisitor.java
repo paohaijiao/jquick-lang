@@ -28,7 +28,7 @@ public class JQuickLangForStatementVisitor  extends JQuickLangWhileStatementVisi
         } else if (ctx.initExpression() != null) {
             visitInitExpression(ctx.initExpression());
         }
-        parser.enterScope("LOOP");
+//        parser.enterScope("LOOP");
         Object result = null;
         while (ctx.conExpression() == null || toBoolean(visitConExpression(ctx.conExpression()))) {
             try {
@@ -49,7 +49,7 @@ public class JQuickLangForStatementVisitor  extends JQuickLangWhileStatementVisi
                 visitStopExpression(ctx.stopExpression());
             }
         }
-        parser.exitScope();
+//        parser.exitScope();
         return result;
     }
     @Override

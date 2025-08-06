@@ -92,12 +92,12 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
     @Override
     protected Object parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser actionPaser = (JQuickLangParser) parser;
-        actionPaser.enterScope("GLOBAL");
+//        actionPaser.enterScope("GLOBAL");
         if(null!=this.context){
             this.context.entrySet().forEach(entry->{
                 String key=entry.getKey();
                 Object value=entry.getValue();
-                actionPaser.addVariable(key,null,value,null,1);
+//                actionPaser.addVariable(key,null,value,null,1);
             });
         }
 
@@ -105,7 +105,7 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
         CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
         JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,actionPaser);
         Object object =visitor.visit(actionContext);
-        actionPaser.exitScope();
+//        actionPaser.exitScope();
         return object;
     }
     public void intExecuteEnv(JContext context, JVariableContainerModel variableContainerModel) {

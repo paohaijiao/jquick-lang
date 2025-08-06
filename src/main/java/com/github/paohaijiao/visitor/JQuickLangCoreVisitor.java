@@ -27,6 +27,7 @@ import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangBaseVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.VariableStorage;
 import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.type.JGenericlTypeConverter;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -105,14 +106,14 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
         List<JLiteralModel> list=new ArrayList<>();
         for(JLiteralModel literalModel:literalList){
             if(literalModel.getType().getCode().equals(JLiteralEnums.Identifier.getCode())){
-               JQuickLangParser.Variable variable=parser.lookupVariable(literalModel.getLiteral());
-                if(variable!=null&&variable.type.targetAssignableFrom(literalModel.getValue())){
-                    JLiteralModel model=new JLiteralModel();
-                    model.setLiteral(literalModel.getLiteral());
-                    model.setType(JLiteralEnums.typeOf(variable.type));
-                    model.setValue(variable.value);
-                    list.add(model);
-                }
+//               JQuickLangParser.Variable variable=parser.lookupVariable(literalModel.getLiteral());
+//                if(variable!=null&&variable.type.targetAssignableFrom(literalModel.getValue())){
+//                    JLiteralModel model=new JLiteralModel();
+//                    model.setLiteral(literalModel.getLiteral());
+//                    model.setType(JLiteralEnums.typeOf(variable.type));
+//                    model.setValue(variable.value);
+//                    list.add(model);
+//                }
 
             }else{
                 list.add(literalModel);

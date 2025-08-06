@@ -26,11 +26,11 @@ public class JForTest {
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
-        parser.enterScope("GLOBAL");
+//        parser.enterScope("GLOBAL");
         JQuickLangParser.ForStatementContext tree = parser.forStatement();
         JContext params = new JContext();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
-        parser.exitScope();
+//        parser.exitScope();
         tv.visit(tree);
     }
     @Test

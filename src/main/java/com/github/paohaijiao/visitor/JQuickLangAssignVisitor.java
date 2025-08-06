@@ -35,14 +35,14 @@ public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
         }else{
             if(value instanceof JLiteralModel){
                 JLiteralModel literalModel=(JLiteralModel)value;
-                if (!parser.addVariable(varName, literalModel.getType().getTypeReference(), value, ctx.expression().getText(), ctx.getStart().getLine())) {
-                    System.err.println("error: Variable '" + varName + "' already declared in this scope");
-                }
+//                if (!parser.addVariable(varName, literalModel.getType().getTypeReference(), value, ctx.expression().getText(), ctx.getStart().getLine())) {
+//                    System.err.println("error: Variable '" + varName + "' already declared in this scope");
+//                }
             }else{
                 JLiteralModel literalModel=convert(value,ctx.getText());
-                if (!parser.addVariable(varName, literalModel.getType().getTypeReference(), value, ctx.expression().getText(), ctx.getStart().getLine())) {
-                    System.err.println("error: Variable '" + varName + "' already declared in this scope");
-                }
+//                if (!parser.addVariable(varName, literalModel.getType().getTypeReference(), value, ctx.expression().getText(), ctx.getStart().getLine())) {
+//                    System.err.println("error: Variable '" + varName + "' already declared in this scope");
+//                }
             }
 
 
