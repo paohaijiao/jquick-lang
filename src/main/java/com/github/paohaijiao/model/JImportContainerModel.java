@@ -15,13 +15,10 @@
  */
 package com.github.paohaijiao.model;
 
-import com.github.paohaijiao.enums.JLiteralEnums;
-import com.github.paohaijiao.factory.JFunctionRegistry;
+import com.github.paohaijiao.support.JTypeReference;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * packageName com.github.paohaijiao.model
@@ -30,44 +27,23 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  * @since 2025/7/22
  */
-public class JImportContainerModel extends HashMap<String, JImportModel> {
+public class JImportContainerModel extends HashMap<String,  JTypeReference<?>> {
 
     private static final JImportContainerModel INSTANCE = new JImportContainerModel();
+
     private JImportContainerModel() {
     }
     public static JImportContainerModel getInstance() {
         return INSTANCE;
     }
 
-    public JImportModel addImport(String identify,String fullPath) {
-        String className = extractClassName(fullPath);
-        JImportModel model = new JImportModel();
-        model.setFullPath(fullPath);
-        model.setClassName(className);
-        try {
-            Class<?> clazz = Class.forName(fullPath);
-            model.setClazz(clazz);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        this.put(identify, model);
-        return model;
+    public void addImport(String identify, JTypeReference<?> typeReference) {
+        this.put(identify, typeReference);
     }
     public boolean existsIdentify(String identify) {
         return this.containsKey(identify);
     }
-    public boolean validateType(String type) {
-        JLiteralEnums literalEnums=JLiteralEnums.codeOf(type);
-        if(null!=literalEnums){
-            return true;
-        }else{
-            return this.containsKey(type);
-        }
-    }
 
-    public JImportModel getClassName(String identify) {
-        return this.get(identify);
-    }
 
     private String extractClassName(String fullPath) {
         int lastDot = fullPath.lastIndexOf('.');

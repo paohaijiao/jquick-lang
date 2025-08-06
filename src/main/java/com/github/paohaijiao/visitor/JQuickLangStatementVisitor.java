@@ -14,12 +14,14 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.visitor;
+
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.exception.JBreakException;
 import com.github.paohaijiao.exception.JContinueException;
-import com.github.paohaijiao.model.JImportModel;
 import com.github.paohaijiao.model.JReturnValueModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.support.JTypeReference;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,7 @@ public class JQuickLangStatementVisitor extends JQuickLangIfStatementVisitor{
     }
     @Override
     public Object visitStatement(JQuickLangParser.StatementContext ctx) {
+        String str=ctx.getText();
         if(ctx.expression() != null) {
             return visit(ctx.expression());
         } else if (null!=ctx.method()) {
@@ -60,15 +63,13 @@ public class JQuickLangStatementVisitor extends JQuickLangIfStatementVisitor{
     }
     @Override
     public Object visitAccessStaticVariable(JQuickLangParser.AccessStaticVariableContext ctx) {
-        JAssert.notNull(ctx.accessClassName(),"can't access  className variable ["+ctx.accessClassName()+"]");
-        JAssert.notNull(ctx.accessObjectName(),"can't access static ObjectName variable ["+ctx.accessObjectName()+"]");
-        String classNameIdentifier=ctx.accessClassName().getText();
+        JAssert.notNull(ctx.classsType(),"can't access  className variable ["+"]");
+        JAssert.notNull(ctx.accessObjectName(),"can't access static ObjectName variable ["+"]");
+        JTypeReference<?> typeReference=visitClasssType(ctx.classsType());
+        JAssert.notNull(typeReference,"can't access className ["+ctx.classsType().getText()+"]");
         String staticField=ctx.accessObjectName().getText();
-        JAssert.isTrue(this.importContainer.existsIdentify(classNameIdentifier),"can't access className ["+classNameIdentifier+"]");
-        JImportModel importModel=this.importContainer.get(classNameIdentifier);
-        Class<?> clazz=importModel.getClazz();
         try{
-            Field filed= clazz.getField(staticField);
+            Field filed= typeReference.getType().getClass().getField(staticField);
             Object obj=filed.get(null);
             return obj;
         }catch (Exception e){

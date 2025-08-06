@@ -14,13 +14,14 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.visitor;
+
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.factory.JTypeReferenceFactory;
-import com.github.paohaijiao.model.JImportModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.support.JTypeReference;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,79 +29,27 @@ import java.util.List;
 public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
     @Override
     public Void visitImportDeclaration(JQuickLangParser.ImportDeclarationContext ctx) {
-        JAssert.notNull(ctx.qualifiedName(),"missing qualified name");
+        JAssert.notNull(ctx.paramType(),"missing paramType ");
         JAssert.notNull(ctx.importVar(),"missing qualified import variable");
-        String qualifiedName=null;
-        if(ctx.qualifiedName() != null) {
-            qualifiedName=visitQualifiedName(ctx.qualifiedName());
+        JTypeReference<?> typeReference=null;
+        if(ctx.paramType() != null) {
+            typeReference=visitParamType(ctx.paramType());
         }
-        JAssert.notNull(qualifiedName,"qualifiedName not null");
+        JAssert.notNull(typeReference,"typeReference not null");
         String var=null;
         if(ctx.importVar() != null) {
             var=ctx.importVar().getText();
         }
         JAssert.notNull(var,"var not null");
         JAssert.isTrue(!this.importContainer.existsIdentify(var),"var ["+var+"] akready has been  imported, can't be assign again");
-        this.importContainer.addImport(var,qualifiedName);
-        return null;
-    }
-
-    @Override
-    public String visitQualifiedName(JQuickLangParser.QualifiedNameContext ctx) {
-        List<String> list=new ArrayList<>();
-        if(ctx.IDENTIFIER()!=null&&!ctx.IDENTIFIER().isEmpty()){
-            for (TerminalNode terminalNode:ctx.IDENTIFIER()){
-                list.add(terminalNode.getText());
-            }
-        }
-        return StringUtils.join(list, ".");
-        }
-
-    @Override
-    public  JTypeReference<?>[] visitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx) {
-        JAssert.notNull(ctx.typeArgument(),"typeArgument not null");
-        JTypeReference<?>[] typeReference=new JTypeReference<?>[ctx.typeArgument().size()];
-        if(ctx.typeArgument()!=null&&!ctx.typeArgument().isEmpty()){
-           for (int i = 0; i < ctx.typeArgument().size(); i++) {
-            typeReference[i]=visitTypeArgument(ctx.typeArgument().get(i));
-           }
-       }
-        return typeReference;
-    }
-    @Override
-    public JTypeReference<?> visitTypeArgument(JQuickLangParser.TypeArgumentContext ctx) {
-        if(ctx.paramType()!=null){
-            return visitParamType(ctx.paramType());
-        }
-        JAssert.throwNewException("unexpected type Reference type");
-        return null;
-
-    }
-    @Override
-    public JTypeReference visitSimpleType(JQuickLangParser.SimpleTypeContext ctx) {
-        if(ctx.TYPESHORT()!=null){
-            return JTypeReference.of(short.class);
-        }else if(ctx.TYPEINT()!=null){
-            return JTypeReference.of(int.class);
-        } else if (ctx.TYPEFLOAT()!=null) {
-            return JTypeReference.of(float.class);
-        }else if (ctx.TYPEDOUBLE()!=null){
-            return JTypeReference.of(double.class);
-        }else if (ctx.TYPELONG()!=null){
-            return JTypeReference.of(long.class);
-        }else if (ctx.TYPEBOOLEAN()!=null){
-            return JTypeReference.of(boolean.class);
-        }else if (ctx.TYPEBYTE()!=null){
-            return JTypeReference.of(byte.class);
-        }
-        JAssert.throwNewException("unexpected type data type");
+        this.importContainer.addImport(var,typeReference);
         return null;
     }
 
     @Override
     public JTypeReference<?> visitParamType(JQuickLangParser.ParamTypeContext ctx) {
         if(ctx.simpleType()!=null){
-          return   visitSimpleType(ctx.simpleType());
+            return   visitSimpleType(ctx.simpleType());
         }else if(ctx.genericType()!=null){
             String type=ctx.getText();
             JTypeReference<?> stringRef = JTypeReferenceFactory.fromTypeString(type);
@@ -132,6 +81,50 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
         JAssert.throwNewException("unsupported type argument type");
         return null;
     }
+
+    @Override
+    public String visitQualifiedName(JQuickLangParser.QualifiedNameContext ctx) {
+        List<String> list=new ArrayList<>();
+        if(ctx.IDENTIFIER()!=null&&!ctx.IDENTIFIER().isEmpty()){
+            for (TerminalNode terminalNode:ctx.IDENTIFIER()){
+                list.add(terminalNode.getText());
+            }
+        }
+        return StringUtils.join(list, ".");
+        }
+
+    @Override
+    public  JTypeReference<?>[] visitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx) {
+        JAssert.notNull(ctx.paramType(),"typeArgument not null");
+        JTypeReference<?>[] typeReference=new JTypeReference<?>[ctx.paramType().size()];
+        if(ctx.paramType()!=null&&!ctx.paramType().isEmpty()){
+           for (int i = 0; i < ctx.paramType().size(); i++) {
+            typeReference[i]=visitParamType(ctx.paramType().get(i));
+           }
+       }
+        return typeReference;
+    }
+    @Override
+    public JTypeReference visitSimpleType(JQuickLangParser.SimpleTypeContext ctx) {
+        if(ctx.TYPESHORT()!=null){
+            return JTypeReference.of(short.class);
+        }else if(ctx.TYPEINT()!=null){
+            return JTypeReference.of(int.class);
+        } else if (ctx.TYPEFLOAT()!=null) {
+            return JTypeReference.of(float.class);
+        }else if (ctx.TYPEDOUBLE()!=null){
+            return JTypeReference.of(double.class);
+        }else if (ctx.TYPELONG()!=null){
+            return JTypeReference.of(long.class);
+        }else if (ctx.TYPEBOOLEAN()!=null){
+            return JTypeReference.of(boolean.class);
+        }else if (ctx.TYPEBYTE()!=null){
+            return JTypeReference.of(byte.class);
+        }
+        JAssert.throwNewException("unexpected type data type");
+        return null;
+    }
+
 
     protected JTypeReference<?> getComplexReferenceRef(String varType){
         JTypeReference<?> stringRef = JTypeReferenceFactory.fromClassName(varType);

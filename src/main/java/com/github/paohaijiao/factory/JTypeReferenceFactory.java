@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.github.paohaijiao.console.JConsole;
 import com.github.paohaijiao.support.JTypeReference;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class JTypeReferenceFactory {
     private static JConsole console=new JConsole();
@@ -75,7 +77,6 @@ public class JTypeReferenceFactory {
             JavaType javaType = typeFactory.constructFromCanonical(typeString);
             return new JTypeReference<Object>(javaType) {};
         } catch (IllegalArgumentException e) {
-            console.error("invalid type string: " +typeString, e);
             return null;
         }
     }

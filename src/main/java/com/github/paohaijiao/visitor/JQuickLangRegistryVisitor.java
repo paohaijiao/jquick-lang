@@ -18,11 +18,12 @@ package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.factory.JFunctionRegistry;
-import com.github.paohaijiao.model.*;
+import com.github.paohaijiao.model.JFunctionDefinitionModel;
+import com.github.paohaijiao.model.JFunctionFieldModel;
+import com.github.paohaijiao.model.JTypeReferenceAndValueModel;
+import com.github.paohaijiao.model.JVariableContainerModel;
 import com.github.paohaijiao.support.JTypeReference;
-import com.github.paohaijiao.util.JNumberUtil;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,66 +76,7 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
                         actualValue.getClass().getSimpleName(), i + 1, expectedField.getType().getRawType().getSimpleName()
                 ));
             }
-            if (actualValue != null && !isTypeMatch(expectedField.getType().getRawType(), actualValue)) {
-                throw new IllegalArgumentException(String.format(
-                        "parameter '%s'(index:%d) type ca not match.need %s，but  %s",
-                        actualValue.getClass().getSimpleName(), i + 1, expectedField.getType().getRawType().getSimpleName(),
-                        actualValue.getClass().getSimpleName()
-                ));
-            }
         }
-    }
-    public static boolean isTypeMatch(Class<?> expectedType, Object actualValue) {
-        try{
-            if(numberClassEqual(expectedType, actualValue)){
-                return true;
-            }
-            expectedType.cast(actualValue);
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }
-    public static boolean numberClassEqual(Class<?> clazz,Object value) {
-        if(value instanceof Number){
-            if(clazz.equals(BigDecimal.class)){
-                return true;
-            }
-            if(clazz.equals(Number.class)){
-                return true;
-            }
-            if(clazz.equals(int.class)){
-                return true;
-            }
-            if(clazz.equals(float.class)){
-                return true;
-            }
-            if(clazz.equals(long.class)){
-                return true;
-            }
-            if(clazz.equals(double.class)){
-                return true;
-            }
-            if(clazz.equals(short.class)){
-                return true;
-            }
-            if(clazz.equals(Integer.class)){
-                return true;
-            }
-            if(clazz.equals(Float.class)){
-                return true;
-            }
-            if(clazz.equals(Long.class)){
-                return true;
-            }
-            if(clazz.equals(Double.class)){
-                return true;
-            }
-            if(clazz.equals(Short.class)){
-                return true;
-            }
-        }
-        return false;
     }
     private boolean isNullableType(JTypeReference<?> type) {
         switch (type.getRawType().getSimpleName()) {
@@ -156,7 +98,6 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
         List<JFunctionFieldModel> paramTypes = function.getFields();
         for (int i = 0; i < paramNames.size(); i++) {
             String paramName = paramNames.get(i);
-            JFunctionFieldModel expectedType = paramTypes.get(i);
             Object argValue = arguments[i];
             try {
                 localVariables.set(paramName, argValue);

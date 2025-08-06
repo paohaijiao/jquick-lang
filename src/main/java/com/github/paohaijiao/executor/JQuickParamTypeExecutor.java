@@ -17,10 +17,10 @@ package com.github.paohaijiao.executor;
 
 import com.github.paohaijiao.antlr.impl.JAbstractAntlrExecutor;
 import com.github.paohaijiao.exception.JAntlrExecutionException;
+import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.*;
 
@@ -62,12 +62,12 @@ public class JQuickParamTypeExecutor  extends JAbstractAntlrExecutor<String, Obj
     }
 
     @Override
-    protected JTypeReference<?> parse(Parser parser) throws JAntlrExecutionException {
+    protected JLiteralModel parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser calcParser = (JQuickLangParser) parser;
-        JQuickLangParser.ParamTypeContext tree = calcParser.paramType();
+        JQuickLangParser.LiteralContext tree = calcParser.literal();
         CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
         JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,calcParser);
-        JTypeReference<?> object=(JTypeReference<?>)visitor.visit(tree);
+        JLiteralModel object=(JLiteralModel)visitor.visit(tree);
         return object;
     }
 }

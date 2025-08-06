@@ -26,12 +26,12 @@ public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
 
     @Override
     public Object visitArithmetic(JQuickLangParser.ArithmeticContext ctx) {
-        Object result = visit(ctx.primary(0));
+        Object result = extract(visit(ctx.primary(0)));
         for (int i = 1; i < ctx.primary().size(); i++) {
             String operator = ctx.getChild(2 * i - 1).getText();
             JMathOp op = JMathOp.codeOf(operator);
             JAssert.notNull(op, "Unsupported operator: " + operator);
-            Object right = visit(ctx.primary(i));
+            Object right = extract(visit(ctx.primary(i)));
             switch (operator) {
                 case "*":
                     result = multiply(result, right);

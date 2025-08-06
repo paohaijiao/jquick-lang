@@ -28,7 +28,6 @@ public class JQuickLangWhileStatementVisitor extends JQuickLangReturnStatementVi
     public Object visitWhileStatement(JQuickLangParser.WhileStatementContext ctx) {
         Object result = null;
         parser.enterScope("LOOP");
-
         while (toBoolean(visit(ctx.expression()))) {
             try {
                 result = visitAction(ctx.action());
@@ -45,8 +44,5 @@ public class JQuickLangWhileStatementVisitor extends JQuickLangReturnStatementVi
         parser.exitScope();
         return result;
     }
-
-
-
 
 }

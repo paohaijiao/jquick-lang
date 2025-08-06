@@ -17,6 +17,7 @@ package com.github.paohaijiao.visitor;
 
 
 import com.github.paohaijiao.exception.JAssert;
+import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.support.JTypeReference;
 
@@ -31,10 +32,20 @@ public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
         JTypeReference<?> type=null;
         if(ctx.paramType() != null){
             type=visitParamType(ctx.paramType());
-        }
+        }else{
+            if(value instanceof JLiteralModel){
+                JLiteralModel literalModel=(JLiteralModel)value;
+                if (!parser.addVariable(varName, literalModel.getType().getTypeReference(), value, ctx.expression().getText(), ctx.getStart().getLine())) {
+                    System.err.println("error: Variable '" + varName + "' already declared in this scope");
+                }
+            }else{
+                JLiteralModel literalModel=convert(value,ctx.getText());
+                if (!parser.addVariable(varName, literalModel.getType().getTypeReference(), value, ctx.expression().getText(), ctx.getStart().getLine())) {
+                    System.err.println("error: Variable '" + varName + "' already declared in this scope");
+                }
+            }
 
-        if (!parser.addVariable(varName, type, value, ctx.expression().getText(), ctx.getStart().getLine())) {
-            System.err.println("error: Variable '" + varName + "' already declared in this scope");
+
         }
         return value;
     }

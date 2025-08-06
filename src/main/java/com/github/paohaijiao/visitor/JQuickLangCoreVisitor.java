@@ -15,6 +15,7 @@
  */
 package com.github.paohaijiao.visitor;
 
+import com.github.paohaijiao.console.JConsole;
 import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.executor.JQuickParamTypeExecutor;
@@ -22,7 +23,6 @@ import com.github.paohaijiao.factory.JFunctionRegistry;
 import com.github.paohaijiao.model.JImportContainerModel;
 import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.model.JTypeReferenceAndValueModel;
-import com.github.paohaijiao.model.JVariableContainerModel;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangBaseVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
@@ -46,6 +46,8 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
 
     protected JQuickLangParser parser;
 
+    protected static JConsole console=new JConsole();
+
     protected JImportContainerModel importContainer=JImportContainerModel.getInstance();
 
 
@@ -68,21 +70,60 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
         }
         return null;
     }
+    protected Object extract(Object value) {
+        if(null==value){
+            return null;
+        }else if(value instanceof JLiteralModel){
+            JLiteralModel literalModel = (JLiteralModel) value;
+            return literalModel.getValue();
+        }else{
+            return value;
+        }
+
+    }
+    protected JLiteralModel convert(Object value,String literal) {
+        if(value==null){
+            JLiteralModel model=new JLiteralModel();
+            model.setValue(null);
+            model.setLiteral("null");
+            model.setType(JLiteralEnums.Null);
+            return model;
+        }else if(value instanceof JLiteralModel){
+            return (JLiteralModel)value;
+        }else{
+            JLiteralModel model=new JLiteralModel();
+            model.setValue(value);
+            model.setLiteral(literal);
+            JTypeReference<?> typeReference=JTypeReference.of(value.getClass());
+            JLiteralEnums literalEnums=JLiteralEnums.typeOf(typeReference);
+            model.setType(literalEnums);
+            return model;
+        }
+
+    }
     protected  List<JLiteralModel> buildLiteralModels(List<JLiteralModel> literalList){
         List<JLiteralModel> list=new ArrayList<>();
         for(JLiteralModel literalModel:literalList){
-            if(literalModel.getType().getCode().equals(JLiteralEnums.Identifier)){
-                JLiteralModel model=new JLiteralModel();
-                list.add(model);
+            if(literalModel.getType().getCode().equals(JLiteralEnums.Identifier.getCode())){
+               JQuickLangParser.Variable variable=parser.lookupVariable(literalModel.getLiteral());
+                if(variable!=null&&variable.type.targetAssignableFrom(literalModel.getValue())){
+                    JLiteralModel model=new JLiteralModel();
+                    model.setLiteral(literalModel.getLiteral());
+                    model.setType(JLiteralEnums.typeOf(variable.type));
+                    model.setValue(variable.value);
+                    list.add(model);
+                }
+
             }else{
                 list.add(literalModel);
             }
 
         }
-        return new ArrayList<>();
+        return list;
 
     }
-    protected JTypeReferenceAndValueModel mergeDataWithTypeReference(List<JLiteralModel> literalList,  JTypeReference<?>[] typeReference){
+    protected JTypeReferenceAndValueModel mergeDataWithTypeReference(List<JLiteralModel> listLiteral,  JTypeReference<?>[] typeReference){
+        List<JLiteralModel> literalList=this.buildLiteralModels(listLiteral);
         JAssert.notNull(literalList,"literalList must not be null");
         JAssert.notNull(typeReference,"typeReference must not be null");
         JTypeReferenceAndValueModel model=new JTypeReferenceAndValueModel();
@@ -97,7 +138,6 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
                 JAssert.throwNewException("the map parameter must use JTypeReference to convert value");
             }
             JQuickParamTypeExecutor jQuickParamTypeExecutor=new JQuickParamTypeExecutor();
-
             List<Object> values=literalList.stream().map(JLiteralModel::getValue).collect(Collectors.toList());
             List<JLiteralEnums> literalEnumsList=literalList.stream().map(JLiteralModel::getType).collect(Collectors.toList());
             List<JTypeReference<?>> reference=literalEnumsList.stream().map(JLiteralEnums::getTypeReference).collect(Collectors.toList());

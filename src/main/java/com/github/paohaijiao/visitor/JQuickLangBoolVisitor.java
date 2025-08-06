@@ -21,11 +21,9 @@ import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.factory.JBigDecimalComparatorFactory;
 import com.github.paohaijiao.factory.compare.JComparator;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.Token;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
 
@@ -34,7 +32,7 @@ public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
     @Override
     public Object visitComparison(JQuickLangParser.ComparisonContext ctx) {
         JAssert.isTrue(!ctx.primary().isEmpty(),"left expression expected");
-        Object left = visit(ctx.primary(0));
+        Object left = extract(visit(ctx.primary(0)));
         if (ctx.primary().size() == 1) {
             return left;
         }
@@ -42,7 +40,7 @@ public class JQuickLangBoolVisitor extends JQuickLangMathVisitor {
             String operator = ctx.getChild(2 * i - 1).getText();
             JMathOp op = JMathOp.codeOf(operator);
             JAssert.notNull(op, "Unsupported operator: " + operator);
-            Object right = visit(ctx.primary(i));
+            Object right = extract(visit(ctx.primary(i)));
             boolean result;
             switch (operator) {
                 case ">":

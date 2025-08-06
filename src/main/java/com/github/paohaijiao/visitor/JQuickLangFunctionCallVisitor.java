@@ -26,7 +26,6 @@ import com.github.paohaijiao.support.impl.JInstanceMethodFactory;
 import com.github.paohaijiao.support.impl.JStaticMethodFactory;
 import org.antlr.v4.runtime.TokenStreamRewriter;
 import org.antlr.v4.runtime.misc.Interval;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         }
         if (ctx.parameterList() != null) {
             for (JQuickLangParser.ParamContext paramCtx : ctx.parameterList().param()) {
-                JTypeReference<?> paramType = visitParamType(paramCtx.paramType());
+                JTypeReference<?> paramType = visitClasssType(paramCtx.classsType());
                 String paramName = paramCtx.functionVar().getText();
                 parser.addVariable(paramName, paramType, null, paramName, paramCtx.getStart().getLine());
             }
@@ -71,6 +70,16 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         }
         return list;
     }
+    @Override
+   public JTypeReference<?>  visitClasssType(JQuickLangParser.ClasssTypeContext ctx) {
+        if(ctx.importVar()!=null){
+            return importContainer.get(ctx.importVar().getText());
+        }else if(ctx.paramType()!=null){
+            return visitParamType(ctx.paramType());
+        }
+        JAssert.throwNewException("visitFunctionType not implemented");
+        return null;
+    }
 
     @Override
     public JfunctionParamModel visitParam(JQuickLangParser.ParamContext ctx) {
@@ -78,8 +87,8 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         if(ctx.functionVar() != null) {
             model.setName(visitFunctionVar(ctx.functionVar()));
         }
-        if(ctx.paramType() != null) {
-            model.setType(visitParamType(ctx.paramType()));
+        if(ctx.classsType() != null) {
+            model.setType(visitClasssType(ctx.classsType()));
         }
         return model;
     }

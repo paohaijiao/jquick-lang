@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 
 package com.github.paohaijiao.parser;
 
@@ -25,6 +25,48 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitImportDeclaration(JQuickLangParser.ImportDeclarationContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#paramType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParamType(JQuickLangParser.ParamTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#genericType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGenericType(JQuickLangParser.GenericTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#simpleType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSimpleType(JQuickLangParser.SimpleTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#arrayType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayType(JQuickLangParser.ArrayTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#listType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitListType(JQuickLangParser.ListTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#setType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetType(JQuickLangParser.SetTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#mapType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMapType(JQuickLangParser.MapTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#qualifiedName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -37,35 +79,11 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#typeArgument}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTypeArgument(JQuickLangParser.TypeArgumentContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitStatement(JQuickLangParser.StatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#accessStaticVariable}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAccessStaticVariable(JQuickLangParser.AccessStaticVariableContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#accessClassName}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAccessClassName(JQuickLangParser.AccessClassNameContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#accessObjectName}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAccessObjectName(JQuickLangParser.AccessObjectNameContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#method}.
 	 * @param ctx the parse tree
@@ -223,47 +241,11 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionVar(JQuickLangParser.FunctionVarContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#paramType}.
+	 * Visit a parse tree produced by {@link JQuickLangParser#classsType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParamType(JQuickLangParser.ParamTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#genericType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGenericType(JQuickLangParser.GenericTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#simpleType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSimpleType(JQuickLangParser.SimpleTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#arrayType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayType(JQuickLangParser.ArrayTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#listType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitListType(JQuickLangParser.ListTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#setType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSetType(JQuickLangParser.SetTypeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#mapType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMapType(JQuickLangParser.MapTypeContext ctx);
+	T visitClasssType(JQuickLangParser.ClasssTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#primary}.
 	 * @param ctx the parse tree
@@ -330,6 +312,18 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArgumentList(JQuickLangParser.ArgumentListContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#accessStaticVariable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAccessStaticVariable(JQuickLangParser.AccessStaticVariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#accessObjectName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAccessObjectName(JQuickLangParser.AccessObjectNameContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -353,6 +347,12 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMapEntry(JQuickLangParser.MapEntryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#setLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetLiteral(JQuickLangParser.SetLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#importVar}.
 	 * @param ctx the parse tree

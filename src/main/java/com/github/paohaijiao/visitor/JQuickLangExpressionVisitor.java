@@ -23,23 +23,28 @@ public class JQuickLangExpressionVisitor extends JQuickLangBoolVisitor {
     @Override
     public Object visitExpressionStatement(JQuickLangParser.ExpressionStatementContext ctx) {
         if (ctx.expression() != null) {
-            return visitExpression(ctx.expression());
+            Object value= visitExpression(ctx.expression());
+            return value;
         }
         throw new RuntimeException("unexpected expression statement");
     }
     @Override
     public Object visitExpression(JQuickLangParser.ExpressionContext ctx) {
         if(ctx.logical()!=null) {
-            return visitLogical(ctx.logical());
+            Object value =visitLogical(ctx.logical());
+            return value;
         }
         if(ctx.arithmetic()!=null) {
-            return visitArithmetic(ctx.arithmetic());
+            Object value = visitArithmetic(ctx.arithmetic());
+            return value;
         }
         if(ctx.primary()!=null) {
-            return visitPrimary(ctx.primary());
+            Object value = visitPrimary(ctx.primary());
+            return value;
         }
         if(ctx.methodInvocation()!=null) {
-            return visit(ctx.methodInvocation());
+            Object value = visit(ctx.methodInvocation());
+            return value;
         }
         throw new RuntimeException("unexpected expression");
     }

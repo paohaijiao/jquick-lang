@@ -14,8 +14,6 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.visitor;
-
-
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.parser.JQuickLangParser;
 

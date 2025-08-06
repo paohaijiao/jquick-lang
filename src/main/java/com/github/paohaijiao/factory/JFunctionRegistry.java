@@ -14,11 +14,10 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.factory;
-import com.github.paohaijiao.enums.JLiteralEnums;
+
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JFunctionDefinitionModel;
 import com.github.paohaijiao.model.JFunctionFieldModel;
-import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.support.JTypeReference;
 
 import java.util.ArrayList;
@@ -57,8 +56,9 @@ public class JFunctionRegistry {
             if(functionDefinitionModel.getFields().size()!=arguments.length) return null;
             for(int j=0; j<functionDefinitionModel.getFields().size(); j++) {
                 JFunctionFieldModel define = functionDefinitionModel.getFields().get(j);
+                JTypeReference<?> methodReference= define.getType();
                 JTypeReference<?> literalModel = arguments[j];
-                if(!define.getType().isAssignableFrom(literalModel)) {
+                if(!methodReference.isAssignableFrom(literalModel)) {
                     return null;
                 }
             }

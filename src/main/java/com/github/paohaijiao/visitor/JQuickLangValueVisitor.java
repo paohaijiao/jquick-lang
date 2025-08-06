@@ -18,21 +18,24 @@ package com.github.paohaijiao.visitor;
 import com.github.paohaijiao.constants.JConstants;
 import com.github.paohaijiao.date.JDateUtil;
 import com.github.paohaijiao.enums.JLiteralEnums;
+import com.github.paohaijiao.enums.JLogLevel;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.type.JGenericlTypeConverter;
 import com.github.paohaijiao.util.JStringUtils;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
     @Override
-    public Object visitVariables(JQuickLangParser.VariablesContext ctx) {
+    public JLiteralModel visitVariables(JQuickLangParser.VariablesContext ctx) {
         String identifier = ctx.IDENTIFIER().getText();
         Object value= this.context.get(identifier);
-        return value;
+        JAssert.isTrue(value instanceof JLiteralModel,"value must be a literal");
+        return (JLiteralModel)value;
     }
 
     @Override
@@ -86,7 +89,9 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
             model.setType(JLiteralEnums.Date);
             return model;
         }else  if(null!=ctx.variables()){
-            model.setValue(visitVariables(ctx.variables()));
+            JLiteralModel identifier=visitVariables(ctx.variables());
+            model.setValue(identifier.getValue());
+            model.setLiteral(ctx.variables().getText());
             model.setType(JLiteralEnums.Variable);
             return model;
          }else  if(null!=ctx.short_()){
@@ -110,16 +115,23 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
             model.setType(JLiteralEnums.Long);
             return model;
         }else  if(null!=ctx.identifier()){
-            model.setValue(visitIdentifier(ctx.identifier()));
+            model.setLiteral(ctx.identifier().getText());
             model.setType(JLiteralEnums.Identifier);
             return model;
         }else  if(null!=ctx.listLiteral()){
             model.setType(JLiteralEnums.List);
+            model.setLiteral(ctx.listLiteral().getText());
             return model;
         } else  if(null!=ctx.mapLiteral()){
             model.setType(JLiteralEnums.Map);
+            model.setLiteral(ctx.mapLiteral().getText());
             return model;
-        }else if(ctx.qualifiedName() != null) {
+        } else  if(null!=ctx.setLiteral()){
+            model.setType(JLiteralEnums.Set);
+            model.setLiteral(ctx.setLiteral().getText());
+            return model;
+        }
+        else if(ctx.qualifiedName() != null) {
             try {
                 Class<?> clazz = Class.forName(ctx.qualifiedName().getText());
                 model.setValue(clazz);
@@ -130,6 +142,7 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
             }
         }else if (null!=ctx.null_()){
             model.setValue(null);
+            model.setLiteral(ctx.null_().getText());
             model.setType(JLiteralEnums.Null);
             return model;
         }
@@ -156,11 +169,6 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         JAssert.throwNewException("invalidat the map entry");
         return map;
     }
-
-
-
-
-
     @Override
     public Short visitShort(JQuickLangParser.ShortContext ctx) {
         String text = ctx.getText();
@@ -196,13 +204,13 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         return  Long.valueOf(value);
     }
     @Override
-    public Object visitIdentifier(JQuickLangParser.IdentifierContext ctx) {
+    public JLiteralModel visitIdentifier(JQuickLangParser.IdentifierContext ctx) {
         String varName = ctx.getText();
         JQuickLangParser.Variable var = parser.lookupVariable(varName);
         if (var == null) {
-           return  this.context.get(varName);
+           return  (JLiteralModel)this.context.get(varName);
         }
-        return var.value;
+        return convert(var.value, ctx.getText());
     }
 
 }

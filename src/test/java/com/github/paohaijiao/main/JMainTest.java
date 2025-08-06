@@ -38,7 +38,7 @@ public class JMainTest {
     public void methodDefine1() throws IOException {
         String rule="    import java.lang.String as string;\n" +
                 "     import java.lang.System as system;\n" +
-                "    function getSquare(string:a,int:b){\n" +
+                "    function getSquare(java.lang.String:a,int:b){\n" +
                 "        system@out.println(a);\n" +
                 "        return a+b;\n" +
                 "    }\n" +
@@ -52,16 +52,16 @@ public class JMainTest {
     }
     @Test
     public void methodDefine2() throws IOException {
-        String rule="    import java.lang.String as string;\n" +
+        String rule="   import java.lang.String as string;\n" +
                 "     import java.lang.System as system;\n" +
-                "    function getSquare(string:a,int:b){\n" +
+                "    function getSquare(java.lang.String:a,int:b){\n" +
                 "        system@out.println(a);\n" +
-                "        var d= a+b;\n" +
+                "        int d= a+b;\n" +
                 "        return d;\n" +
                 "    }\n" +
-                "    var a='hello world';\n" +
-                "    var b=2;\n" +
-                "    var c=this.getSquare(a,b);";
+                "    String a='hello world';\n" +
+                "    int b=2;\n" +
+                "    int c=this.getSquare(a,b);";
         System.out.println(rule);
         JQuickLangExecutor executor = new JQuickLangExecutor();
         Object result=executor.execute(rule);
