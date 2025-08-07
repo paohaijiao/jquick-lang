@@ -24,6 +24,8 @@ import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.*;
 
+import java.util.Stack;
+
 /**
  * packageName com.github.paohaijiao.executor
  *
@@ -66,7 +68,7 @@ public class JQuickParamTypeExecutor  extends JAbstractAntlrExecutor<String, Obj
         JQuickLangParser calcParser = (JQuickLangParser) parser;
         JQuickLangParser.LiteralContext tree = calcParser.literal();
         CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
-        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,calcParser);
+        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,new Stack<>(),lexer,commonTokenStream,calcParser);
         JLiteralModel object=(JLiteralModel)visitor.visit(tree);
         return object;
     }

@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 
 package com.github.paohaijiao.parser;
 
@@ -43,6 +43,12 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimpleType(JQuickLangParser.SimpleTypeContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#typeArguments}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#arrayType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -72,12 +78,6 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitQualifiedName(JQuickLangParser.QualifiedNameContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#typeArguments}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#statement}.
 	 * @param ctx the parse tree
@@ -253,6 +253,12 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrimary(JQuickLangParser.PrimaryContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JQuickLangParser#literalItem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteralItem(JQuickLangParser.LiteralItemContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code staticCall}
 	 * labeled alternative in {@link JQuickLangParser#methodInvocation}.
 	 * @param ctx the parse tree
@@ -348,12 +354,6 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMapEntry(JQuickLangParser.MapEntryContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#setLiteral}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSetLiteral(JQuickLangParser.SetLiteralContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#importVar}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -390,35 +390,11 @@ public interface JQuickLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariables(JQuickLangParser.VariablesContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#short}.
+	 * Visit a parse tree produced by {@link JQuickLangParser#number}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitShort(JQuickLangParser.ShortContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#int}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInt(JQuickLangParser.IntContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#float}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFloat(JQuickLangParser.FloatContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#double}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDouble(JQuickLangParser.DoubleContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JQuickLangParser#long}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLong(JQuickLangParser.LongContext ctx);
+	T visitNumber(JQuickLangParser.NumberContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JQuickLangParser#null}.
 	 * @param ctx the parse tree

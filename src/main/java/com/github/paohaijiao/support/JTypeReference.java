@@ -192,7 +192,7 @@ public class JTypeReference <T> extends TypeReference<T> {
         Class<?> targetRawType = targetType.getRawType();
         if (this.rawType.isPrimitive()) {
             Class<?> boxedType = primitiveToWrapper(this.rawType);
-            return boxedType.isAssignableFrom(targetRawType);
+            return boxedType.isAssignableFrom(targetRawType)||targetRawType.isAssignableFrom(boxedType)||targetRawType==rawType;
         } else if (targetRawType.isPrimitive()) {
             Class<?> unboxedType = wrapperToPrimitive(targetRawType);
             return this.rawType.isAssignableFrom(unboxedType)|| unboxedType.isAssignableFrom(targetType.rawType);

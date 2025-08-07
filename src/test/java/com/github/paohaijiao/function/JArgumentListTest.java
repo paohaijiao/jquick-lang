@@ -8,13 +8,11 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 public class JArgumentListTest {
 
     @Test
     public void testConstructorWithNoArguments() {
-        String rule = "1,2";
+        String rule = "int:1,float:2";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);

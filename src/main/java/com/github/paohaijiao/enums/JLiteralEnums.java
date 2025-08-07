@@ -35,6 +35,7 @@ public enum JLiteralEnums {
     Float("float", new JTypeReference<Float>() {}),
     Double("double", new JTypeReference<Double>() {}),
     Char("char", new JTypeReference<Character>() {}),
+    Number("number", new JTypeReference<Number>() {}),
 
     ClassLiteral("class", new JTypeReference<Class<?>>() {}),
     List("list", new JTypeReference<java.util.List<?>>() {}),

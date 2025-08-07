@@ -14,32 +14,38 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.visitor;
-import com.github.paohaijiao.enums.JNodeType;
+
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.scope.VariableTree;
 
 public class JQuickLangIfStatementVisitor  extends JQuickLangForStatementVisitor{
     @Override
     public Object visitIfStatement(JQuickLangParser.IfStatementContext ctx) {
-        VariableTree variableTree = current.createChild("if", JNodeType.IF);
         if (toBoolean(visitConExpression(ctx.conExpression()))) {
-            return visitAction(ctx.action());
+            enterScope();
+            Object result= visitAction(ctx.action());
+            exitScope();
+            return result;
         }
         for (int i = 0; i < ctx.elseIfConExpression().size(); i++) {
             if (toBoolean(visitElseIfConExpression(ctx.elseIfConExpression(i)))) {
-                return visitElseIfAction(ctx.elseIfAction(i));
+                enterScope();
+                Object result =  visitElseIfAction(ctx.elseIfAction(i));
+                exitScope();
+                return result;
             }
         }
         if (null!=ctx.elseAction()) {
             return visitElseAction(ctx.elseAction());
         }
-        current=getParentVariableTree();
         return null;
     }
     @Override
     public Object visitElseIfAction(JQuickLangParser.ElseIfActionContext ctx) {
          if(ctx.action()!=null) {
-             visitAction(ctx.action());
+             enterScope();
+             Object result=visitAction(ctx.action());
+             exitScope();
+             return result;
          }
          return null;
     }

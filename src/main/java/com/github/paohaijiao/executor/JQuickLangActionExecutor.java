@@ -17,14 +17,15 @@ package com.github.paohaijiao.executor;
 
 import com.github.paohaijiao.antlr.impl.JAbstractAntlrExecutor;
 import com.github.paohaijiao.exception.JAntlrExecutionException;
-import com.github.paohaijiao.model.JVariableContainerModel;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.VariableContext;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.*;
 
 import java.io.IOException;
+import java.util.Stack;
 
 public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Object> {
 
@@ -36,25 +37,21 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
 
     private TokenStream tokenStream;
 
-    public JQuickLangActionExecutor() {
-        this(new JContext(), new JVariableContainerModel());
-    }
+    private  Stack<VariableContext> stack = new Stack<>();
 
-    public JQuickLangActionExecutor(JContext context, JVariableContainerModel variableContainer) {
-        initializeContext(context, variableContainer);
+    public JQuickLangActionExecutor() {
+        this(new JContext(), new Stack<VariableContext>());
     }
-    private void initializeContext(JContext context, JVariableContainerModel variableContainerModel) {
+    public JQuickLangActionExecutor(JContext context) {
+        this(context, new Stack<VariableContext>());
+    }
+    public JQuickLangActionExecutor(JContext context, Stack<VariableContext> contextStack) {
+        initializeContext(context, contextStack);
+    }
+    private void initializeContext(JContext context, Stack<VariableContext> contextStack) {
         this.context = context;
-        if (context != null) {
-            for (String key : context.keySet()) {
-                this.context.put(key, context.get(key));
-            }
-        }
-        if (variableContainerModel != null) {
-            for (String key : variableContainerModel.keySet()) {
-                this.context.put(key, variableContainerModel.get(key));
-            }
-        }
+        this.stack = contextStack;
+
     }
 
     @Override
@@ -92,24 +89,14 @@ public class JQuickLangActionExecutor extends JAbstractAntlrExecutor<String, Obj
     @Override
     protected Object parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser actionPaser = (JQuickLangParser) parser;
-//        actionPaser.enterScope("GLOBAL");
-        if(null!=this.context){
-            this.context.entrySet().forEach(entry->{
-                String key=entry.getKey();
-                Object value=entry.getValue();
-//                actionPaser.addVariable(key,null,value,null,1);
-            });
-        }
-
         JQuickLangParser.ActionContext actionContext = actionPaser.action();
         CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
-        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,actionPaser);
+        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,this.stack,lexer,commonTokenStream,actionPaser);
         Object object =visitor.visit(actionContext);
-//        actionPaser.exitScope();
         return object;
     }
-    public void intExecuteEnv(JContext context, JVariableContainerModel variableContainerModel) {
-        this.initializeContext(context, variableContainerModel);
+    public void intExecuteEnv(JContext context, Stack<VariableContext> contextStack) {
+        this.initializeContext(context, contextStack);
     }
     public JContext getContext() {
         return this.context;

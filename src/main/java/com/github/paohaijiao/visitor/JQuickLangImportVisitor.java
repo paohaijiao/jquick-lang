@@ -45,6 +45,16 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
         this.importContainer.addImport(var,typeReference);
         return null;
     }
+    @Override
+    public JTypeReference<?>  visitClasssType(JQuickLangParser.ClasssTypeContext ctx) {
+        if(ctx.importVar()!=null){
+            return importContainer.get(ctx.importVar().getText());
+        }else if(ctx.paramType()!=null){
+            return visitParamType(ctx.paramType());
+        }
+        JAssert.throwNewException("visitFunctionType not implemented");
+        return null;
+    }
 
     @Override
     public JTypeReference<?> visitParamType(JQuickLangParser.ParamTypeContext ctx) {
@@ -55,17 +65,19 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
             JTypeReference<?> stringRef = JTypeReferenceFactory.fromTypeString(type);
             return stringRef;
         }else if(ctx.listType()!=null){
-            String paramType=ctx.listType().paramType().getText();
-            JTypeReference<?> listRef = JTypeReferenceFactory.listFromElementType(paramType);
+            JTypeReference<?> classType=visitClasssType(ctx.listType().classsType());
+            JTypeReference<?> listRef = JTypeReferenceFactory.listFromElementType(classType.getRawType().getTypeName());
             return listRef;
         }else if(ctx.setType()!=null){
-            String paramType=ctx.setType().paramType().getText();
-            JTypeReference<?> listRef = JTypeReferenceFactory.setFromElementType(paramType);
+            JTypeReference<?> classType=visitClasssType(ctx.setType().classsType());
+            JTypeReference<?> listRef = JTypeReferenceFactory.setFromElementType(classType.getRawType().getTypeName());
             return listRef;
         }else if(ctx.mapType()!=null){
-            JAssert.isTrue( ctx.mapType().paramType().size()==2,"map type  have two parameters one for key , and one for value");
-            String keyType=ctx.mapType().paramType(0).getText();
-            String valueType=ctx.mapType().paramType(1).getText();
+            JAssert.isTrue( ctx.mapType().classsType().size()==2,"map type  have two parameters one for key , and one for value");
+            JTypeReference<?> key=visitClasssType(ctx.mapType().classsType(0));
+            JTypeReference<?> value=visitClasssType(ctx.mapType().classsType(1));
+            String keyType=key.getRawType().getTypeName();
+            String valueType=value.getRawType().getTypeName();
             JTypeReference<?> mapRef = JTypeReferenceFactory.mapFromTypes(keyType,valueType);
             return mapRef;
         }else if(ctx.arrayType()!=null){
@@ -95,11 +107,11 @@ public class JQuickLangImportVisitor extends JQuickLangRegistryVisitor {
 
     @Override
     public  JTypeReference<?>[] visitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx) {
-        JAssert.notNull(ctx.paramType(),"typeArgument not null");
-        JTypeReference<?>[] typeReference=new JTypeReference<?>[ctx.paramType().size()];
-        if(ctx.paramType()!=null&&!ctx.paramType().isEmpty()){
-           for (int i = 0; i < ctx.paramType().size(); i++) {
-            typeReference[i]=visitParamType(ctx.paramType().get(i));
+        JAssert.notNull(ctx.classsType(),"typeArgument not null");
+        JTypeReference<?>[] typeReference=new JTypeReference<?>[ctx.classsType().size()];
+        if(ctx.classsType()!=null&&!ctx.classsType().isEmpty()){
+           for (int i = 0; i < ctx.classsType().size(); i++) {
+            typeReference[i]=visitClasssType(ctx.classsType().get(i));
            }
        }
         return typeReference;

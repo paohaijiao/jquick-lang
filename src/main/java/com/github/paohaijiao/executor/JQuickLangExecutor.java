@@ -18,11 +18,12 @@ package com.github.paohaijiao.executor;
 import com.github.paohaijiao.antlr.impl.JAbstractAntlrExecutor;
 import com.github.paohaijiao.exception.JAntlrExecutionException;
 import com.github.paohaijiao.param.JContext;
-import com.github.paohaijiao.scope.VariableTree;
-import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.*;
+
+import java.util.Stack;
 
 public class JQuickLangExecutor extends JAbstractAntlrExecutor<String, Object> {
 
@@ -62,9 +63,8 @@ public class JQuickLangExecutor extends JAbstractAntlrExecutor<String, Object> {
         JQuickLangParser calcParser = (JQuickLangParser) parser;
         JQuickLangParser.ProgramContext tree = calcParser.program();
         CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
-        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,lexer,commonTokenStream,calcParser);
+        JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,new Stack<>(),lexer,commonTokenStream,calcParser);
         Object object=visitor.visit(tree);
-        VariableTree root=visitor.getVariableTree();
         return object;
     }
 }

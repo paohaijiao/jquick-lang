@@ -47,7 +47,7 @@ public class JLiteralTest {
     }
     @Test
     public void Long() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("1l"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("1"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.LiteralContext tree = parser.literal();
@@ -128,7 +128,7 @@ public class JLiteralTest {
     }
     @Test
     public void short1() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("3s"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("3"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.LiteralContext tree = parser.literal();
@@ -150,7 +150,7 @@ public class JLiteralTest {
     }
     @Test
     public void float1() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("3.8f"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("3.8"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.LiteralContext tree = parser.literal();
@@ -161,7 +161,7 @@ public class JLiteralTest {
     }
     @Test
     public void double1() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("1.5d"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("1.5"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.LiteralContext tree = parser.literal();
@@ -172,7 +172,7 @@ public class JLiteralTest {
     }
     @Test
     public void long1() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("1l"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("1"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.LiteralContext tree = parser.literal();

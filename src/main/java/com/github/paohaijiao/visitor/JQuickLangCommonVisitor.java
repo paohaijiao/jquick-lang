@@ -19,15 +19,26 @@ import com.github.paohaijiao.model.JReturnValueModel;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.VariableContext;
 import org.antlr.v4.runtime.CommonTokenStream;
+
+import java.util.Stack;
 
 public class JQuickLangCommonVisitor extends JQuickLangStatementVisitor {
 
-    public JQuickLangCommonVisitor(JContext context, JQuickLangLexer lexer, CommonTokenStream tokenStream,JQuickLangParser parser) {
+    public JQuickLangCommonVisitor(JContext context, Stack<VariableContext> stack, JQuickLangLexer lexer, CommonTokenStream tokenStream, JQuickLangParser parser) {
         this.context = context;
         this.lexer = lexer;
         this.tokenStream = tokenStream;
         this.parser = parser;
+        this.contextStack = stack;
+    }
+    public JQuickLangCommonVisitor(JContext context, JQuickLangLexer lexer, CommonTokenStream tokenStream, JQuickLangParser parser) {
+        this.context = context;
+        this.lexer = lexer;
+        this.tokenStream = tokenStream;
+        this.parser = parser;
+        this.contextStack = new Stack<>();
     }
 
     public JQuickLangCommonVisitor(JQuickLangLexer lexer, CommonTokenStream tokenStream,JQuickLangParser parser) {
@@ -39,7 +50,8 @@ public class JQuickLangCommonVisitor extends JQuickLangStatementVisitor {
 
     @Override
     public Object visitProgram(JQuickLangParser.ProgramContext ctx) {
-//        ctx.scope.get();
+        globalContext = new VariableContext();
+        contextStack.push(globalContext);
         for (JQuickLangParser.ImportDeclarationContext importCtx : ctx.importDeclaration()) {
             visit(importCtx);
         }

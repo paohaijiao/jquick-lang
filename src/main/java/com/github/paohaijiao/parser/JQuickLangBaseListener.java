@@ -1,4 +1,4 @@
-// Generated from D:/idea/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
+// Generated from D:/my/jthornruleGrammer/QuickLang/JQuickLang.g4 by ANTLR 4.13.2
 
 package com.github.paohaijiao.parser;
 
@@ -78,6 +78,18 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTypeArguments(JQuickLangParser.TypeArgumentsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterArrayType(JQuickLangParser.ArrayTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -133,18 +145,6 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitQualifiedName(JQuickLangParser.QualifiedNameContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTypeArguments(JQuickLangParser.TypeArgumentsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTypeArguments(JQuickLangParser.TypeArgumentsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -498,6 +498,18 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLiteralItem(JQuickLangParser.LiteralItemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLiteralItem(JQuickLangParser.LiteralItemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStaticCall(JQuickLangParser.StaticCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -678,18 +690,6 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSetLiteral(JQuickLangParser.SetLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSetLiteral(JQuickLangParser.SetLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterImportVar(JQuickLangParser.ImportVarContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -762,61 +762,13 @@ public class JQuickLangBaseListener implements JQuickLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterShort(JQuickLangParser.ShortContext ctx) { }
+	@Override public void enterNumber(JQuickLangParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitShort(JQuickLangParser.ShortContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInt(JQuickLangParser.IntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInt(JQuickLangParser.IntContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFloat(JQuickLangParser.FloatContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFloat(JQuickLangParser.FloatContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDouble(JQuickLangParser.DoubleContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDouble(JQuickLangParser.DoubleContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLong(JQuickLangParser.LongContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLong(JQuickLangParser.LongContext ctx) { }
+	@Override public void exitNumber(JQuickLangParser.NumberContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

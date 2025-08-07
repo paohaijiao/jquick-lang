@@ -33,7 +33,6 @@ public class JStudent {
     }
     public JStudent(int i,float f,boolean b) {
         this.name = "haha";
-
         this.value = value;
     }
     public JStudent(String str,int i,boolean b,List<Integer> list) {
@@ -55,7 +54,7 @@ public class JStudent {
         this.value = value;
     }
     public JStudent(List<Integer> list) {
-
+        System.out.println(list);
 //        this.name = name;
 //
 //        this.value = value;

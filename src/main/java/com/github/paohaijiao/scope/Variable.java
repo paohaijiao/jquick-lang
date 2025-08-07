@@ -26,8 +26,11 @@ import lombok.Data;
  */
 @Data
 public class Variable {
+
     private String name;
+
     private Object value;
+
     private JTypeReference<?> type;
 
     public Variable(String name, Object value, JTypeReference<?> type) {

@@ -1,8 +1,8 @@
 package com.github.paohaijiao.enums;
 
 public enum JNodeType {
-    GLOBAL,
-    METHOD,
+    VARIABLE,
+    METHOD_PARAM,
     IF,
     ELSE_IF,
     ELSE,

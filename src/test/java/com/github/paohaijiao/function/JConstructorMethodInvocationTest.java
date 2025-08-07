@@ -65,7 +65,7 @@ public class JConstructorMethodInvocationTest {
 
     @Test
     public void testConstructorWithPrimitiveArguments() {
-        String rule = "new com.github.paohaijiao.model.JStudent(42, 3.14f, true);";
+        String rule = "new com.github.paohaijiao.model.JStudent(int:42, float:3.14, boolean:true);";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -78,7 +78,7 @@ public class JConstructorMethodInvocationTest {
 
     @Test
     public void testConstructorWithStringArgument() {
-        String rule = "new com.github.paohaijiao.model.JStudent(\"test string\");";
+        String rule = "new com.github.paohaijiao.model.JStudent(java.lang.String:\"test string\");";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -91,7 +91,7 @@ public class JConstructorMethodInvocationTest {
 
     @Test
     public void testConstructorWithCollectionArgument() {
-        String rule = "new com.github.paohaijiao.model.JStudent<List<java.lang.Integer>>(listVar);";
+        String rule = "new com.github.paohaijiao.model.JStudent(List<java.lang.Integer>:listVar);";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);

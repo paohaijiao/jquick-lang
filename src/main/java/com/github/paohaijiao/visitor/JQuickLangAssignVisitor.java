@@ -14,13 +14,9 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.visitor;
-
-
-import com.github.paohaijiao.enums.JNodeType;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.scope.VariableTree;
 import com.github.paohaijiao.support.JTypeReference;
 
 public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
@@ -30,22 +26,23 @@ public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
         JAssert.notNull(ctx.IDENTIFIER(),"identifier required not null");
         JAssert.notNull(ctx.expression(),"expression required not null");
         String varName = ctx.IDENTIFIER().getText();
-        VariableTree variableTree = current.createChild(varName, JNodeType.GLOBAL);
-        Object value = ctx.expression() != null ? visit(ctx.expression()) : null;
-        JTypeReference<?> type=null;
         if(ctx.paramType() != null){
-            type=visitParamType(ctx.paramType());
+            JTypeReference<?>  typeRef=visitParamType(ctx.paramType());
+            String express=ctx.expression().getText();
+            Object value=mergeDataWithTypeReference(express,typeRef);
+            currentContext().addVariable(varName, value, typeRef);
+            return value;
         }else{
+            Object value = ctx.expression() != null ? visit(ctx.expression()) : null;
             if(value instanceof JLiteralModel){
                 JLiteralModel literalModel=(JLiteralModel)value;
-                variableTree.addVariable(varName,literalModel.getValue(),literalModel.getType().getTypeReference());
+                currentContext().addVariable(varName, value, literalModel.getType().getTypeReference());
             }else{
                 JLiteralModel literalModel=convert(value,ctx.getText());
-                variableTree.addVariable(varName,literalModel.getValue(),literalModel.getType().getTypeReference());
+                currentContext().addVariable(varName, value, literalModel.getType().getTypeReference());
             }
+            return value;
         }
-        current=getParentVariableTree();
-        return value;
     }
 
 }

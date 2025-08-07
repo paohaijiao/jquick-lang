@@ -15,14 +15,14 @@
  */
 package com.github.paohaijiao.model;
 
-import com.github.paohaijiao.support.JTypeReference;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class JTypeReferenceAndValueModel {
 
-    private  JTypeReference<?>[] typeArguments;
-
-    private  Object[] data;
+    private List<JTypeReferenceAndValue> list=new ArrayList<>();
 
 }

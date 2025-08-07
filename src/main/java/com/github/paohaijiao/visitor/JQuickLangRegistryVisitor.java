@@ -18,10 +18,7 @@ package com.github.paohaijiao.visitor;
 
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.factory.JFunctionRegistry;
-import com.github.paohaijiao.model.JFunctionDefinitionModel;
-import com.github.paohaijiao.model.JFunctionFieldModel;
-import com.github.paohaijiao.model.JTypeReferenceAndValueModel;
-import com.github.paohaijiao.model.JVariableContainerModel;
+import com.github.paohaijiao.model.*;
 import com.github.paohaijiao.support.JTypeReference;
 
 import java.util.ArrayList;
@@ -41,14 +38,16 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
         return registry.isFunctionDefined(functionName);
     }
 
-    public  JVariableContainerModel invoke(String functionName, JTypeReferenceAndValueModel arguments) {
+    public  JVariableContainerModel invoke(String functionName, JTypeReferenceAndValueModel model) {
         if (!hasFunction(functionName)) {
             throw new IllegalArgumentException("Function '" + functionName + "' is not defined");
         }
-        JFunctionDefinitionModel function = registry.lookupFunction(functionName,arguments.getTypeArguments());
-        validateArguments(function, arguments.getTypeArguments());
+        JTypeReference<?>[] references=model.getList().stream().map(JTypeReferenceAndValue::getTypeArguments).toArray(JTypeReference[]::new);
+        Object[] data=model.getList().stream().map(JTypeReferenceAndValue::getData).toArray();
+        JFunctionDefinitionModel function = registry.lookupFunction(functionName,references);
+        validateArguments(function, references);
         JVariableContainerModel localVariables = new JVariableContainerModel();
-        bindParameters(function, arguments.getData(), localVariables);
+        bindParameters(function, data, localVariables);
         return localVariables;
     }
 

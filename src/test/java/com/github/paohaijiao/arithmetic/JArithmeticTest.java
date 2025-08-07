@@ -24,6 +24,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Stack;
 
 /**
  * packageName com.github.paohaijiao.arithmetic
@@ -41,7 +42,7 @@ public class JArithmeticTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ArithmeticContext tree = parser.arithmetic();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,new Stack<>(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

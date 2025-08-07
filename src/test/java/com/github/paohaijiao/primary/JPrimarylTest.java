@@ -17,15 +17,12 @@ package com.github.paohaijiao.primary;/*
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.support.JObjectFactory;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * packageName PACKAGE_NAME
@@ -62,7 +59,7 @@ public class JPrimarylTest {
     }
     @Test
     public void methodInvocation() throws IOException {
-        String rule = "new com.github.paohaijiao.model.JStudent(\"a\", \"b\", \"c\");";
+        String rule = "new com.github.paohaijiao.model.JStudent(java.lang.String:\"a\", java.lang.String:\"b\", java.lang.String:\"c\");";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -86,7 +83,7 @@ public class JPrimarylTest {
     }
     @Test
     public void variableDecl() throws IOException {
-        String rule = "var a=1;";
+        String rule = "int a=1;";
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);

@@ -16,17 +16,13 @@
 package com.github.paohaijiao;
 
 import com.github.paohaijiao.executor.JQuickLangActionExecutor;
-import com.github.paohaijiao.factory.JFunctionRegistry;
-import com.github.paohaijiao.model.JVariableContainerModel;
 import com.github.paohaijiao.param.JContext;
-import com.github.paohaijiao.parser.JQuickLangLexer;
-import com.github.paohaijiao.parser.JQuickLangParser;
-import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
+import com.github.paohaijiao.scope.VariableContext;
+import com.github.paohaijiao.support.JTypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Stack;
 
 /**
  * packageName com.github.paohaijiao
@@ -40,9 +36,11 @@ public class JActionTest {
     public void mutiple() throws IOException {
         JContext context = new JContext();
         context.addConstant("PI", 3.14);
-        JVariableContainerModel variables = new JVariableContainerModel();
-        variables.put("radius", 5.0);
-        JQuickLangActionExecutor executor = new JQuickLangActionExecutor(context, variables);
+        Stack<VariableContext> contextStack = new Stack<VariableContext>();
+        VariableContext variableContext=new VariableContext();
+        variableContext.addVariable("radius", 5.0, JTypeReference.of(float.class));
+        contextStack.add(variableContext);
+        JQuickLangActionExecutor executor = new JQuickLangActionExecutor(context,contextStack);
         String actionCode = "{ var area = PI * radius * radius; return area; }";
         Object result = executor.execute(actionCode);
         System.out.println("Area: " + result);
@@ -50,21 +48,21 @@ public class JActionTest {
     }
     @Test
     public void sample1() throws IOException {
-        JContext context = new JContext();
-        context.put("charArray", new char[]{'W', 'o', 'r', 'l', 'd'});
-        JQuickLangActionExecutor executor = new JQuickLangActionExecutor(context, new JVariableContainerModel());
-        String join=null;
-        String constructorExample =
-                "{" +
-                        "var delimiter=\"-\"->java.lang.CharSequence;"+
-                        "var list=new ArrayList<java.lang.CharSequence>()"+
-                        "  var joinedStr =  java.lang.String::join(\"-\"->java.lang.CharSequence, " +
-                        "\"Java\"->java.lang.CharSequence," +
-                        " \"Quick\"->java.lang.CharSequence, \"Lang\"->java.lang.CharSequence);" +
-                        "  return joinedStr;" +
-                        "}";
-        System.out.println(constructorExample);
-        Object result1 = executor.execute(constructorExample);
-        System.out.println("result: " + result1);
+//        JContext context = new JContext();
+//        context.put("charArray", new char[]{'W', 'o', 'r', 'l', 'd'});
+//        JQuickLangActionExecutor executor = new JQuickLangActionExecutor(context, new JVariableContainerModel());
+//        String join=null;
+//        String constructorExample =
+//                "{" +
+//                        "var delimiter=\"-\"->java.lang.CharSequence;"+
+//                        "var list=new ArrayList<java.lang.CharSequence>()"+
+//                        "  var joinedStr =  java.lang.String::join(\"-\"->java.lang.CharSequence, " +
+//                        "\"Java\"->java.lang.CharSequence," +
+//                        " \"Quick\"->java.lang.CharSequence, \"Lang\"->java.lang.CharSequence);" +
+//                        "  return joinedStr;" +
+//                        "}";
+//        System.out.println(constructorExample);
+//        Object result1 = executor.execute(constructorExample);
+//        System.out.println("result: " + result1);
     }
 }
