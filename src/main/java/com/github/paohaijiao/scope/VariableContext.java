@@ -62,4 +62,11 @@ public class VariableContext {
             scopeVariables.put(name, variables);
         }
     }
+    public void updateVariableWithAllScopes(String name, Object newValue, JTypeReference<?> type) {
+        VariableContext current = this;
+        while (current != null) {
+             current.addVariable(name,newValue,type);
+            current = current.parent;
+        }
+    }
 }

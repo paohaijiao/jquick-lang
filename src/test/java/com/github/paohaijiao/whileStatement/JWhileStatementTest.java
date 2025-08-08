@@ -50,6 +50,7 @@ public class JWhileStatementTest {
                 "            }\n" +
                 "            break;\n" +
                 "        }";
+        System.out.println(rule);
         Stack<VariableContext> contextStack = new Stack<VariableContext>();
         VariableContext variableContext=new VariableContext();
         variableContext.addVariable("radius", 5.0, JTypeReference.of(float.class));

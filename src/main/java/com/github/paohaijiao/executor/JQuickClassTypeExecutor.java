@@ -15,12 +15,14 @@
  */
 package com.github.paohaijiao.executor;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.paohaijiao.antlr.impl.JAbstractAntlrExecutor;
 import com.github.paohaijiao.exception.JAntlrExecutionException;
 import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.*;
 
@@ -33,7 +35,7 @@ import java.util.Stack;
  * @version 1.0.0
  * @since 2025/8/6
  */
-public class JQuickParamTypeExecutor  extends JAbstractAntlrExecutor<String, Object> {
+public class JQuickClassTypeExecutor extends JAbstractAntlrExecutor<String, JTypeReference<?>> {
 
     private JQuickLangLexer lexer;
 
@@ -43,10 +45,10 @@ public class JQuickParamTypeExecutor  extends JAbstractAntlrExecutor<String, Obj
 
     private JContext context;
 
-    public JQuickParamTypeExecutor(){
+    public JQuickClassTypeExecutor(){
         context=new JContext();
     }
-    public JQuickParamTypeExecutor(JContext context){
+    public JQuickClassTypeExecutor(JContext context){
         context=context;
     }
 
@@ -64,12 +66,12 @@ public class JQuickParamTypeExecutor  extends JAbstractAntlrExecutor<String, Obj
     }
 
     @Override
-    protected JLiteralModel parse(Parser parser) throws JAntlrExecutionException {
+    protected JTypeReference<?> parse(Parser parser) throws JAntlrExecutionException {
         JQuickLangParser calcParser = (JQuickLangParser) parser;
-        JQuickLangParser.LiteralContext tree = calcParser.literal();
+        JQuickLangParser.ClasssTypeContext tree = calcParser.classsType();
         CommonTokenStream commonTokenStream=(CommonTokenStream)tokenStream;
         JQuickLangCommonVisitor visitor = new JQuickLangCommonVisitor(context,new Stack<>(),lexer,commonTokenStream,calcParser);
-        JLiteralModel object=(JLiteralModel)visitor.visit(tree);
+        JTypeReference<?> object=(JTypeReference<?>)visitor.visit(tree);
         return object;
     }
 }

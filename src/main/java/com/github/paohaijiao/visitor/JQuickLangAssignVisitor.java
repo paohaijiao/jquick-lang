@@ -17,7 +17,11 @@ package com.github.paohaijiao.visitor;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.Variable;
+import com.github.paohaijiao.scope.VariableContext;
 import com.github.paohaijiao.support.JTypeReference;
+
+import java.util.Stack;
 
 public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
 
@@ -25,21 +29,30 @@ public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
     public Object visitVariableDecl(JQuickLangParser.VariableDeclContext ctx) {
         JAssert.notNull(ctx.IDENTIFIER(),"identifier required not null");
         JAssert.notNull(ctx.expression(),"expression required not null");
+        boolean global=false;
+        if(ctx.GLOBAL()!=null){
+            global=true;
+        }
         String varName = ctx.IDENTIFIER().getText();
-        if(ctx.paramType() != null){
-            JTypeReference<?>  typeRef=visitParamType(ctx.paramType());
-            String express=ctx.expression().getText();
-            Object value=mergeDataWithTypeReference(express,typeRef);
-            currentContext().addVariable(varName, value, typeRef);
+        if(ctx.classsType() != null){// define
+            JTypeReference<?>  typeRef=visitClasssType(ctx.classsType());
+            Object express=visitExpression(ctx.expression());
+            String string=gson.toJson(express);
+            Object value=mergeDataWithTypeReference(string,typeRef);
+            if(global){
+                updateVariableInStack(varName, value, typeRef);
+            }else{
+                currentContext().addVariable(varName, value, typeRef);
+            }
             return value;
-        }else{
-            Object value = ctx.expression() != null ? visit(ctx.expression()) : null;
+        }else{//update
+            Object value = ctx.expression() != null ? visitExpression(ctx.expression()) : null;
             if(value instanceof JLiteralModel){
                 JLiteralModel literalModel=(JLiteralModel)value;
-                currentContext().addVariable(varName, value, literalModel.getType().getTypeReference());
+                updateVariableInStack(varName, value, literalModel.getType().getTypeReference());
             }else{
                 JLiteralModel literalModel=convert(value,ctx.getText());
-                currentContext().addVariable(varName, value, literalModel.getType().getTypeReference());
+                updateVariableInStack(varName, value, literalModel.getType().getTypeReference());
             }
             return value;
         }

@@ -21,6 +21,7 @@ import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.scope.Variable;
+import com.github.paohaijiao.scope.VariableContext;
 import com.github.paohaijiao.util.JStringUtils;
 
 import java.text.NumberFormat;
@@ -28,6 +29,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 
 public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
@@ -93,6 +95,8 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         }else  if(null!=ctx.identifier()){
             String identifier=ctx.identifier().getText();
             Variable variable = currentContext().getVariable(identifier);
+            Stack<VariableContext> ss= this.contextStack;
+            JAssert.notNull(variable,"can't find variable ["+identifier+"]");
             //console.log(JLogLevel.DEBUG,"identifier="+identifier+"value:"+gson.toJson(variable));
             return variable.getValue();
         }else  if(null!=ctx.listLiteral()){
@@ -131,17 +135,6 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         }
         JAssert.throwNewException("invalidat the map entry");
         return map;
-    }
-
-    @Override
-    public JLiteralModel visitIdentifier(JQuickLangParser.IdentifierContext ctx) {
-//        String varName = ctx.getText();
-//        JQuickLangParser.Variable var = parser.lookupVariable(varName);
-//        if (var == null) {
-//           return  (JLiteralModel)this.context.get(varName);
-//        }
-//        return convert(var.value, ctx.getText());
-        return null;
     }
 
 }

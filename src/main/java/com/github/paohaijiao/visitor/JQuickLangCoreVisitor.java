@@ -15,8 +15,10 @@
  */
 package com.github.paohaijiao.visitor;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.paohaijiao.console.JConsole;
 import com.github.paohaijiao.enums.JLiteralEnums;
+import com.github.paohaijiao.executor.JQuickClassTypeExecutor;
 import com.github.paohaijiao.factory.JFunctionRegistry;
 import com.github.paohaijiao.model.JImportContainerModel;
 import com.github.paohaijiao.model.JLiteralModel;
@@ -77,14 +79,9 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
         }
         throw new RuntimeException("cannot convert value to boolean: " + value);
     }
-    protected Class<?> loadClass(String className){
-        try{
-            Class<?> clazz = Class.forName(className);
-            return clazz;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+    protected JTypeReference<?> loadClass(String className){
+        JQuickClassTypeExecutor executor = new JQuickClassTypeExecutor();
+        return  executor.execute(className);
     }
     protected Object extract(Object value) {
         if(null==value){
@@ -145,6 +142,10 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
         this.importContainer = importContainer;
     }
 
-
+    public void updateVariableInStack(String varName, Object newValue, JTypeReference<?> type) {
+        for (VariableContext context : contextStack) {
+             context.updateVariableWithAllScopes(varName, newValue,type);
+        }
+    }
 
 }

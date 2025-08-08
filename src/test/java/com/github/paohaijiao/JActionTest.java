@@ -16,6 +16,7 @@
 package com.github.paohaijiao;
 
 import com.github.paohaijiao.executor.JQuickLangActionExecutor;
+import com.github.paohaijiao.executor.JQuickLangExecutor;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.scope.VariableContext;
 import com.github.paohaijiao.support.JTypeReference;
@@ -44,25 +45,73 @@ public class JActionTest {
         String actionCode = "{ var area = PI * radius * radius; return area; }";
         Object result = executor.execute(actionCode);
         System.out.println("Area: " + result);
-        System.out.println("Variables: " + executor.getContext());
     }
     @Test
     public void sample1() throws IOException {
-//        JContext context = new JContext();
-//        context.put("charArray", new char[]{'W', 'o', 'r', 'l', 'd'});
-//        JQuickLangActionExecutor executor = new JQuickLangActionExecutor(context, new JVariableContainerModel());
-//        String join=null;
-//        String constructorExample =
-//                "{" +
-//                        "var delimiter=\"-\"->java.lang.CharSequence;"+
-//                        "var list=new ArrayList<java.lang.CharSequence>()"+
-//                        "  var joinedStr =  java.lang.String::join(\"-\"->java.lang.CharSequence, " +
-//                        "\"Java\"->java.lang.CharSequence," +
-//                        " \"Quick\"->java.lang.CharSequence, \"Lang\"->java.lang.CharSequence);" +
-//                        "  return joinedStr;" +
-//                        "}";
-//        System.out.println(constructorExample);
-//        Object result1 = executor.execute(constructorExample);
-//        System.out.println("result: " + result1);
+        Stack<VariableContext> contextStack = new Stack<VariableContext>();
+        VariableContext variableContext=new VariableContext();
+        variableContext.addVariable("charArray", new Character[]{'W', 'o', 'r', 'l', 'd'}, JTypeReference.of(Character.class));
+        contextStack.add(variableContext);
+        String rule=
+                "    function a(int:a,float:b) {\n" +
+                     "java.lang.String str1 = new java.lang.String(java.lang.String:\"Hello\");\n" +
+                        " console.log(str1); \n" +
+                        " java.lang.String upperStr = str1.toUpperCase(); \n" +
+                        " console.log(upperStr);  \n" +
+                        " java.lang.String subStr = str1.substring(int:1, int:3);\n" +
+                        " console.log(subStr);  \n" +
+                        " java.util.HashMap<java.lang.String,java.lang.String> result = new java.util.HashMap();  " +
+                        "result.put(java.lang.String:\"constructed1\", java.lang.String:str1);" +
+                        "  result.put(java.lang.String:\"constructed2\", java.lang.String:str1); \n" +
+                        " result.put(java.lang.String:\"uppercased\", java.lang.String:upperStr);  " +
+                        "result.put(java.lang.String:\"substring\", java.lang.String:subStr); \n" +
+                        " return result;"+
+                        "    }\n" +
+                        "    int c=1;\n" +
+                        "    float d=8.1;\n" +
+                        "    this.a(int:c,float:d);" ;
+        System.out.println(rule);
+        JQuickLangExecutor executor = new JQuickLangExecutor();
+        Object result=executor.execute(rule);
+        System.out.println(result);
+    }
+    @Test
+    public void sample2() throws IOException {
+        Stack<VariableContext> contextStack = new Stack<VariableContext>();
+        VariableContext variableContext=new VariableContext();
+        variableContext.addVariable("charArray", new Character[]{'W', 'o', 'r', 'l', 'd'}, JTypeReference.of(Character.class));
+        contextStack.add(variableContext);
+        String rule=
+                "    function a(int:a,float:b) {\n" +
+                        "java.lang.String p=java.lang.String::format(java.lang.String:\"Number: %d, String: %s\",int: 42, java.lang.String:\"test\");" +
+                            " return p;"+
+                        "    }\n" +
+                        "    int c=1;\n" +
+                        "    float d=8.1;\n" +
+                        "    this.a(int:c,float:d);" ;
+        System.out.println(rule);
+        JQuickLangExecutor executor = new JQuickLangExecutor();
+        Object result=executor.execute(rule);
+        System.out.println(result);
+    }
+    @Test
+    public void sample3() throws IOException {
+        Stack<VariableContext> contextStack = new Stack<VariableContext>();
+        VariableContext variableContext=new VariableContext();
+        variableContext.addVariable("charArray", new Character[]{'W', 'o', 'r', 'l', 'd'}, JTypeReference.of(Character.class));
+        contextStack.add(variableContext);
+        String rule=
+                "    import java.lang.String as type1;" +
+                "    function a(int:a,float:b) {\n" +
+                        "type1 p=type1::format(type1:\"Number: %d, String: %s\",int: 42, type1:\"test\");" +
+                        " return p;"+
+                        "    }\n" +
+                        "    int c=1;\n" +
+                        "    float d=8.1;\n" +
+                        "    this.a(int:c,float:d);" ;
+        System.out.println(rule);
+        JQuickLangExecutor executor = new JQuickLangExecutor();
+        Object result=executor.execute(rule);
+        System.out.println(result);
     }
 }

@@ -31,7 +31,7 @@ public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
             String operator = ctx.getChild(2 * i - 1).getText();
             JMathOp op = JMathOp.codeOf(operator);
             JAssert.notNull(op, "Unsupported operator: " + operator);
-            Object right = extract(visit(ctx.primary(i)));
+            Object right = extract(visitPrimary(ctx.primary(i)));
             switch (operator) {
                 case "*":
                     result = multiply(result, right);

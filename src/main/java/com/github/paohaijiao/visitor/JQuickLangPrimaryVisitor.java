@@ -16,6 +16,7 @@
 package com.github.paohaijiao.visitor;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.Variable;
 
 public class JQuickLangPrimaryVisitor extends JQuickLangAssignVisitor {
 
@@ -25,8 +26,9 @@ public class JQuickLangPrimaryVisitor extends JQuickLangAssignVisitor {
             return visitLiteral(ctx.literal());
         } else if (ctx.IDENTIFIER() != null) {
             String identifier=ctx.IDENTIFIER().getText();
-            JAssert.isTrue(null!=context.get(identifier),"variable "+identifier+" not found");;
-            return super.context.get(identifier);
+            Variable variable=currentContext().getVariable(identifier);
+            JAssert.isTrue(null!=variable,"variable "+identifier+" not found");;
+            return variable.getValue();
         }else if (ctx.expression()!=null) {
             return visitExpression(ctx.expression());
         } else if (ctx.variableDecl()!=null) {
