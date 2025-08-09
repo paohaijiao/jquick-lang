@@ -17,17 +17,16 @@ package com.github.paohaijiao.function;/*
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.scope.VariableContext;
 import com.github.paohaijiao.service.JService;
+import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.visitor.JQuickLangCommonVisitor;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * packageName PACKAGE_NAME
@@ -52,9 +51,21 @@ public class JInstanceMethodInvocationTest {
         map.put("key", "value");
         return jContext;
     }
+    public Stack<VariableContext> mockData(){
+        VariableContext variableContext=new VariableContext();
+        List<Integer> listVar = new ArrayList<Integer>() {
+        };
+        listVar.addAll(Arrays.asList(1, 2, 3));
+        Stack<VariableContext> contextStack = new Stack<VariableContext>();
+        variableContext.addVariable("testObj", new JService(), JTypeReference.of(JService.class));
+        variableContext.addVariable("listVar", listVar, JTypeReference.listOf(Integer.class));
+        contextStack.add(variableContext);
+        return contextStack;
+    }
     @Test
     public void testSimpleInstanceMethodCall() {
         String rule = "com.github.paohaijiao.service.JService::sum(int:5, int:3);";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -67,24 +78,32 @@ public class JInstanceMethodInvocationTest {
     @Test
     public void testBooleanReturn() {
         String rule = "testObj.isEven(int:4);";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
-        JContext params =setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        VariableContext variableContext=new VariableContext();
+        List<Integer> listVar = new ArrayList<Integer>() {
+        };
+        listVar.addAll(Arrays.asList(1, 2, 3));
+        Stack<VariableContext> contextStack = new Stack<VariableContext>();
+        variableContext.addVariable("testObj", new JService(), JTypeReference.of(JService.class));
+        contextStack.add(variableContext);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(new JContext(),contextStack,lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
     @Test
     public void testVoidReturn() {
         String rule = "testObj.noReturn();";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params =setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -97,17 +116,8 @@ public class JInstanceMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params =setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
-//        VariableContext variableTree=new VariableContext("root");
-//        List<Integer> listVar = new ArrayList<Integer>() ;
-//        listVar.add(1);
-//        listVar.add(2);
-//        listVar.add(3);
-//        JTypeReference<List<Integer>> typeRef = JTypeReference.listOf(Integer.class);
-//        variableTree.addVariable("listVar",listVar,typeRef);
-//        tv.setCurrent(variableTree);
-//         Object object = tv.visit(tree);
-//        System.out.println(object);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,mockData(),lexer,tokens,parser);
+        System.out.println(tv.visit(tree));
     }
     @Test
     public  void testMixedArgumentTypes() {
@@ -118,7 +128,7 @@ public class JInstanceMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params =setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -131,7 +141,7 @@ public class JInstanceMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params =setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

@@ -37,7 +37,23 @@ import java.io.IOException;
 public class JImportTest {
     @Test
     public void testImport() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("import java.lang.String as a ;"));
+        String rule="import java.lang.String as a ;";
+        System.out.println(rule);
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.ProgramContext tree = parser.program();
+        JContext params = new JContext();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        Object object = tv.visit(tree);
+        JImportContainerModel importContainerModel=tv.getImportContainer();
+        System.out.println(tv);
+    }
+    @Test
+    public void testImport1() throws IOException {
+        String rule="import List<java.lang.String> as c ;";
+        System.out.println(rule);
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ProgramContext tree = parser.program();

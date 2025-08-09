@@ -55,6 +55,7 @@ public class JStaticMethodInvocationTest {
     @Test
     public void testSimpleStaticMethodCall() {
         String rule = "java.lang.Math::max(int:5, int:10);";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -68,6 +69,7 @@ public class JStaticMethodInvocationTest {
     @Test
     public void testStaticMethodWithPrimitiveArguments() {
         String rule = "java.lang.Math::pow(double:2, double:3);";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -81,6 +83,7 @@ public class JStaticMethodInvocationTest {
     @Test
     public void testStaticMethodWithStringArgument() {
         String rule = "java.lang.String::valueOf(int:123);";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -118,6 +121,7 @@ public class JStaticMethodInvocationTest {
     @Test
     public void testStaticMethodWithNullArgument() {
         String rule = "java.util.Objects::toString(java.lang.String:null);";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -140,12 +144,14 @@ public class JStaticMethodInvocationTest {
         JContext params = setUp();
         JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
         Object result = tv.visit(tree);
+        System.out.println(result);
         assertEquals("Number: 42, String: test", result);
     }
 
     @Test
     public void testStaticMethodWithNoArguments() {
         String rule = "java.lang.System::currentTimeMillis();";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -173,6 +179,7 @@ public class JStaticMethodInvocationTest {
     @Test
     public void testStaticMethodReturningVoid() {
         String rule = "java.lang.System::gc();";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
@@ -186,6 +193,7 @@ public class JStaticMethodInvocationTest {
     @Test
     public void testStaticMethodFromCustomClass() {
         String rule = "com.github.paohaijiao.service.JService::sum(int:1,int:2);";
+        System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);

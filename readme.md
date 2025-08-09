@@ -22,26 +22,21 @@ Map<String, Integer> scores = {"Math":90, "English":85};
 ## Program Structure
 ```jquick
 import com.example.pkg as pkgAlias;
-var x = 10;
+int x = 10;
 console.log(x);
 ```
 ### Import Declarations
-```jquick
-import java.util.List as MyList;
-```
-| Component        | Description                               |
-|------------------|-------------------------------------------|
-| qualified.name   | dot-separated path (e.g., java.util.List) |
-| alias            | Optional local name                       |
+
+| Component      | Description                                 |
+|----------------|---------------------------------------------|
+| qualified.name | dot-separated path (e.g., java.lang.String) |
+| as             | alias name                                  |
 ### Variable Declarations
-```jquick
-var name = "Alice";  // Type inference
-int age = 25;        // Explicit typing
-```
-| Keyword   | Example             | Description                     |
-|-----------|---------------------|---------------------------------|
-| var       | `var x = 10;`       | Type inferred                   |
-| TypeName  | `String s = "hi";`  | Explicit type (optional)        |
+
+| Keyword    | Example            | Description                     |
+|------------|--------------------|---------------------------------|
+| simpleType | `int x = 10;`      | Type inferred                   |
+| TypeName   | `String s = "hi";` | Explicit type (optional)        |
 ### Data Types
 ### Primitive Types (simpleType)
 | Type Keyword | Data Type        | Example                |
@@ -64,15 +59,26 @@ int age = 25;        // Explicit typing
 | Array                     | `int[] numbers = {1,2,3};`       |
 | Custom Class              | `MyClass obj = new MyClass();`   |
 | Import Alias              | `import java.util.Date as JDate;`|
+```jquick
+import List<java.lang.String> as StringList ;
+StringList list=["A","B","C"];
+```
 ###  Expressions
-| Operator Group | Operators      |
-|----------------|----------------|
-| Multiplicative  | `*` `/`        |
-| Additive        | `+` `-`        |
-| Relational      | `>` `>=` `<` `<=` `==` `!=` |
-| Logical AND     | `&&`           |
-| Logical OR      | `||`          |
-| Assignment      | `=`            |
+| Operator Group | Operators    | Example                  | Desc                          |
+|----------------|--------------|--------------------------|-------------------------------|
+| Mul            | `*`          | 1*1                      | number * number               | 
+| Div            | `/`          | 1/1                      | number / number               |
+| Add            | `+`          | 1+1                      | number + number string+string |
+| Sub            | `-`          | 1-1                      | number - number               |
+| GT             | `>`          | 1>1                      | number > number               |
+| GE             | `>=`         | 1>=1                     | number * number               |
+| LT             | `<`          | 1<1                      | number < number               |
+| LE             | `<=`         | 1<=1                     | number <= number              |
+| NE             | `!=`         | 1 !=1                    | number != number              |
+| EQ             | `==`         | 1==1                     | number == number              |
+| AND            | `&&`         | true&& true              | boolean  && boolean           |
+| OR             | \|\|      | true \|\| false              | boolean\|\| boolean           |
+| PAREN          | (expression) | (a + b) * 2 > 10 && x != y | boolean\|\| boolean           |
 #### sample code
 ```jquick
 (a + b) * 2 > 10 && x != y
@@ -80,29 +86,49 @@ int age = 25;        // Explicit typing
 ### Control Structures
 #### if statement
 ```jquick
-if (score >= 90) {
-    grade = 'A';
-} else if (score >= 60) {
-    grade = 'B';
-} else {
-    grade = 'C';
-}
+ if(false){
+            console.log(1);
+        }else if(true){
+            console.log(2);
+        }else if(false){
+            console.log(3);
+        }else{
+            console.log(4);
+        }
 ```
 #### loop statement
 ```jquick
-for (var i = 0; i < 10; i++) {
-    console.log(i);
-}
+        for (int i = 0; i < 10; i = i + 1) {
+            for (int j = 0; j < 10; j = j + 1){
+                if(j==2){
+                    continue;
+                }else{
+                    console.log(i+","+j);                }
+            }
+        };
 ```
 ```jquick
-while (x > 0) {
-    x=x+1;
-}
+ while(true){
+            for (int a = 0; a<10; a=a+1){
+                if(a==2){
+                    continue;
+                }else{
+                    console.log("当前的变量a:"+a);
+                }
+            }
+            break;
+        }
 ```
 #### method definition
 ```jquick
-function doSomething(int:a, int:b) {
+function funtionName(int:a, int:b) {
     return a + b;
+}
+```
+```jquick
+import List<java.lang.String> as StringList ;
+function funtionName(StringList:a, int:b) {
+    return a;
 }
 ```
 ### invocation Styles
@@ -112,6 +138,99 @@ function doSomething(int:a, int:b) {
 | Constructor      | `new ArrayList()`           |
 | Instance Method  | `list.add("item")`          |
 | This-context     | `this.doSomething()`        |
+### Static Method
+1. sample
+```jquick
+java.lang.Math::max(int:5, int:10);
+output:10
+```
+2. sample
+```jquick
+java.lang.Math::pow(double:2, double:3);
+output:8.0
+```
+3. sample
+```jquick
+java.lang.String::valueOf(int:123);
+output:123
+```
+4. sample
+```jquick
+java.util.Objects::toString(java.lang.String:null);
+output:null
+```
+5. sample
+```jquick
+java.lang.String::format(java.lang.String:"Number: %d, String: %s",int: 42, java.lang.String:"test");
+output:Number: 42, String: test
+```
+6. sample
+```jquick
+java.lang.System::currentTimeMillis();
+output:1754713207541
+```
+7. sample
+```jquick
+java.lang.String::join(java.lang.CharSequence:",", java.lang.CharSequence:"a",java.lang.CharSequence: "b", java.lang.CharSequence:"c");
+output:a,b,c
+```
+8. sample
+```jquick
+com.github.paohaijiao.service.JService::sum(int:1,int:2);
+   output:3
+```
+### Constructor Method
+1. sample
+```jquick
+new com.github.paohaijiao.service.JService();
+```
+2. sample
+```jquick
+new com.github.paohaijiao.model.JStudent(int:42, float:3.14, boolean:true);
+```
+3. sample
+```jquick
+new com.github.paohaijiao.model.JStudent(java.lang.String:"test string");
+```
+4. sample
+```jquick
+new com.github.paohaijiao.model.JStudent(List<java.lang.Integer>:listVar);
+```
+5. sample
+```jquick
+new com.github.paohaijiao.model.JStudent(java.lang.String:"test", java.lang.Integer:123, java.lang.Boolean:true, List<java.lang.Integer>:listVar);
+```
+6. sample
+```jquick
+new java.util.ArrayList();
+```
+7. sample
+```jquick
+new com.github.paohaijiao.model.JStudent(java.lang.String:"a", java.lang.String:"b", java.lang.String:"c");
+```
+### Instance Method
+1. sample
+```jquick
+testObj.isEven(int:4);
+output: true
+```
+2. sample
+```jquick
+testObj.noReturn();
+```
+3. sample
+```jquick
+testObj.addToList(java.util.ArrayList<java.lang.Integer>:listVar, java.lang.Integer:4);
+```
+4. sample
+```jquick
+testObj.methodWithMixedArgs(java.lang.String:"Test", int:42, boolean:true);
+```
+5. sample
+```jquick
+testObj.methodWithVarArgs(java.lang.String:"a", java.lang.String:"b", java.lang.String:"c");
+```
+
 ### output
 ```jquick
 console.log("Result: " + result);
@@ -124,6 +243,32 @@ console.log("Result: " + result);
 /*
   multi-line
 */
+```
+### code sample 
+```jquick
+function a(int:a,float:b) {
+    java.lang.String p=java.lang.String::format(java.lang.String:"Number: %d, String: %s",int: 42, java.lang.String:"test"); 
+    return p;    
+}
+    int c=1;
+    float d=8.1;
+    this.a(int:c,float:d);
+```
+```jquick
+function a(int:a,float:b) {
+    java.lang.String str1 = new java.lang.String(java.lang.String:"Hello");
+    console.log(str1); 
+    java.lang.String upperStr = str1.toUpperCase(); 
+    console.log(upperStr);  
+    java.lang.String subStr = str1.substring(int:1, int:3);
+    console.log(subStr);  
+    java.util.HashMap<java.lang.String,java.lang.String> result = new java.util.HashMap();  result.put(java.lang.String:"constructed1", java.lang.String:str1);  result.put(java.lang.String:"constructed2", java.lang.String:str1); 
+    result.put(java.lang.String:"uppercased", java.lang.String:upperStr);  result.put(java.lang.String:"substring", java.lang.String:subStr); 
+    return result;    
+ }
+    int c=1;
+    float d=8.1;
+    this.a(int:c,float:d);
 ```
 ### appendix
 ```string preserve keyword
@@ -156,5 +301,5 @@ function getSquare(int:a,int:b){
 }
 var a=1;
 var b=2;
-var c=this.getSquare(a,b);
+var c=this.getSquare(int:a,int:b);
 ```
