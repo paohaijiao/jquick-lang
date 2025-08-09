@@ -39,16 +39,18 @@ console.log(x);
 | TypeName   | `String s = "hi";` | Explicit type (optional)        |
 ### Data Types
 ### Primitive Types (simpleType)
-| Type Keyword | Data Type        | Example                |
-|--------------|------------------|------------------------|
-| short        | Short integer    | `short s = 100;`       |
-| int          | Integer          | `int x = 42;`          |
-| float        | Floating point   | `float pi = 3.14;`     |
-| double       | Double           | `double d = 9.99;`     |
-| long         | Long integer     | `long big = 100;`      |
-| boolean      | Boolean          | `boolean flag = true;` |
-| byte         | Byte             | `byte b = 0x1F;`       |
-| Null         | null             | `null`                 |
+| Type Keyword | Data Type        | Example                     |
+|--------------|------------------|-----------------------------|
+| short        | Short integer    | `short s = 100;`            |
+| int          | Integer          | `int x = 42;`               |
+| float        | Floating point   | `float pi = 3.14;`          |
+| double       | Double           | `double d = 9.99;`          |
+| long         | Long integer     | `long big = 100;`           |
+| boolean      | Boolean          | `boolean flag = true;`      |
+| byte         | Byte             | `byte b = 0x1F;`            |
+| Null         | null             | `null`                      |
+| Date         | Date             | `2025-06-07`                |
+| Date         | Date             | `2025-06-07 12:00:01`       |
 ### Composite Types
 | Type Format               | Example                          |
 |--------------------------|----------------------------------|
@@ -299,7 +301,7 @@ null
 function getSquare(int:a,int:b){
     return a*b;
 }
-var a=1;
-var b=2;
-var c=this.getSquare(int:a,int:b);
+int a=1;
+int b=2;
+int c=this.getSquare(int:a,int:b);
 ```

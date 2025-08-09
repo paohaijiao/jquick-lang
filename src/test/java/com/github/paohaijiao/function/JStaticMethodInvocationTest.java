@@ -205,8 +205,20 @@ public class JStaticMethodInvocationTest {
     }
     @Test
     public void join() {
-        String rule = "java.lang.String::join<java.lang.CharSequence,java.lang.CharSequence,java.lang.CharSequence" +
-                ",java.lang.CharSequence,java.lang.CharSequence>(\",\",\"1\",\"22\",\"33\")";
+        String rule = "java.lang.String::join(java.lang.CharSequence:\",\",java.lang.CharSequence:\"1\",java.lang.CharSequence:\"22\",java.lang.CharSequence:\"33\")";
+        System.out.println(rule);
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JQuickLangParser parser = new JQuickLangParser(tokens);
+        JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
+        JContext params = setUp();
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        Object result = tv.visit(tree);
+        System.out.println(result);
+    }
+    @Test
+    public void print() {
+        String rule = "java.lang.System@out.println(java.lang.String:\"hahah\")";
         System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);

@@ -69,7 +69,7 @@ public class JQuickLangStatementVisitor extends JQuickLangIfStatementVisitor{
         JAssert.notNull(typeReference,"can't access className ["+ctx.classsType().getText()+"]");
         String staticField=ctx.accessObjectName().getText();
         try{
-            Field filed= typeReference.getType().getClass().getField(staticField);
+            Field filed= typeReference.getRawType().getField(staticField);
             Object obj=filed.get(null);
             return obj;
         }catch (Exception e){

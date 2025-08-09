@@ -14,6 +14,7 @@ package com.github.paohaijiao.literal;/*
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
+import com.github.paohaijiao.JVariableContextBuilder;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -104,13 +105,13 @@ public class JLiteralTest {
     }
     @Test
     public void identifier() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("type"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("testObj"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.LiteralContext tree = parser.literal();
         JContext params = new JContext();
         params.put("type", "string");
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

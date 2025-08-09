@@ -38,7 +38,6 @@ import java.util.stream.Collectors;
 public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
     @Override
     public Object  visitFunctionDefinition(JQuickLangParser.FunctionDefinitionContext ctx) {
-//        enterScope();
         JAssert.notNull(ctx.IDENTIFIER(), "functionName must not be null");
         String functionName = ctx.IDENTIFIER().getText();
         List<JFunctionFieldModel> paramDefine = new ArrayList<>();
@@ -77,11 +76,12 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         String modifiedBody = rewriter.getText(
                 Interval.of(ctx.action().start.getTokenIndex(), ctx.action().stop.getTokenIndex())
         );
-        System.out.println(modifiedBody);
-
-        JFunctionDefinitionModel jFunctionDefinitionModel =createFunctionDefinition(functionName,paramDefine,modifiedBody);
+        JTypeReference<?> type=null;
+        if (null!=ctx.classsType()){
+            type= visitClasssType(ctx.classsType());
+        }
+        JFunctionDefinitionModel jFunctionDefinitionModel =createFunctionDefinition(functionName,paramDefine,modifiedBody,type);
         registry.registerFunction(jFunctionDefinitionModel);
-//        exitScope();
         return null;
     }
     @Override
@@ -118,7 +118,14 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         JTypeReferenceAndValue typeReferenceAndValue=new JTypeReferenceAndValue();
         JTypeReference<?> classType=visitClasssType(ctx.classsType());
         Object literal=visitLiteral(ctx.literal());
-        String jsonString = gson.toJson(literal);
+        String jsonString=null;
+        if(null!=literal) {
+             jsonString=literal.toString();
+            if(jsonString==null) {
+                jsonString = gson.toJson(literal);
+            }
+        }
+
         typeReferenceAndValue.setTypeArguments(classType);
         Object value=this.mergeDataWithTypeReference(jsonString,classType);
         typeReferenceAndValue.setData(value);
@@ -151,7 +158,6 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
             model=visitArgumentList(ctx.argumentList());
         }
         try {
-//            Class<?> aClass=Class.forName(qualifiedName);
             JTypeReference<?> typeReference = loadClass(qualifiedName);
             Class<?> clazz=typeReference.getRawType();
             JStaticMethodFactory instance = JReflectionFactory.staticMethod(clazz);
@@ -231,7 +237,11 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         }
         executor.intExecuteEnv(this.context,this.contextStack);
         Object object=executor.execute(function.getAction());
-        return object;
+        if(null==object){
+            return null;
+        }else{
+            return mergeDataWithTypeReference(object.toString(),function.getReturnType());
+        }
     }
     @Override
     public Object visitAccessStaticMethodCall(JQuickLangParser.AccessStaticMethodCallContext ctx) {
@@ -240,11 +250,11 @@ public class JQuickLangFunctionCallVisitor extends JQuickLangPrimaryVisitor {
         String methodName = visitMethodName(ctx.methodName());
         try {
             Object target=visitAccessStaticVariable(ctx.accessStaticVariable());
-            List<Object> args = new ArrayList<>();
             JTypeReferenceAndValueModel model=new JTypeReferenceAndValueModel();
             if(null!=ctx.argumentList()&&null!=ctx.argumentList().literalItem()&&ctx.argumentList().literalItem().size()>0){
                 model=visitArgumentList(ctx.argumentList());
             }
+            List<Object>  args=model.getList().stream().map(JTypeReferenceAndValue::getData).collect(Collectors.toList());
             return  JObjectFactory.createByInstanceMethod(target, methodName, args);
         } catch (Exception e) {
             throw new RuntimeException("please double check static method invocation : " + methodName, e);

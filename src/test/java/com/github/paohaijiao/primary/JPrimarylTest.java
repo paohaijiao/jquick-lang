@@ -14,6 +14,7 @@ package com.github.paohaijiao.primary;/*
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
+import com.github.paohaijiao.JVariableContextBuilder;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -47,13 +48,13 @@ public class JPrimarylTest {
     }
     @Test
     public void IDENTIFIER() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("a"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("listVar"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.PrimaryContext tree = parser.primary();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
-        tv.getContext().put("a", 18);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
+        tv.getContext().put("listVar", 18);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -89,7 +90,7 @@ public class JPrimarylTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.PrimaryContext tree = parser.primary();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

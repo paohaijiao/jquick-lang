@@ -112,11 +112,11 @@ public class JQuickLangRegistryVisitor extends JQuickLangCoreVisitor {
 
 
 
-    public static JFunctionDefinitionModel createFunctionDefinition(String name, List<JFunctionFieldModel> paramDefine, String action) {
+    public static JFunctionDefinitionModel createFunctionDefinition(String name, List<JFunctionFieldModel> paramDefine, String action,JTypeReference<?> type) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Function name cannot be null or empty");
         }
-        return new JFunctionDefinitionModel(name,paramDefine, action);
+        return new JFunctionDefinitionModel(name,paramDefine, action,type);
     }
 
     public List<String> getRegisteredFunctionNames() {

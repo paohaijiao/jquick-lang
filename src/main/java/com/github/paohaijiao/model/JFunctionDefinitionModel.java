@@ -15,6 +15,8 @@
  */
 package com.github.paohaijiao.model;
 
+import com.github.paohaijiao.support.JTypeReference;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,10 +30,13 @@ public class JFunctionDefinitionModel {
 
     private final String action;
 
-    public JFunctionDefinitionModel(String name, List<JFunctionFieldModel> parameter, String action) {
+    private JTypeReference<?> returnType;
+
+    public JFunctionDefinitionModel(String name, List<JFunctionFieldModel> parameter, String action,JTypeReference<?> type) {
         this.name = name;
         this.fields = parameter;
         this.action = action;
+        this.returnType = type;
     }
 
     public String getName() {
@@ -75,5 +80,9 @@ public class JFunctionDefinitionModel {
 //        result = 31 * result + Objects.hashCode(returnType);
         result = 31 * result + fields.hashCode();
         return result;
+    }
+
+    public JTypeReference<?> getReturnType() {
+        return returnType;
     }
 }

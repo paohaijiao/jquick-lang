@@ -14,6 +14,7 @@ package com.github.paohaijiao.function;/*
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
+import com.github.paohaijiao.JVariableContextBuilder;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -82,7 +83,7 @@ public class JConstructorMethodInvocationTest {
 
     @Test
     public void testConstructorWithStringArgument() {
-        String rule = "new com.github.paohaijiao.model.JStudent(java.lang.String:\"test string\");";
+        String rule = "new com.github.paohaijiao.model.JStudent(java.lang.String:\"teststring\");";
         System.out.println(rule);
         JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -114,7 +115,7 @@ public class JConstructorMethodInvocationTest {
         listVar.addAll(Arrays.asList(1, 2, 3));
         variableContext.addVariable("listVar", listVar, JTypeReference.listOf(Integer.class));
         contextStack.add(variableContext);
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,contextStack,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -131,7 +132,7 @@ public class JConstructorMethodInvocationTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.MethodInvocationContext tree = parser.methodInvocation();
         JContext params = setUp();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

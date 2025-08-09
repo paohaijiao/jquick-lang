@@ -14,6 +14,7 @@ package com.github.paohaijiao.function;/*
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 
+import com.github.paohaijiao.JVariableContextBuilder;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -167,7 +168,7 @@ public class JInstanceMethodInvocationTest {
     }
     @Test
     public void argumentList() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("1,2"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("int:1,int:2"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.ArgumentListContext tree = parser.argumentList();
@@ -178,13 +179,12 @@ public class JInstanceMethodInvocationTest {
     }
     @Test
     public void instanceName() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("i"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("listVar"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.InstanceNameContext tree = parser.instanceName();
         JContext params = new JContext();
-        params.put("i","1");
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

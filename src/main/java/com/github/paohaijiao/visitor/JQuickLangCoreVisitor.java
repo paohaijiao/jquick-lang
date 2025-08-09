@@ -16,6 +16,7 @@
 package com.github.paohaijiao.visitor;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.paohaijiao.console.JConsole;
 import com.github.paohaijiao.enums.JLiteralEnums;
 import com.github.paohaijiao.executor.JQuickClassTypeExecutor;
@@ -32,6 +33,8 @@ import com.github.paohaijiao.type.JGenericlTypeConverter;
 import com.google.gson.Gson;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Stack;
 
 
@@ -116,9 +119,27 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
     }
 
     protected Object mergeDataWithTypeReference(String data,JTypeReference<?> typeReference){
-        JGenericlTypeConverter converter = new JGenericlTypeConverter();
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return  converter.convert(data,typeReference);
+            if (data == null || typeReference == null) {
+                return null;
+            }
+            Type type = typeReference.getRawType();
+            JTypeReference stringJTypeReference=JTypeReference.of(String.class);
+            JTypeReference charSequenceJTypeReference=JTypeReference.of(CharSequence.class);
+            boolean isString =type.equals(stringJTypeReference.getRawType());
+            boolean isCharSequence =type.equals(charSequenceJTypeReference.getRawType());
+            if(data instanceof String&&isString){
+                return  data;
+            }
+            if(data instanceof String&&isCharSequence){
+                return  data;
+            }
+            if (data instanceof String) {//data is tring but result not string
+                return objectMapper.readValue(data, typeReference);
+            }else{//data is not tring
+                return objectMapper.convertValue(data, typeReference);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

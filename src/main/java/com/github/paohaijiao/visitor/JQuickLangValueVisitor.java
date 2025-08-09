@@ -22,6 +22,7 @@ import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
 import com.github.paohaijiao.scope.Variable;
 import com.github.paohaijiao.scope.VariableContext;
+import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.util.JStringUtils;
 
 import java.text.NumberFormat;
@@ -52,7 +53,8 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
             Date date = JDateUtil.parse(JDateUtil.getSimpleDateFormat(JConstants.dateTime), dateString);
             return date;
         }
-        throw new RuntimeException("Invalid date format: " + ctx.getText());
+        JAssert.throwNewException("invalid date format: " + ctx.getText());
+        return null;
     }
 
     @Override
@@ -62,7 +64,8 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
             String str = JStringUtils.trim(text);
             return str;
         }
-        throw new RuntimeException("Invalid string: " + ctx.getText());
+        JAssert.throwNewException("invalid string: " + ctx.getText());
+        return null;
     }
 
 
@@ -73,7 +76,8 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         } else if (ctx.FALSE() != null) {
             return false;
         }
-        throw new RuntimeException("Unsupported Boolean format: " + ctx.getText());
+        JAssert.throwNewException("Unsupported Boolean format: " + ctx.getText());
+        return null;
     }
     @Override
     public Object visitLiteral(JQuickLangParser.LiteralContext ctx) {
@@ -104,12 +108,10 @@ public class JQuickLangValueVisitor extends JQuickLangImportVisitor {
         } else  if(null!=ctx.mapLiteral()){
             return ctx.mapLiteral().getText();
         } else if(ctx.qualifiedName() != null) {
-            try {
-                Class<?> clazz = Class.forName(ctx.qualifiedName().getText());
-                return clazz;
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            String qualifiedName=visitQualifiedName(ctx.qualifiedName());
+            JTypeReference<?> typeReference = loadClass(qualifiedName);
+            Class<?> clazz=typeReference.getRawType();
+            return clazz;
         }else if (null!=ctx.null_()){
             return null;
         }
