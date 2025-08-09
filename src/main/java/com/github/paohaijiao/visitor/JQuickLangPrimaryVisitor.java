@@ -22,6 +22,7 @@ public class JQuickLangPrimaryVisitor extends JQuickLangAssignVisitor {
 
     @Override
     public Object visitPrimary(JQuickLangParser.PrimaryContext ctx) {
+        String t=ctx.getText();
         if(ctx.literal() != null) {
             return visitLiteral(ctx.literal());
         } else if (ctx.IDENTIFIER() != null) {

@@ -23,12 +23,12 @@ import java.io.IOException;
 public class JMainTest {
     @Test
     public void methodDefine() throws IOException {
-        String rule="    function getSquare(int:a,int:b){\n" +
+        String rule="    int function getSquare(int:a,int:b){\n" +
                 "        return a*b;\n" +
                 "    }\n" +
-                "    var a=1;\n" +
-                "    var b=2;\n" +
-                "    var c=this.getSquare(a,b);";
+                "    int a=1;\n" +
+                "    int b=2;\n" +
+                "    int c=this.getSquare(int:a,int:b);";
         System.out.println(rule);
         JQuickLangExecutor executor = new JQuickLangExecutor();
         Object result=executor.execute(rule);
@@ -38,13 +38,13 @@ public class JMainTest {
     public void methodDefine1() throws IOException {
         String rule="    import java.lang.String as string;\n" +
                 "     import java.lang.System as system;\n" +
-                "    function getSquare(java.lang.String:a,int:b){\n" +
-                "        system@out.println(a);\n" +
+                "   string function getSquare(java.lang.String:a,int:b){\n" +
+                "        system@out.println(string:a);\n" +
                 "        return a+b;\n" +
                 "    }\n" +
-                "    var a='hello world';\n" +
-                "    var b=2;\n" +
-                "    var c=this.getSquare(a,b);";
+                "    string a=\"hello world\";\n" +
+                "    int b=2;\n" +
+                "    string c=this.getSquare(string:a,int:b);";
         System.out.println(rule);
         JQuickLangExecutor executor = new JQuickLangExecutor();
         Object result=executor.execute(rule);
@@ -54,14 +54,14 @@ public class JMainTest {
     public void methodDefine2() throws IOException {
         String rule="   import java.lang.String as string;\n" +
                 "     import java.lang.System as system;\n" +
-                "    function getSquare(java.lang.String:a,int:b){\n" +
-                "        system@out.println(a);\n" +
-                "        int d= a+b;\n" +
+                "    string function getSquare(java.lang.String:a,int:b){\n" +
+               // "        system@out.println(string:a);\n" +
+                "        string d= a+b;\n" +
                 "        return d;\n" +
                 "    }\n" +
-                "    String a='hello world';\n" +
+                "    string a=\"hello world\";\n" +
                 "    int b=2;\n" +
-                "    int c=this.getSquare(a,b);";
+                "    string c=this.getSquare(string:a,int:b);";
         System.out.println(rule);
         JQuickLangExecutor executor = new JQuickLangExecutor();
         Object result=executor.execute(rule);
@@ -71,18 +71,18 @@ public class JMainTest {
     public void methodDefine3() throws IOException {
         String rule="import java.lang.String as string;\n" +
                 "import java.lang.System as system;\n" +
-                "function getSquare(int:a,int:b){\n" +
-                "    system@out.println(a);\n" +
-                "\tif(a.equals(b)){\n" +
-                "\t\tvar f=3f; \n" +
+                "java.lang.Object function getSquare(int:a,int:b){\n" +
+                "    system@out.println(int:a);\n" +
+                "\tif(a.equals(int:b)){\n" +
+                "\t\tfloat f=3; \n" +
                 "\t\treturn f;\n" +
                 "\t}        \n" +
-                "\tvar d= a+b;\n" +
+                "\tint d= a+b;\n" +
                 "      return d;\n" +
                 "    }\n" +
-                "var a=2;\n" +
-                "var b=2;\n" +
-                "var c=this.getSquare(a,b);";
+                "int a=2;\n" +
+                "int b=2;\n" +
+                "java.lang.Object c=this.getSquare(int:a,int:b);";
         System.out.println(rule);
         JQuickLangExecutor executor = new JQuickLangExecutor();
         Object result=executor.execute(rule);
@@ -92,22 +92,22 @@ public class JMainTest {
     public void methodDefine4() throws IOException {
         String rule="import java.lang.String as string;\n" +
                 "import java.lang.System as system;\n" +
-                "function getSquare(int:a,int:b){\n" +
-                "    system@out.println(a);\n" +
+                "int function getSquare(int:a,int:b){\n" +
+                "    system@out.println(int:a);\n" +
                 "\tfor(i=0;i<10;i=i+1){\n" +
                 "\t   if(i==2){\n" +
                 "\t     continue;\n" +
                 "\t   }else{\n" +
-                "\t       var k=i+3;\n" +
-                "\t       system@out.println(k);\n" +
+                "\t       int k=i+3;\n" +
+                "\t       system@out.println(int:k);\n" +
                 "\t   }\n" +
                 "    }    \n" +
-                "\tvar d= a+b;\n" +
+                "\tint d= a+b;\n" +
                 "      return d;\n" +
                 "    }\n" +
-                "var a=2;\n" +
-                "var b=2;\n" +
-                "var c=this.getSquare(a,b);";
+                "int a=2;\n" +
+                "int b=2;\n" +
+                "int c=this.getSquare(int:a,int:b);";
         System.out.println(rule);
         JQuickLangExecutor executor = new JQuickLangExecutor();
         Object result=executor.execute(rule);
@@ -117,24 +117,26 @@ public class JMainTest {
     public void while1() throws IOException {
         String rule="import java.lang.String as string;\n" +
                 "import java.lang.System as system;\n" +
-                "function getSquare(int:a,int:b){\n" +
+                "int function getSquare(int:a,int:b){\n" +
+                "\t       console.log(1);\n" +
                 "\t       boolean s=true;\n" +
+                "\t       console.log(2);\n" +
                 "\twhile(s){\n" +
                 "\t   if(a>5){\n" +
+                "\t       console.log(3);\n" +
                 "\t       s=false;\n" +
                 "\t       console.log(a);\n" +
-                "\t       system@out.println('hehe');\n" +
+                "\t       system@out.println(string:'hehe');\n" +
                 "\t     return a;\n" +
                 "\t   }else{\n" +
                 "\t       a=a+1;\n" +
-                "\t       system@out.println(a);\n" +
+                "\t       system@out.println(int:a);\n" +
                 "\t   }\n" +
                 "    }    \n" +
-
                 "    }\n" +
-                "var a=1;\n" +
-                "var b=2;\n" +
-                "var c=this.getSquare(a,b);";
+                "int a=1;\n" +
+                "int b=2;\n" +
+                "int c=this.getSquare(int:a,int:b);";
         System.out.println(rule);
         JQuickLangExecutor executor = new JQuickLangExecutor();
         Object result=executor.execute(rule);

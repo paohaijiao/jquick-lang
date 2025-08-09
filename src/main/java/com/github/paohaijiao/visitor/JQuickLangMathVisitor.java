@@ -19,6 +19,7 @@ package com.github.paohaijiao.visitor;
 import com.github.paohaijiao.enums.JMathOp;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.parser.JQuickLangParser;
+import com.github.paohaijiao.util.JStringUtils;
 
 import java.math.BigDecimal;
 
@@ -26,7 +27,8 @@ public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
 
     @Override
     public Object visitArithmetic(JQuickLangParser.ArithmeticContext ctx) {
-        Object result = extract(visit(ctx.primary(0)));
+        String t=ctx.getText();
+        Object result = visitPrimary(ctx.primary(0));
         for (int i = 1; i < ctx.primary().size(); i++) {
             String operator = ctx.getChild(2 * i - 1).getText();
             JMathOp op = JMathOp.codeOf(operator);
@@ -82,7 +84,7 @@ public class JQuickLangMathVisitor extends JQuickLangFunctionCallVisitor {
             return convertToPrimaryType(result,left.getClass());
         }
         else if (left instanceof String || right instanceof String) {
-            return left.toString() + right.toString();
+            return JStringUtils.trim(left.toString()) + JStringUtils.trim(right.toString()) ;
         }
         throw new RuntimeException("Addition of incompatible types: "
                 + left.getClass() + " and " + right.getClass());
