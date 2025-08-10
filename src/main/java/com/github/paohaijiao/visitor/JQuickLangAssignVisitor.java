@@ -14,6 +14,9 @@
  * Copyright (c) [2025-2099] Martin (goudingcheng@gmail.com)
  */
 package com.github.paohaijiao.visitor;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.paohaijiao.exception.JAssert;
 import com.github.paohaijiao.model.JLiteralModel;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -21,6 +24,9 @@ import com.github.paohaijiao.scope.Variable;
 import com.github.paohaijiao.scope.VariableContext;
 import com.github.paohaijiao.support.JTypeReference;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.Map;
 import java.util.Stack;
 
 public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
@@ -37,7 +43,7 @@ public class JQuickLangAssignVisitor extends JQuickLangValueVisitor {
         if(ctx.classsType() != null){// define
             JTypeReference<?>  typeRef=visitClasssType(ctx.classsType());
             Object express=visitExpression(ctx.expression());
-            String string=gson.toJson(express);
+            String string=null==express?null:express.toString();
             Object value=mergeDataWithTypeReference(string,typeRef);
             if(global){
                 updateVariableInStack(varName, value, typeRef);

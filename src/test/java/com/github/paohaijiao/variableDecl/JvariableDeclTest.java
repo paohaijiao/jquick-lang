@@ -1,5 +1,6 @@
 package com.github.paohaijiao.variableDecl;
 
+import com.github.paohaijiao.JVariableContextBuilder;
 import com.github.paohaijiao.param.JContext;
 import com.github.paohaijiao.parser.JQuickLangLexer;
 import com.github.paohaijiao.parser.JQuickLangParser;
@@ -18,7 +19,7 @@ public class JvariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -29,7 +30,7 @@ public class JvariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -40,7 +41,7 @@ public class JvariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -51,7 +52,7 @@ public class JvariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -62,7 +63,7 @@ public class JvariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -73,7 +74,7 @@ public class JvariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -84,18 +85,20 @@ public class JvariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
     @Test
     public void string1list() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("List<java.lang.String> a=[\"paohaijiao\"]"));
+        String rule="List<java.lang.String> a=[\"paohaijiao\"]";
+        System.out.println(rule);
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString(rule));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -106,7 +109,7 @@ public class JvariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }
@@ -117,7 +120,7 @@ public class JvariableDeclTest {
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params, JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

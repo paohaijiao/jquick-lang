@@ -53,7 +53,7 @@ public class JActionTest {
         variableContext.addVariable("charArray", new Character[]{'W', 'o', 'r', 'l', 'd'}, JTypeReference.of(Character.class));
         contextStack.add(variableContext);
         String rule=
-                "    function a(int:a,float:b) {\n" +
+                " java.util.HashMap<java.lang.String,java.lang.String>   function a(int:a,float:b) {\n" +
                      "java.lang.String str1 = new java.lang.String(java.lang.String:\"Hello\");\n" +
                         " console.log(str1); \n" +
                         " java.lang.String upperStr = str1.toUpperCase(); \n" +
@@ -82,7 +82,7 @@ public class JActionTest {
         variableContext.addVariable("charArray", new Character[]{'W', 'o', 'r', 'l', 'd'}, JTypeReference.of(Character.class));
         contextStack.add(variableContext);
         String rule=
-                "    function a(int:a,float:b) {\n" +
+                "   java.lang.String function a(int:a,float:b) {\n" +
                         "java.lang.String p=java.lang.String::format(java.lang.String:\"Number: %d, String: %s\",int: 42, java.lang.String:\"test\");" +
                             " return p;"+
                         "    }\n" +
@@ -102,7 +102,7 @@ public class JActionTest {
         contextStack.add(variableContext);
         String rule=
                 "    import java.lang.String as type1;" +
-                "    function a(int:a,float:b) {\n" +
+                "   type1 function a(int:a,float:b) {\n" +
                         "type1 p=type1::format(type1:\"Number: %d, String: %s\",int: 42, type1:\"test\");" +
                         " return p;"+
                         "    }\n" +

@@ -16,6 +16,7 @@
 package com.github.paohaijiao.visitor;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.paohaijiao.console.JConsole;
 import com.github.paohaijiao.enums.JLiteralEnums;
@@ -31,10 +32,14 @@ import com.github.paohaijiao.scope.VariableContext;
 import com.github.paohaijiao.support.JTypeReference;
 import com.github.paohaijiao.type.JGenericlTypeConverter;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Stack;
 
 
@@ -117,7 +122,25 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
         }
 
     }
+    public static boolean isMapTypeReference(TypeReference<?> typeReference) {
+        Type type = typeReference.getType();
+        ObjectMapper mapper = new ObjectMapper();
+        JavaType javaType = mapper.constructType(typeReference.getType());
+        if (javaType != null && javaType.isMapLikeType()) {
+            return true;
+        }
+        if (type instanceof ParameterizedType) {
+            ParameterizedType pType = (ParameterizedType) type;
+            Type rawType = pType.getRawType();
+            if (rawType instanceof Class<?>) {
+                return Map.class.isAssignableFrom((Class<?>) rawType);
+            }
+        } else if (type instanceof Class<?>) {
+            return Map.class.isAssignableFrom((Class<?>) type);
+        }
+        return false;
 
+    }
     protected Object mergeDataWithTypeReference(String data,JTypeReference<?> typeReference){
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -136,6 +159,9 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
                 return  data;
             }
             if (data instanceof String) {//data is tring but result not string
+                if(isMapTypeReference(typeReference)){
+                    return convertWithGson(data,typeReference);
+                }
                 return objectMapper.readValue(data, typeReference);
             }else{//data is not tring
                 return objectMapper.convertValue(data, typeReference);
@@ -145,7 +171,54 @@ public class JQuickLangCoreVisitor extends JQuickLangBaseVisitor {
         }
         return null;
     }
+    public <T> T convertWithGson(String json, TypeReference<T> jacksonTypeRef) {
+        Gson gson = new Gson();
+        Type gsonType = convertJacksonTypeToGsonType(jacksonTypeRef);
+        return gson.fromJson(json, gsonType);
+    }
 
+    private Type convertJacksonTypeToGsonType(TypeReference<?> jacksonTypeRef) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JavaType javaType = objectMapper.constructType(jacksonTypeRef.getType());
+        if (javaType.isMapLikeType()) {
+            JavaType keyType = javaType.getKeyType();
+            JavaType valueType = javaType.getContentType();
+
+            return TypeToken.getParameterized(
+                    Map.class,
+                    convertJacksonTypeToGsonType(keyType),
+                    convertJacksonTypeToGsonType(valueType)
+            ).getType();
+        }
+
+        // 其他类型处理
+        return javaType.getRawClass();
+    }
+
+    private Type convertJacksonTypeToGsonType(JavaType javaType) {
+        if (javaType.isMapLikeType()) {
+            return TypeToken.getParameterized(
+                    Map.class,
+                    convertJacksonTypeToGsonType(javaType.getKeyType()),
+                    convertJacksonTypeToGsonType(javaType.getContentType())
+            ).getType();
+        }
+
+        if (javaType.isCollectionLikeType()) {
+            return TypeToken.getParameterized(
+                    Collection.class,
+                    convertJacksonTypeToGsonType(javaType.getContentType())
+            ).getType();
+        }
+
+        if (javaType.isArrayType()) {
+            return TypeToken.getArray(
+                    convertJacksonTypeToGsonType(javaType.getContentType())
+            ).getType();
+        }
+
+        return javaType.getRawClass();
+    }
     public JFunctionRegistry getRegistry() {
         return registry;
     }

@@ -36,12 +36,12 @@ import java.io.IOException;
 public class JVariableDeclTest {
     @Test
     public void variableDecl() throws IOException {
-        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("var a=1;"));
+        JQuickLangLexer lexer = new JQuickLangLexer(CharStreams.fromString("int a=1;"));
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         JQuickLangParser parser = new JQuickLangParser(tokens);
         JQuickLangParser.VariableDeclContext tree = parser.variableDecl();
         JContext params = new JContext();
-        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,lexer,tokens,parser);
+        JQuickLangCommonVisitor tv = new JQuickLangCommonVisitor(params,JVariableContextBuilder.mockData(),lexer,tokens,parser);
         Object object = tv.visit(tree);
         System.out.println(object);
     }

@@ -55,7 +55,7 @@ public class JMainTest {
         String rule="   import java.lang.String as string;\n" +
                 "     import java.lang.System as system;\n" +
                 "    string function getSquare(java.lang.String:a,int:b){\n" +
-               // "        system@out.println(string:a);\n" +
+                "        system@out.println(string:a);\n" +
                 "        string d= a+b;\n" +
                 "        return d;\n" +
                 "    }\n" +
