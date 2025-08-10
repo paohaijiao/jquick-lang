@@ -417,15 +417,7 @@ type1 function a(int:a,float:b) {
 
 3. **每一分都很重要**  
    即使是1分钱的捐赠也能激励我熬夜调试！
----
 
-## **🌟 立即支持**
-![Ali Pay](./src/main/resources/pay/alipay.jpg)
-![Wechat Pay](./src/main/resources/pay/wechat.jpg)
-![OCBC Pay Now](./src/main/resources/pay/paynow.jpg)
-![Touch n Go ](./src/main/resources/pay/tngGo.jpg)
-赞助时欢迎通过 [email](mailto:goudingcheng@gmail.com) 留言。您的名字将被列入项目README文件的 **"特别感谢"** 名单中！
----
 
 ## **为什么捐赠?**
 ✔️ 保持项目永远免费且无广告.  
@@ -439,3 +431,12 @@ type1 function a(int:a,float:b) {
 ### **补充说明**
 - 本项目和产品维护.
 - 您的支持确保其可持续性和成长 .  
+---
+
+## **🌟 立即支持**
+![Ali Pay](./src/main/resources/pay/alipay.jpg)
+![Wechat Pay](./src/main/resources/pay/wechat.jpg)
+![OCBC Pay Now](./src/main/resources/pay/paynow.jpg)
+![Touch n Go ](./src/main/resources/pay/tngGo.jpg)
+赞助时欢迎通过 [email](mailto:goudingcheng@gmail.com) 留言。您的名字将被列入项目README文件的 **"特别感谢"** 名单中！
+---

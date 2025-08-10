@@ -416,16 +416,7 @@ Thank you for using this open-source project! It is completely free and will be 
 3. **Every Cent Counts**  
    Even a donation of just 1 cent motivates me to debug late into the night!
 
----
 
-## **🌟 Support Now**
-![Ali Pay](./src/main/resources/pay/alipay.jpg)
-![Wechat Pay](./src/main/resources/pay/wechat.jpg)
-![OCBC Pay Now](./src/main/resources/pay/paynow.jpg)
-![Touch n Go ](./src/main/resources/pay/tngGo.jpg)
-Feel free to leave a message via [email](mailto:goudingcheng@gmail.com) when sponsoring. Your name will be included in the **"Special Thanks"** list in the project's README file!
-
----
 
 ## **Why Donate?**
 ✔️ Keep the project **free and ad-free** forever.  
@@ -439,3 +430,13 @@ Thank you for being a partner in making the open-source world better!
 ### **Additional Notes**
 - The project is maintained with love and caffeine.
 - Your support ensures its sustainability and growth.  
+---
+
+## **🌟 Support Now**
+![Ali Pay](./src/main/resources/pay/alipay.jpg)
+![Wechat Pay](./src/main/resources/pay/wechat.jpg)
+![OCBC Pay Now](./src/main/resources/pay/paynow.jpg)
+![Touch n Go ](./src/main/resources/pay/tngGo.jpg)
+Feel free to leave a message via [email](mailto:goudingcheng@gmail.com) when sponsoring. Your name will be included in the **"Special Thanks"** list in the project's README file!
+
+---
