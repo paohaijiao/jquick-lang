@@ -1,7 +1,45 @@
 # JQuickLang Syntax Reference
 ## Overview
 JQuickLang is a lightweight Java-like scripting language designed for concise and efficient programming. It combines Java's type system with JavaScript's flexibility, making it ideal for rapid prototyping, education, and small projects.
+# Table of Contents
 
+- [Overview](#overview)
+- [Core Features](#core-features)
+    - [1. Simplified Type System](#1-simplified-type-system)
+- [Program Structure](#program-structure)
+    - [Import Declarations](#import-declarations)
+    - [Variable Declarations](#variable-declarations)
+- [Data Types](#data-types)
+    - [Primitive Types (simpleType)](#primitive-types-simpletype)
+    - [Composite Types](#composite-types)
+- [Expressions](#expressions)
+    - [Operator Groups](#operator-groups)
+    - [Sample Code](#sample-code)
+- [Control Structures](#control-structures)
+    - [if statement](#if-statement)
+    - [loop statement](#loop-statement)
+        - [for loop](#for-loop)
+        - [while loop](#while-loop)
+    - [method definition](#method-definition)
+- [Invocation Styles](#invocation-styles)
+    - [Static Method](#static-method)
+    - [Constructor Method](#constructor-method)
+    - [Instance Method](#instance-method)
+- [Output](#output)
+- [Comments](#comments)
+- [Code Samples](#code-samples)
+    - [Sample 1](#sample-1)
+    - [Sample 2](#sample-2)
+    - [Sample 3](#sample-3)
+    - [Sample 4](#sample-4)
+- [Appendix](#appendix)
+    - [String Preserve Keywords](#string-preserve-keyword)
+    - [Identifier Rules](#identifier-rules)
+- [Complete Examples](#complete-example)
+    1. [Sample 1](#sample-1-1)
+    2. [Sample 2](#sample-2-1)
+    3. [Sample 3](#sample-3-1)
+    4. [Sample 4](#sample-4-1)
 ## Core Features
 ### 1. Simplified Type System
 - **7 Primitive types** built-in
@@ -123,13 +161,13 @@ StringList list=["A","B","C"];
 ```
 #### method definition
 ```jquick
-function funtionName(int:a, int:b) {
+int function funtionName(int:a, int:b) {
     return a + b;
 }
 ```
 ```jquick
 import List<java.lang.String> as StringList ;
-function funtionName(StringList:a, int:b) {
+StringList function funtionName(StringList:a, int:b) {
     return a;
 }
 ```
@@ -248,7 +286,7 @@ console.log("Result: " + result);
 ```
 ### code sample 
 ```jquick
-function a(int:a,float:b) {
+java.lang.String function a(int:a,float:b) {
     java.lang.String p=java.lang.String::format(java.lang.String:"Number: %d, String: %s",int: 42, java.lang.String:"test"); 
     return p;    
 }
@@ -257,7 +295,7 @@ function a(int:a,float:b) {
     this.a(int:c,float:d);
 ```
 ```jquick
-function a(int:a,float:b) {
+java.util.HashMap<java.lang.String,java.lang.String> function a(int:a,float:b) {
     java.lang.String str1 = new java.lang.String(java.lang.String:"Hello");
     console.log(str1); 
     java.lang.String upperStr = str1.toUpperCase(); 
@@ -274,18 +312,28 @@ function a(int:a,float:b) {
 ```
 ### appendix
 ```string preserve keyword
+global, 
+short, 
+int, 
+float, 
+double, 
+long, 
+boolean, 
+byte, 
+new, 
 var, 
-import, 
-as, 
+return, 
 function, 
-return,
+null, 
+this, 
+import, 
+continue, 
+break, 
+as, 
 if, 
 else, 
 for, 
 while,
-break,
-continue,
-this,
 true, 
 false, 
 null
@@ -297,11 +345,50 @@ null
 3.case-sensitive
 ```
 ### complete example
+1. sample 1
 ```jquick
-function getSquare(int:a,int:b){
+int function getSquare(int:a,int:b){
     return a*b;
 }
 int a=1;
 int b=2;
 int c=this.getSquare(int:a,int:b);
+```
+2. sample 2
+```jquick
+java.util.HashMap<java.lang.String,java.lang.String>   function a(int:a,float:b) {
+    java.lang.String str1 = new java.lang.String(java.lang.String:"Hello");
+    console.log(str1);
+    java.lang.String upperStr = str1.toUpperCase();
+    console.log(upperStr);  
+    java.lang.String subStr = str1.substring(int:1, int:3);
+    console.log(subStr);  
+    java.util.HashMap<java.lang.String,java.lang.String> result = new java.util.HashMap();  result.put(java.lang.String:"constructed1", java.lang.String:str1);  result.put(java.lang.String:"constructed2", java.lang.String:str1);
+    result.put(java.lang.String:"uppercased", java.lang.String:upperStr);  result.put(java.lang.String:"substring", java.lang.String:subStr);
+    return result;    
+}
+int c=1;
+float d=8.1;
+this.a(int:c,float:d);
+```
+3. sample 3
+```jquick
+java.lang.String function a(int:a,float:b) {
+        java.lang.String p=java.lang.String::format(java.lang.String:"Number: %d, String: %s",int: 42, java.lang.String:"test"); 
+        return p;   
+}
+   int c=1;
+   float d=8.1;
+   this.a(int:c,float:d);
+```
+4. sample 4
+```jquick
+import java.lang.String as type1; 
+type1 function a(int:a,float:b) {
+   type1 p=type1::format(type1:"Number: %d, String: %s",int: 42, type1:"test");
+    return p;    
+}
+   int c=1;
+   float d=8.1;
+   this.a(int:c,float:d);
 ```
